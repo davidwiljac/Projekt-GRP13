@@ -25,9 +25,6 @@ typedef struct {
 }vector_t;
 
 
-
-
-
 //bullet_t
 typedef struct {
 	position_t position;
@@ -56,11 +53,6 @@ typedef struct {
 	enemy_t enemy;
 	enemy_t* nextEnemy;
 } enemy_node_t;
-
-
-
-
-
 
 
 //nuke_t
@@ -98,10 +90,10 @@ typedef struct {
 	spaceship_t spaceship;
 	uint8_t cityLives;
 	uint16_t score;
-	uint8_t activeScreen;
-	uint8_t menuSelected;
+	uint8_t activeScreen;  // 0=menu screen, 1= game screen, 2=help screen, 3=game over
+	uint8_t menuSelected;  // 0=start game, 1=difficulty, 2=help
 	uint8_t isDead;
-	uint8_t difficulty;
+	uint8_t difficulty; // 0=easy, 1=medium, 2=hard
 } gameState_t ;
 
 

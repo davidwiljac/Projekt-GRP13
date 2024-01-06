@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  000104c8  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000358b  00000000  00000000  000104f8  2**0
+ 12 .debug_info   000035b1  00000000  00000000  000104f8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 0000086a  00000000  00000000  00013a83  2**0
+ 13 .debug_abbrev 0000086a  00000000  00000000  00013aa9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 000002a8  00000000  00000000  000142f0  2**3
+ 14 .debug_aranges 000002b0  00000000  00000000  00014318  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000260  00000000  00000000  00014598  2**3
+ 15 .debug_ranges 00000268  00000000  00000000  000145c8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000018f8  00000000  00000000  00014408  2**0
+ 16 .debug_macro  000018f8  00000000  00000000  00014830  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00002e79  00000000  00000000  00015d00  2**0
+ 17 .debug_line   00002d91  00000000  00000000  00016128  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00057f85  00000000  00000000  00018b79  2**0
+ 18 .debug_str    00058123  00000000  00000000  00018eb9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  00070afe  2**0
+ 19 .comment      00000053  00000000  00000000  00070fdc  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000a2c  00000000  00000000  00070b54  2**2
+ 20 .debug_frame  00000acc  00000000  00000000  00071030  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -272,7 +272,7 @@ void USART2_IRQHandler(void)
  80002d8:	2000011d 	.word	0x2000011d
 
 080002dc <main>:
-void cycleDifficulty(gameState_t* gameState) {}
+}
 void drawScreen(gameState_t* gameState) {}
 void bossKey(gameState_t* gameState){}
 

@@ -6,5 +6,4 @@
  */
 #include "bullet.h"
 void updateBullet(gameState_t* gameState){
-	uint8_t x = 5;
 }
