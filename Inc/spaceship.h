@@ -8,6 +8,9 @@
 #ifndef SPACESHIP_H_
 #define SPACESHIP_H_
 
+#include "types.h"
 
+void updateSpaceship(gameState_t* gameState);
+void shootSpaceship(gameState_t* gameState);
 
 #endif /* SPACESHIP_H_ */

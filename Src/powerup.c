@@ -5,4 +5,8 @@
  *      Author: david
  */
 
+#include "powerup.h"
 
+void powerup(gameState_t* gameState){
+
+}
