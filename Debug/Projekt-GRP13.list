@@ -35,15 +35,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_ranges 00000248  00000000  00000000  000141c0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000018a4  00000000  00000000  00014408  2**0
+ 16 .debug_macro  000018f4  00000000  00000000  00014408  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00002cbc  00000000  00000000  00015cac  2**0
+ 17 .debug_line   00002d1d  00000000  00000000  00015cfc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00057f2d  00000000  00000000  00018968  2**0
+ 18 .debug_str    00057f7a  00000000  00000000  00018a19  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  00070895  2**0
+ 19 .comment      00000053  00000000  00000000  00070993  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000a2c  00000000  00000000  000708e8  2**2
+ 20 .debug_frame  00000a2c  00000000  00000000  000709e8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -272,8 +272,9 @@ void USART2_IRQHandler(void)
  80002d8:	2000011d 	.word	0x2000011d
 
 080002dc <main>:
-#include "stm32f30x_conf.h" // STM32 config
-#include "30010_io.h" 		// Input/output library for this course
+#include "nuke.h"
+#include "powerup.h"
+#include "spaceship.h"
 
 int main(void)
 {
