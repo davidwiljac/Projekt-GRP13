@@ -7,9 +7,4 @@
 #include "bullet.h"
 void updateBullet(gameState_t* gameState){
 	uint8_t x = 5;
-
-}
-
-void detectBulletHit(gameState_t* gameState){
-
 }

@@ -11,6 +11,10 @@
 #include "powerup.h"
 #include "spaceship.h"
 
+void cycleDifficulty(gameState_t* gameState) {}
+void drawScreen(gameState_t* gameState) {}
+void bossKey(gameState_t* gameState){}
+
 int main(void)
 {
 	while(1){}
