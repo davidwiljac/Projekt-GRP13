@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  000104c8  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00003213  00000000  00000000  000104f8  2**0
+ 12 .debug_info   0000358b  00000000  00000000  000104f8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00000823  00000000  00000000  0001370b  2**0
+ 13 .debug_abbrev 0000086a  00000000  00000000  00013a83  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000290  00000000  00000000  00013f30  2**3
+ 14 .debug_aranges 000002a8  00000000  00000000  000142f0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000248  00000000  00000000  000141c0  2**3
+ 15 .debug_ranges 00000260  00000000  00000000  00014598  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000018f4  00000000  00000000  00014408  2**0
+ 16 .debug_macro  000018f8  00000000  00000000  000147f8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00002d1d  00000000  00000000  00015cfc  2**0
+ 17 .debug_line   00002d59  00000000  00000000  000160f0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00057f7a  00000000  00000000  00018a19  2**0
+ 18 .debug_str    00058115  00000000  00000000  00018e49  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  00070993  2**0
+ 19 .comment      00000053  00000000  00000000  00070f5e  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000a2c  00000000  00000000  000709e8  2**2
+ 20 .debug_frame  00000aa4  00000000  00000000  00070fb4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -272,9 +272,9 @@ void USART2_IRQHandler(void)
  80002d8:	2000011d 	.word	0x2000011d
 
 080002dc <main>:
-#include "nuke.h"
-#include "powerup.h"
-#include "spaceship.h"
+void cycleDifficulty(gameState_t* gameState) {}
+void drawScreen(gameState_t* gameState) {}
+void bossKey(gameState_t* gameState){}
 
 int main(void)
 {

@@ -8,6 +8,7 @@
 #ifndef POWERUP_H_
 #define POWERUP_H_
 
-
+#include "types.h"
+void powerup(gameState_t* gameState);
 
 #endif /* POWERUP_H_ */

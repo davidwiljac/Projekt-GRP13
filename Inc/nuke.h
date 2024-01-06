@@ -8,6 +8,8 @@
 #ifndef NUKE_H_
 #define NUKE_H_
 
+#include "types.h"
 
+void updateNuke(gameState_t* gameState);
 
 #endif /* NUKE_H_ */
