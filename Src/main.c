@@ -3,6 +3,14 @@
 #include "types.h"
 
 
+#include "ansi.h"
+#include "bullet.h"
+#include "drivers.h"
+#include "enemy.h"
+#include "nuke.h"
+#include "powerup.h"
+#include "spaceship.h"
+
 int main(void)
 {
 	while(1){}
