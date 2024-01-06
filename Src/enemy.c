@@ -6,3 +6,14 @@
  */
 #include"enemy.h"
 
+void updateEnemy(gameState_t* gameState){
+
+}
+
+void shootEnemy(gameState_t* gameState){
+
+}
+
+void detectCityHit(gameState_t* gameState){
+
+}
