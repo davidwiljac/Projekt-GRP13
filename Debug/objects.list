@@ -26,6 +26,7 @@
 "./Src/drivers.o"
 "./Src/enemy.o"
 "./Src/main.o"
+"./Src/menu.o"
 "./Src/nuke.o"
 "./Src/powerup.o"
 "./Src/spaceship.o"

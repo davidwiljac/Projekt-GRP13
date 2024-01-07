@@ -11,6 +11,7 @@ C_SRCS += \
 ../Src/drivers.c \
 ../Src/enemy.c \
 ../Src/main.c \
+../Src/menu.c \
 ../Src/nuke.c \
 ../Src/powerup.c \
 ../Src/spaceship.c \
@@ -25,6 +26,7 @@ OBJS += \
 ./Src/drivers.o \
 ./Src/enemy.o \
 ./Src/main.o \
+./Src/menu.o \
 ./Src/nuke.o \
 ./Src/powerup.o \
 ./Src/spaceship.o \
@@ -39,6 +41,7 @@ C_DEPS += \
 ./Src/drivers.d \
 ./Src/enemy.d \
 ./Src/main.d \
+./Src/menu.d \
 ./Src/nuke.d \
 ./Src/powerup.d \
 ./Src/spaceship.d \
@@ -54,7 +57,7 @@ Src/%.o: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/30010_io.d ./Src/30010_io.o ./Src/ansi.d ./Src/ansi.o ./Src/bullet.d ./Src/bullet.o ./Src/drivers.d ./Src/drivers.o ./Src/enemy.d ./Src/enemy.o ./Src/main.d ./Src/main.o ./Src/nuke.d ./Src/nuke.o ./Src/powerup.d ./Src/powerup.o ./Src/spaceship.d ./Src/spaceship.o ./Src/syscalls.d ./Src/syscalls.o ./Src/sysmem.d ./Src/sysmem.o ./Src/system_stm32f30x.d ./Src/system_stm32f30x.o
+	-$(RM) ./Src/30010_io.d ./Src/30010_io.o ./Src/ansi.d ./Src/ansi.o ./Src/bullet.d ./Src/bullet.o ./Src/drivers.d ./Src/drivers.o ./Src/enemy.d ./Src/enemy.o ./Src/main.d ./Src/main.o ./Src/menu.d ./Src/menu.o ./Src/nuke.d ./Src/nuke.o ./Src/powerup.d ./Src/powerup.o ./Src/spaceship.d ./Src/spaceship.o ./Src/syscalls.d ./Src/syscalls.o ./Src/sysmem.d ./Src/sysmem.o ./Src/system_stm32f30x.d ./Src/system_stm32f30x.o
 
 .PHONY: clean-Src
 
