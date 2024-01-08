@@ -9,6 +9,12 @@
 #define ENEMY_H_
 
 #include "types.h"
+#include "drivers.h"
+#include "ansi.h"
+
+#include <time.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 void updateEnemy(gameState_t* gameState);
 void shootEnemy(gameState_t* gameState);
