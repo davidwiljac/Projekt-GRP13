@@ -25,14 +25,6 @@ typedef struct {
 }vector_t;
 
 
-//bullet_t
-typedef struct {
-	position_t position;
-	position_t nextPosition;
-	vector_t velocity;
-}bullet_t;
-
-
 //enemy_t
 typedef struct {
 	position_t position;
@@ -41,18 +33,30 @@ typedef struct {
 	uint8_t firingRate;
 } enemy_t ;
 
-// bullet_node_t
-typedef struct {
-	bullet_t bullet;
-	bullet_t* nextBullet;
-}bullet_node_t;
 
+//bullet_t
+typedef struct {
+	position_t position;
+	position_t nextPosition;
+	vector_t velocity;
+}bullet_t;
+
+
+typedef struct bulletNode_t bulletNode_t;
+
+// bullet_node_t
+struct bulletNode_t {
+	bullet_t bullet;
+	bulletNode_t * nextBulletNode;
+};
+
+typedef struct enemyNode_t enemyNode_t;
 
 //enemy_node_t
-typedef struct {
+struct enemyNode_t {
 	enemy_t enemy;
-	enemy_t* nextEnemy;
-} enemy_node_t;
+	enemyNode_t* nextEnemyNode;
+};
 
 
 //nuke_t
@@ -69,9 +73,10 @@ typedef struct {
 	position_t position;
 	position_t nextPosition;
 	uint8_t numberOfParts;
-	uint8_t firingRate;
-	nuke_t nuke;
+	uint8_t firingPeriod; //time in centiseconds between each shot
 	uint8_t powerups;
+	uint32_t lastShotTime;
+	//nuke_t nuke; //skal uncommentes senere
 } spaceship_t ;
 
 
@@ -86,8 +91,8 @@ typedef struct {
 // gameState_t
 typedef struct {
 	//uint16_t runtime; //in centiseconds
-	bullet_node_t bulletLinkedList;
-	enemy_node_t enemyLinkedList;
+	bulletNode_t bulletLL;
+	enemyNode_t enemyLL;
 	moon_t* moons;
 	spaceship_t spaceship;
 	uint8_t cityLives;

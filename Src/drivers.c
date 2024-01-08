@@ -8,13 +8,15 @@
 #include"drivers.h"
 #define btnDelay 30 //centisekunder
 
+
+//JOYSTICK vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
 uint32_t centerPrevPressed = 0;
 uint32_t upPrevPressed = 0;
 uint32_t downPrevPressed = 0;
 uint32_t leftPrevPressed = 0;
 uint32_t rightPrevPressed = 0;
 
-//JOYSTICK vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 void initJoystick(){
 	// Enable clock for GPIO Port A, B, C
 	 RCC->AHBENR |= RCC_AHBPeriph_GPIOA;

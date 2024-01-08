@@ -25,6 +25,8 @@
 "./Src/bullet.o"
 "./Src/drivers.o"
 "./Src/enemy.o"
+"./Src/fixedPoint.o"
+"./Src/linkedList.o"
 "./Src/main.o"
 "./Src/menu.o"
 "./Src/nuke.o"

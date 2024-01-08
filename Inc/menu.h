@@ -14,10 +14,16 @@
 #include <string.h>
 #include "ansi.h"
 
+#define screenWidth 156
+#define screenHeight 43
+
+
+
 void drawMenuScreen(button_t btnList[], gameState_t* gameState);
 void drawHelpScreen();
 void drawButton(button_t btn);
 void drawBtnAsSelected(button_t btn);
 void drawBtnAsDeselected(button_t btn);
+void drawWindow();
 
 #endif /* MENU_H_ */

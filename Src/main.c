@@ -9,20 +9,40 @@
 #include "powerup.h"
 #include "spaceship.h"
 #include "menu.h"
+#include "fixedPoint.h"
+#include "linkedList.h"
+
+#define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
+
 
 void initVariables(gameState_t* gameState){
-//	gameState->runtime=0;
+
+	spaceship_t initSpaceship = {{intToFp(2), intToFp(42)}, {intToFp(2), intToFp(42)}, 1, 100, 0};
+	position_t initBulletPos = {intToFp(-1),intToFp(-1)};
+	bullet_t initBullet = {initBulletPos, initBulletPos};
+	bulletNode_t initBulletNode = {initBullet, 0};
+	gameState->bulletLL = initBulletNode;
 	gameState->activeScreen=0; //menu screen
 	gameState->difficulty=1;   // medium (if changed here, update also definition of diffBtn)
 	gameState->btnSelected=0; //start game
 	gameState->isDead=0;
 	gameState->score=0;
 	gameState->cityLives=3;
+	gameState->spaceship= initSpaceship;
 	//TODO: continue to initialize everything
 }
 
 
-void drawScreen(gameState_t* gameState) {}
+void drawScreen(gameState_t* gameState) {
+	gotoxy(fpToInt(gameState->spaceship.position.x),fpToInt(gameState->spaceship.position.y));
+	printf(" ");
+	gotoxy(fpToInt(gameState->spaceship.nextPosition.x),fpToInt(gameState->spaceship.nextPosition.y));
+	printf("A");
+	gameState->spaceship.position=gameState->spaceship.nextPosition;
+
+	drawBullets(&(gameState->bulletLL));
+
+}
 
 void bossKey(gameState_t* gameState){}
 
@@ -45,7 +65,7 @@ int main(void) {
 		switch(gameState.activeScreen){
 		case 0: //MENU SCREEN ---------------------------------------------------------------------
 			clrscr();
-			drawBox(1,1,156,43,0);//window
+			drawWindow();
 			drawMenuScreen(btnList, &gameState);
 
 			while(gameState.activeScreen==0){
@@ -84,13 +104,32 @@ int main(void) {
 		case 1: // GAME SCREEN -----------------------------------------------------------------------
 			clrscr();
 			printf("GAME SCREEN");
+			uint32_t frameLastUpdated=0;
+			uint8_t dir = 0;
+			gameState.spaceship.lastShotTime=runtime;
 			while(gameState.activeScreen==1){
+				if(runtime-frameLastUpdated>=framePeriod){//
 
+					updateSpaceship(&gameState, &dir);
+//					updateEnemy(&gameState);
+					shootSpaceship(&gameState);
+//					shootEnemy(&gameState);
+//					//updateBullets(&gameState);
+//					detectBulletHit(&gameState);
+//					detectCityHit(&gameState);
+//					powerUp(&gameState);
+//					nukeUpdate(&gameState);
+//					bossKey(&gameState);
+
+
+					drawScreen(&gameState);
+					frameLastUpdated=runtime;
+				}
 			}
 			break;
 		case 2:// HELP SCREEN ------------------------------------------------------------------------
 			clrscr();
-			drawBox(1,1,156,43,0);//window
+			drawWindow();
 			drawHelpScreen();
 			while(gameState.activeScreen==2){
 				if(centerIsPressed()){

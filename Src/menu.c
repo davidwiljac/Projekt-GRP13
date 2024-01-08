@@ -7,6 +7,9 @@
 
 #include "menu.h"
 
+
+
+
 void drawButton(button_t btn){
 	int strLength = (int)strlen(btn.text);
 	drawBox(btn.x, btn.y, btn.x+strLength+5, btn.y+2, 0);
@@ -38,6 +41,10 @@ void drawHelpScreen(){
 	gotoxy(60,7);
 	printf("Tag dig dog sammen mand!");
 
+}
+
+void drawWindow(){
+	drawBox(1,1,screenWidth, screenHeight,0);
 }
 
 

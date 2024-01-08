@@ -9,8 +9,11 @@
 #define BULLET_H_
 
 #include "types.h"
+#include "ansi.h"
+#include "fixedPoint.h"
 
-void updateBullet(gameState_t* gameState);
+void updateBullets(gameState_t* gameState);
 void detectBulletHit(gameState_t* gameState);
+void drawBullets(bulletNode_t* bulletNodeAdress);
 
 #endif /* BULLET_H_ */
