@@ -9,6 +9,7 @@
 #include "powerup.h"
 #include "spaceship.h"
 #include "menu.h"
+#include "graphics.h"
 
 void initVariables(gameState_t* gameState){
 //	gameState->runtime=0;
@@ -23,6 +24,8 @@ void initVariables(gameState_t* gameState){
 
 
 void drawScreen(gameState_t* gameState) {}
+
+
 
 void bossKey(gameState_t* gameState){}
 
@@ -41,12 +44,15 @@ int main(void) {
 	initJoystick();
 
 
+
 	while(1){
 		switch(gameState.activeScreen){
 		case 0: //MENU SCREEN ---------------------------------------------------------------------
 			clrscr();
 			drawBox(1,1,156,43,0);//window
+			drawbackground(); // stars in background
 			drawMenuScreen(btnList, &gameState);
+
 
 			while(gameState.activeScreen==0){
 				if(downIsPressed()){
@@ -84,6 +90,8 @@ int main(void) {
 		case 1: // GAME SCREEN -----------------------------------------------------------------------
 			clrscr();
 			printf("GAME SCREEN");
+			drawbackground(); // stars in background
+			drawMoon(51,17);
 			while(gameState.activeScreen==1){
 
 			}
@@ -91,6 +99,7 @@ int main(void) {
 		case 2:// HELP SCREEN ------------------------------------------------------------------------
 			clrscr();
 			drawBox(1,1,156,43,0);//window
+			drawbackground(); // stars in background
 			drawHelpScreen();
 			while(gameState.activeScreen==2){
 				if(centerIsPressed()){

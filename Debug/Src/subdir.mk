@@ -10,6 +10,7 @@ C_SRCS += \
 ../Src/bullet.c \
 ../Src/drivers.c \
 ../Src/enemy.c \
+../Src/graphics.c \
 ../Src/main.c \
 ../Src/menu.c \
 ../Src/nuke.c \
@@ -25,6 +26,7 @@ OBJS += \
 ./Src/bullet.o \
 ./Src/drivers.o \
 ./Src/enemy.o \
+./Src/graphics.o \
 ./Src/main.o \
 ./Src/menu.o \
 ./Src/nuke.o \
@@ -40,6 +42,7 @@ C_DEPS += \
 ./Src/bullet.d \
 ./Src/drivers.d \
 ./Src/enemy.d \
+./Src/graphics.d \
 ./Src/main.d \
 ./Src/menu.d \
 ./Src/nuke.d \
@@ -52,12 +55,12 @@ C_DEPS += \
 
 # Each subdirectory must supply rules for building sources it contributes
 Src/%.o: ../Src/%.c Src/subdir.mk
-	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F302R8Tx -DSTM32F3 -DNUCLEO_F302R8 -DDEBUG -DUSE_STDPERIPH_DRIVER=1 -c -I"C:/Users/Loren/OneDrive - Danmarks Tekniske Universitet/DTU/1. semester/Programmeringsprojekt 30010/Projekt-GRP13/SPL/inc" -I"C:/Users/Loren/OneDrive - Danmarks Tekniske Universitet/DTU/1. semester/Programmeringsprojekt 30010/Projekt-GRP13/Inc" -I"C:/Users/Loren/OneDrive - Danmarks Tekniske Universitet/DTU/1. semester/Programmeringsprojekt 30010/Projekt-GRP13/cmsis" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F302R8Tx -DSTM32F3 -DNUCLEO_F302R8 -DDEBUG -DUSE_STDPERIPH_DRIVER=1 -c -I"C:/Users/Bivertical/OneDrive/Skrivebord/programmeringsprjekt/Projekt-GRP13/SPL/inc" -I"C:/Users/Bivertical/OneDrive/Skrivebord/programmeringsprjekt/Projekt-GRP13/Inc" -I"C:/Users/Bivertical/OneDrive/Skrivebord/programmeringsprjekt/Projekt-GRP13/cmsis" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/30010_io.d ./Src/30010_io.o ./Src/ansi.d ./Src/ansi.o ./Src/bullet.d ./Src/bullet.o ./Src/drivers.d ./Src/drivers.o ./Src/enemy.d ./Src/enemy.o ./Src/main.d ./Src/main.o ./Src/menu.d ./Src/menu.o ./Src/nuke.d ./Src/nuke.o ./Src/powerup.d ./Src/powerup.o ./Src/spaceship.d ./Src/spaceship.o ./Src/syscalls.d ./Src/syscalls.o ./Src/sysmem.d ./Src/sysmem.o ./Src/system_stm32f30x.d ./Src/system_stm32f30x.o
+	-$(RM) ./Src/30010_io.d ./Src/30010_io.o ./Src/ansi.d ./Src/ansi.o ./Src/bullet.d ./Src/bullet.o ./Src/drivers.d ./Src/drivers.o ./Src/enemy.d ./Src/enemy.o ./Src/graphics.d ./Src/graphics.o ./Src/main.d ./Src/main.o ./Src/menu.d ./Src/menu.o ./Src/nuke.d ./Src/nuke.o ./Src/powerup.d ./Src/powerup.o ./Src/spaceship.d ./Src/spaceship.o ./Src/syscalls.d ./Src/syscalls.o ./Src/sysmem.d ./Src/sysmem.o ./Src/system_stm32f30x.d ./Src/system_stm32f30x.o
 
 .PHONY: clean-Src
 
