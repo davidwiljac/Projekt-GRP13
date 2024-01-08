@@ -25,9 +25,6 @@ typedef struct {
 }vector_t;
 
 
-
-
-
 //bullet_t
 typedef struct {
 	position_t position;
@@ -58,11 +55,6 @@ typedef struct {
 } enemy_node_t;
 
 
-
-
-
-
-
 //nuke_t
 typedef struct {
 	position_t position;
@@ -85,24 +77,33 @@ typedef struct {
 
 //moon_t
 typedef struct {
-	position_t position;
+	uint8_t x;
+	uint8_t y;
 	uint8_t mass;
 }moon_t;
 
 
 // gameState_t
 typedef struct {
+	//uint16_t runtime; //in centiseconds
 	bullet_node_t bulletLinkedList;
 	enemy_node_t enemyLinkedList;
 	moon_t* moons;
 	spaceship_t spaceship;
 	uint8_t cityLives;
 	uint16_t score;
-	uint8_t activeScreen;
-	uint8_t menuSelected;
+	uint8_t activeScreen;  // 0=menu screen, 1= game screen, 2=help screen, 3=game over
+	uint8_t btnSelected;  // 0=start game, 1=difficulty, 2=help
 	uint8_t isDead;
-	uint8_t difficulty;
+	uint8_t difficulty; // 0=easy, 1=medium, 2=hard
 } gameState_t ;
 
+
+//button_t - (x,y) is point of top left corner
+typedef struct {
+	uint8_t x;
+	uint8_t y;
+	char* text;
+} button_t;
 
 #endif /* TYPES_H_ */
