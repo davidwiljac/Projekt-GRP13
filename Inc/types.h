@@ -98,6 +98,7 @@ typedef struct {
 	uint8_t cityLives;
 	uint16_t score;
 	uint8_t activeScreen;  // 0=menu screen, 1= game screen, 2=help screen, 3=game over
+	uint8_t bossMode; //0 = Off, 1 = On;
 	uint8_t btnSelected;  // 0=start game, 1=difficulty, 2=help
 	uint8_t isDead;
 	uint8_t difficulty; // 0=easy, 1=medium, 2=hard
