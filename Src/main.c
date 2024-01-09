@@ -12,6 +12,7 @@
 #include "fixedPoint.h"
 #include "linkedList.h"
 #include "graphics.h"
+#include "MoonGravity.h"
 
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
 
@@ -155,7 +156,10 @@ int main(void) {
 			uint8_t dir = 0;
 			gameState.spaceship.lastShotTime=runtime;
 			drawbackground(); // stars in background
-			drawMoon(51,17);
+			drawhearth();
+			drawMoon(51,17); // moon graphics
+			drawMe(30,35);
+//			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
 				if(runtime-frameLastUpdated>=framePeriod){//
 					updateSpaceship(&gameState, &dir);

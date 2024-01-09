@@ -21,6 +21,7 @@
 "./SPL/src/stm32f30x_usart.o"
 "./SPL/src/stm32f30x_wwdg.o"
 "./Src/30010_io.o"
+"./Src/MoonGravity.o"
 "./Src/ansi.o"
 "./Src/bullet.o"
 "./Src/drivers.o"
