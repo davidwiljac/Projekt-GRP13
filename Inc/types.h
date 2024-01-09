@@ -11,17 +11,17 @@
 #include "stdint.h"
 #include "stdio.h"
 
-// position_t 8.8 fixed point format
+// position_t 16.16 fixed point format
 typedef struct {
-	uint16_t x;
-	uint16_t y;
+	uint32_t x;
+	uint32_t y;
 }position_t;
 
 
-// vector_t 8.8 fixed point format
+// vector_t 16.16 fixed point format
 typedef struct {
-	uint16_t x;
-	uint16_t y;
+	uint32_t x;
+	uint32_t y;
 }vector_t;
 
 

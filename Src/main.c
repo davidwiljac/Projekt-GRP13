@@ -50,10 +50,8 @@ void drawScreen(gameState_t* gameState) {
 	gotoxy(fpToInt(gameState->spaceship.nextPosition.x),fpToInt(gameState->spaceship.nextPosition.y));
 	printf("A");
 	gameState->spaceship.position=gameState->spaceship.nextPosition;
-
 	drawEnemy(gameState);
-	drawBullets(gameState->bulletHead);
-
+	drawBullets(gameState);
 }
 
 int8_t bossKey(gameState_t* gameState){
@@ -165,7 +163,7 @@ int main(void) {
 					//shootSpaceship(&gameState);
 //					shootEnemy(&gameState);
 					updateBullets(&gameState);
-//					detectBulletHit(&gameState);
+					detectBulletHit(&gameState);
 //					detectCityHit(&gameState);
 //					powerUp(&gameState);
 //					nukeUpdate(&gameState);
