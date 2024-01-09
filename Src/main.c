@@ -51,8 +51,10 @@ void drawScreen(gameState_t* gameState) {
 	gameState->spaceship.position=gameState->spaceship.nextPosition;
 
 	drawEnemy(gameState);
-	drawBullets(gameState->bulletHead);
+	drawBullets(gameState);
 
+	drawhearth(gameState);
+	drawMoon(51,17); // moon graphics
 }
 
 int8_t bossKey(gameState_t* gameState){
@@ -76,6 +78,12 @@ int8_t bossKey(gameState_t* gameState){
 	uart_clear();
 }
 
+void checkIfDead(gameState_t* gameState){
+	if(gameState->cityLives == 0){
+		gameState->activeScreen = 3;
+	}
+}
+
 int main(void) {
 	gameState_t gameState;
 	const button_t startBtn = {75,15,"START"};
@@ -87,6 +95,7 @@ int main(void) {
 	initVariables(&gameState);
 	initTimer();
 	initJoystick();
+	I2C_init();
 	srand(time(NULL));   //RNG
 
 
@@ -102,7 +111,9 @@ int main(void) {
 
 
 			while(gameState.activeScreen==0){
-
+				gotoxy(20,20);
+				uint8_t x = I2C_Read(0x98, 0x98, NULL, 1);
+				printf("%d\n", x);
 				//Bosskey test
 				int bossKeyChange = bossKey(&gameState);
 				if(bossKeyChange == 1) continue;
@@ -110,6 +121,7 @@ int main(void) {
 					//Initialize window agian
 					clrscr();
 					drawBox(1,1,156,43,0);//window
+					drawbackground(); // stars in background
 					drawMenuScreen(btnList, &gameState);
 				}
 
@@ -153,7 +165,18 @@ int main(void) {
 			gameState.spaceship.lastShotTime=runtime;
 			drawbackground(); // stars in background
 			drawMoon(51,17);
+//			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
+				//Bosskey test
+				int bossKeyChange = bossKey(&gameState);
+				if(bossKeyChange == 1) continue;
+				else if(bossKeyChange == 2){
+					//Initialize window agian
+					clrscr();
+					gotoxy(0,0);
+					printf("GAME SCREEN");
+				}
+
 				if(runtime-frameLastUpdated>=framePeriod){//
 					updateSpaceship(&gameState, &dir);
 					spawnEnemy(&gameState);
@@ -161,23 +184,13 @@ int main(void) {
 					//shootSpaceship(&gameState);
 //					shootEnemy(&gameState);
 					updateBullets(&gameState);
-//					detectBulletHit(&gameState);
-//					detectCityHit(&gameState);
+					detectBulletHit(&gameState);
+					detectCityHit(&gameState);
 //					powerUp(&gameState);
 //					nukeUpdate(&gameState);
-//					bossKey(&gameState);
-
+					checkIfDead(&gameState);
 					drawScreen(&gameState);
 					frameLastUpdated=runtime;
-				}
-
-				//Bosskey test
-				int bossKeyChange = bossKey(&gameState);
-				if(bossKeyChange == 1) continue;
-				else if(bossKeyChange == 2){
-					//Initialize window agian
-					clrscr();
-					printf("GAME SCREEN");
 				}
 		}
 			break;
@@ -195,6 +208,7 @@ int main(void) {
 					//Initialize window agian
 					clrscr();
 					drawBox(1,1,156,43,0);//window
+					drawbackground(); // stars in background
 					drawHelpScreen();
 				}
 
@@ -205,11 +219,18 @@ int main(void) {
 			break;
 		case 3:// GAME OVER SCREEN -------------------------------------------------------------------
 			clrscr();
-			printf("GAME OVER\nYour score is %d", gameState.score);
+			printf("YOU HELLA DEAD!\n YOU SUCK Your score is %d", gameState.score);
 			while(gameState.activeScreen==3){
-				if(bossKey(&gameState)) break;
-
+				//Bosskey test
+				int bossKeyChange = bossKey(&gameState);
+				if(bossKeyChange == 1) continue;
+				else if(bossKeyChange == 2){
+					//Initialize window agian
+					clrscr();
+					printf("YOU HELLA DEAD!\n YOU SUCK Your score is %d", gameState.score);
+				}
 				if(centerIsPressed()){
+					initVariables(&gameState);
 					gameState.activeScreen=0;//MENU SCREEN
 				}
 			}

@@ -18,4 +18,5 @@ void appendBullet(bulletNode_t** head, bullet_t bullet);
 bulletNode_t* createBulletNode(bullet_t bullet);
 
 void appendEnemy(gameState_t* gameState, enemy_t* enemy);
+void deleteEnemyNode(gameState_t* gameState, enemyNode_t* enemy);
 #endif /* LINKEDLIST_H_ */

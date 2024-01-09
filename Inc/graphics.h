@@ -18,5 +18,8 @@ void drawBullet();
 void drawMe();
 void Moongravity();
 
+void drawbackground();
+void drawhearth(gameState_t* gameState);
+void drawCity();
 
 #endif /* GRAPHICS_H_ */
