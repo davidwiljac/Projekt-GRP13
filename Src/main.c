@@ -110,9 +110,6 @@ int main(void) {
 
 
 			while(gameState.activeScreen==0){
-				gotoxy(20,20);
-				uint8_t x = I2C_Read(0x98, 0x98, NULL, 1);
-				printf("%d\n", x);
 				//Bosskey test
 				int bossKeyChange = bossKey(&gameState);
 				if(bossKeyChange == 1) continue;
@@ -163,13 +160,9 @@ int main(void) {
 			uint32_t frameLastUpdated=0;
 			uint8_t dir = 0;
 			gameState.spaceship.lastShotTime=runtime;
-			drawbackground(); // stars in background
 			drawMoon(51,17);
-			drawhearth();
-			drawMoon(51,17); // moon graphics
+			drawhearth(&gameState);
 			drawCity();
-			drawMe(30,35);
-			drawBullet(85,20);
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
 				//Bosskey test
