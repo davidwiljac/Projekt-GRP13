@@ -27,9 +27,9 @@ typedef struct {
 
 //enemy_t
 typedef struct {
-	position_t position;
-	position_t nextPosition;
-	vector_t velocity;
+	position_t* position;
+	position_t* nextPosition;
+	vector_t* velocity;
 	uint8_t firingRate;
 } enemy_t ;
 
@@ -54,7 +54,7 @@ typedef struct enemyNode_t enemyNode_t;
 
 //enemy_node_t
 struct enemyNode_t {
-	enemy_t enemy;
+	enemy_t* enemy;
 	enemyNode_t* nextEnemyNode;
 };
 
@@ -91,7 +91,7 @@ typedef struct {
 // gameState_t
 typedef struct {
 	bulletNode_t* bulletHead;
-	enemyNode_t enemyLL;
+	enemyNode_t* enemyLL;
 	moon_t* moons;
 	spaceship_t spaceship;
 	uint8_t cityLives;

@@ -16,16 +16,18 @@
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
 
 void initVariables(gameState_t* gameState){
-
-	spaceship_t initSpaceship = {{intToFp(2), intToFp(42)}, {intToFp(2), intToFp(42)}, 1, 100, 0};
-	position_t initBulletPos = {intToFp(-1),intToFp(-1)};
-	bullet_t initBullet = {initBulletPos, initBulletPos};
-	bulletNode_t initBulletNode = {initBullet, 0};
-	gameState->bulletLL = initBulletNode;
-
 	gameState->enemyLL.nextEnemyNode = -1;
 
 	spaceship_t initSpaceship = {{intToFp(2), intToFp(42)}, {intToFp(2), intToFp(42)}, 1, 20, 0};
+
+	enemyNode_t* node = malloc(sizeof(enemyNode_t));
+	enemy_t* enemy = malloc(sizeof(enemy_t));
+	position_t* pos = malloc(sizeof(position_t));
+
+	node->enemy = enemy;
+	pos->x = 0;
+	enemy->position = pos;
+	node->enemy = enemy;
 
 	gameState->bulletHead = NULL;
 

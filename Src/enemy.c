@@ -34,12 +34,12 @@ void detectCityHit(gameState_t* gameState){
 
 void drawEnemies(gameState_t* gameState){
 	int isLastElement = 0;
-	enemyNode_t thisNode = gameState->enemyLL;
+	enemyNode_t* thisNode = gameState->enemyLL;
 
 	while(1){
-		gotoxy(thisNode.enemy.nextPosition.y, thisNode.enemy.nextPosition.x);
+		gotoxy(thisNode->enemy->nextPosition->y, thisNode->enemy->nextPosition->x);
 		printf(":E");
-		if(thisNode.nextEnemyNode == -1){
+		if(thisNode->nextEnemyNode == -1){
 			break;
 		}
 	}
