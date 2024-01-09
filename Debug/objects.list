@@ -26,6 +26,7 @@
 "./Src/drivers.o"
 "./Src/enemy.o"
 "./Src/fixedPoint.o"
+"./Src/graphics.o"
 "./Src/linkedList.o"
 "./Src/main.o"
 "./Src/menu.o"

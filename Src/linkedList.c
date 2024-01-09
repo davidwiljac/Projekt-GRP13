@@ -38,6 +38,7 @@ void appendBullet(bulletNode_t** head, bullet_t bullet) {
 
 
 
+
 //// Function to free the memory allocated for the linked list
 //void freeList(node_t* head) {
 //    node_t* current = head;
@@ -83,3 +84,22 @@ void appendBullet(bulletNode_t** head, bullet_t bullet) {
 //    // Free the memory allocated for the node to be deleted
 //    free(current);
 //}
+
+void appendEnemy(gameState_t* gameState, enemy_t enemy){
+	enemyNode_t* newEnemy = malloc(sizeof(enemyNode_t));
+	newEnemy->enemy = enemy;
+	newEnemy->nextEnemyNode = -1;
+
+	enemyNode_t thisNode = gameState->enemyLL;
+	int8_t isEndOfList = 0;
+	while(isEndOfList == 0){
+		if(thisNode.nextEnemyNode == -1){
+			isEndOfList = 1;
+			thisNode.nextEnemyNode = &newEnemy;
+		}else{
+			thisNode = *thisNode.nextEnemyNode;
+		}
+	}
+}
+
+
