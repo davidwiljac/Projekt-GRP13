@@ -30,7 +30,7 @@ void initVariables(gameState_t* gameState){
 	node->nextEnemyNode = 0;
 	gameState->enemyLL = node;
 
-	gameState->bulletHead = NULL;
+	gameState->bulletLL = NULL;
 
 	gameState->activeScreen=0; //menu screen
 	gameState->difficulty=1;   // medium (if changed here, update also definition of diffBtn)
@@ -105,7 +105,6 @@ int main(void) {
 		case 0: //MENU SCREEN ---------------------------------------------------------------------
 			clrscr();
 			drawWindow();
-			drawBox(1,1,156,43,0);//window
 			drawbackground(); // stars in background
 			drawMenuScreen(btnList, &gameState);
 
@@ -122,6 +121,7 @@ int main(void) {
 					clrscr();
 					drawBox(1,1,156,43,0);//window
 					drawbackground(); // stars in background
+					drawWindow();
 					drawMenuScreen(btnList, &gameState);
 				}
 
@@ -165,6 +165,7 @@ int main(void) {
 			gameState.spaceship.lastShotTime=runtime;
 			drawbackground(); // stars in background
 			drawMoon(51,17);
+			drawhearth();
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
 				//Bosskey test
