@@ -14,4 +14,5 @@
 void appendBullet(gameState_t* gameState, bullet_t bullet);
 bulletNode_t* getAdressToLastBulletNode(bulletNode_t* bulletNodeAdress);
 
+void appendEnemy(gameState_t* gameState, enemy_t enemy);
 #endif /* LINKEDLIST_H_ */
