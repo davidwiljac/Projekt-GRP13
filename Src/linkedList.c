@@ -36,19 +36,19 @@ void appendBullet(bulletNode_t** head, bullet_t bullet) {
     }
 }
 
-void appendEnemy(gameState_t* gameState, enemy_t enemy){
+void appendEnemy(gameState_t* gameState, enemy_t* enemy){
 	enemyNode_t* newEnemy = malloc(sizeof(enemyNode_t));
 	newEnemy->enemy = enemy;
-	newEnemy->nextEnemyNode = -1;
+	newEnemy->nextEnemyNode = 0;
 
-	enemyNode_t thisNode = gameState->enemyLL;
+	enemyNode_t* thisNode = gameState->enemyLL;
 	int8_t isEndOfList = 0;
 	while(isEndOfList == 0){
-		if(thisNode.nextEnemyNode == -1){
+		if(thisNode->nextEnemyNode == 0){
 			isEndOfList = 1;
-			thisNode.nextEnemyNode = &newEnemy;
+			thisNode->nextEnemyNode = newEnemy;
 		}else{
-			thisNode = *thisNode.nextEnemyNode;
+			thisNode = thisNode->nextEnemyNode;
 		}
 	}
 }

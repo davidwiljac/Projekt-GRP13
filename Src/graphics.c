@@ -238,19 +238,25 @@ void drawhearth(){
 }
 
 
+void drawEnemy(gameState_t* gameState){
+	int isLastElement = 0;
+	enemyNode_t* thisNode = gameState->enemyLL;
 
-void drawEnemy(uint8_t X, uint8_t Y){
-//	//middle 20,35
-//	gotoxy(X,Y);
-//	printf("%c",223);
-//	gotoxy(X-1,Y);
-//	printf("%c",119);
-//	gotoxy(X+1,Y);
-//	printf("&c",119);
-//	gotoxy(X,Y-1);
-//	printf("%c",220);
-//	gotoxy(X,Y-1);
-//	printf("%c",193);
+	while(1){
+		if(thisNode->enemy->position->x != 0){
+			gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
+			//printf("%d %d", fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
+			printf("  ");
+			gotoxy(fpToInt(thisNode->enemy->nextPosition->x), fpToInt(thisNode->enemy->nextPosition->y));
+			printf(":E");
+			thisNode->enemy->position->x = thisNode->enemy->nextPosition->x;
+			thisNode->enemy->position->y = thisNode->enemy->nextPosition->y;
+		}
+		if(thisNode->nextEnemyNode == 0){
+			break;
+		}
+		thisNode = thisNode->nextEnemyNode;
+	}
 }
 
 void drawBullet(){

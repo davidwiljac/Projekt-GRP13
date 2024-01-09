@@ -17,8 +17,6 @@
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
 
 void initVariables(gameState_t* gameState){
-	gameState->enemyLL.nextEnemyNode = -1;
-
 	spaceship_t initSpaceship = {{intToFp(2), intToFp(42)}, {intToFp(2), intToFp(42)}, 1, 20, 0};
 
 	enemyNode_t* node = malloc(sizeof(enemyNode_t));
@@ -29,11 +27,10 @@ void initVariables(gameState_t* gameState){
 	pos->x = 0;
 	enemy->position = pos;
 	node->enemy = enemy;
+	node->nextEnemyNode = 0;
+	gameState->enemyLL = node;
 
 	gameState->bulletHead = NULL;
-
-	gameState->enemyLL.nextEnemyNode = -1;
-
 
 	gameState->activeScreen=0; //menu screen
 	gameState->difficulty=1;   // medium (if changed here, update also definition of diffBtn)
@@ -54,7 +51,7 @@ void drawScreen(gameState_t* gameState) {
 	printf("A");
 	gameState->spaceship.position=gameState->spaceship.nextPosition;
 
-	drawEnemies(gameState);
+	drawEnemy(gameState);
 	drawBullets(gameState->bulletHead);
 
 }
@@ -163,8 +160,9 @@ int main(void) {
 			while(gameState.activeScreen==1){
 				if(runtime-frameLastUpdated>=framePeriod){//
 					updateSpaceship(&gameState, &dir);
-//					updateEnemy(&gameState);
-					shootSpaceship(&gameState);
+					spawnEnemy(&gameState);
+					updateEnemy(&gameState);
+					//shootSpaceship(&gameState);
 //					shootEnemy(&gameState);
 					updateBullets(&gameState);
 //					detectBulletHit(&gameState);
@@ -185,7 +183,6 @@ int main(void) {
 					clrscr();
 					printf("GAME SCREEN");
 				}
-				updateEnemy(&gameState);
 		}
 			break;
 		case 2:// HELP SCREEN ------------------------------------------------------------------------
