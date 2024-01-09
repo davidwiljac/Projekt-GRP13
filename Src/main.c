@@ -11,9 +11,9 @@
 #include "menu.h"
 #include "fixedPoint.h"
 #include "linkedList.h"
+#include "graphics.h"
 
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
-
 
 void initVariables(gameState_t* gameState){
 
@@ -83,12 +83,16 @@ int main(void) {
 	srand(time(NULL));   //RNG
 
 
+
 	while(1){
 		switch(gameState.activeScreen){
 		case 0: //MENU SCREEN ---------------------------------------------------------------------
 			clrscr();
 			drawWindow();
+			drawBox(1,1,156,43,0);//window
+			drawbackground(); // stars in background
 			drawMenuScreen(btnList, &gameState);
+
 
 			while(gameState.activeScreen==0){
 
@@ -140,6 +144,8 @@ int main(void) {
 			uint32_t frameLastUpdated=0;
 			uint8_t dir = 0;
 			gameState.spaceship.lastShotTime=runtime;
+			drawbackground(); // stars in background
+			drawMoon(51,17);
 			while(gameState.activeScreen==1){
 				if(runtime-frameLastUpdated>=framePeriod){//
 					updateSpaceship(&gameState, &dir);
@@ -171,6 +177,8 @@ int main(void) {
 		case 2:// HELP SCREEN ------------------------------------------------------------------------
 			clrscr();
 			drawWindow();
+			drawBox(1,1,156,43,0);//window
+			drawbackground(); // stars in background
 			drawHelpScreen();
 			while(gameState.activeScreen==2){
 				//Bosskey test
