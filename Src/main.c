@@ -163,6 +163,8 @@ int main(void) {
 			uint32_t frameLastUpdated=0;
 			uint8_t dir = 0;
 			gameState.spaceship.lastShotTime=runtime;
+			drawbackground(); // stars in background
+			drawMoon(51,17);
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
 				//Bosskey test

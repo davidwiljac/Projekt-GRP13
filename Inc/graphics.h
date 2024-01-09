@@ -16,6 +16,8 @@ void drawMoon(uint8_t x, uint8_t y);
 void drawEnemy(gameState_t* gameState);
 void drawBullet();
 void drawMe();
+void Moongravity();
+
 void drawbackground();
 void drawhearth(gameState_t* gameState);
 void drawCity();
