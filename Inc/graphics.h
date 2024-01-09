@@ -7,13 +7,9 @@
 
 #ifndef GRAPHICS_H_
 #define GRAPHICS_H_
-#include "ansi.h"
-#include "fixedPoint.h"
-#include "stdint.h"
-#include "stdio.h"
 
 void drawMoon(uint8_t x, uint8_t y);
-void drawEnemy(gameState_t* gameState);
+void drawEnemy();
 void drawBullet();
 void drawMe();
 void Moongravity();

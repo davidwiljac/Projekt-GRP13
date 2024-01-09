@@ -61,7 +61,7 @@ C_DEPS += \
 
 # Each subdirectory must supply rules for building sources it contributes
 Src/%.o: ../Src/%.c Src/subdir.mk
-	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F302R8Tx -DSTM32F3 -DNUCLEO_F302R8 -DDEBUG -DUSE_STDPERIPH_DRIVER=1 -c -I"/Users/david/Library/CloudStorage/OneDrive-DanmarksTekniskeUniversitet/Skole ting/1 sem/Programmeringsprojejkt/Projekt-GRP13/SPL/inc" -I"/Users/david/Library/CloudStorage/OneDrive-DanmarksTekniskeUniversitet/Skole ting/1 sem/Programmeringsprojejkt/Projekt-GRP13/Inc" -I"/Users/david/Library/CloudStorage/OneDrive-DanmarksTekniskeUniversitet/Skole ting/1 sem/Programmeringsprojejkt/Projekt-GRP13/cmsis" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F302R8Tx -DSTM32F3 -DNUCLEO_F302R8 -DDEBUG -DUSE_STDPERIPH_DRIVER=1 -c -I"C:/Users/Loren/OneDrive - Danmarks Tekniske Universitet/DTU/1. semester/Programmeringsprojekt 30010/Projekt-GRP13/SPL/inc" -I"C:/Users/Loren/OneDrive - Danmarks Tekniske Universitet/DTU/1. semester/Programmeringsprojekt 30010/Projekt-GRP13/Inc" -I"C:/Users/Loren/OneDrive - Danmarks Tekniske Universitet/DTU/1. semester/Programmeringsprojekt 30010/Projekt-GRP13/cmsis" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
 clean: clean-Src
 

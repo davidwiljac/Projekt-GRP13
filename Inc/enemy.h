@@ -12,13 +12,11 @@
 #include "drivers.h"
 #include "ansi.h"
 #include "linkedList.h"
-#include "fixedPoint.h"
 
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-void spawnEnemy(gameState_t* gameState);
 void updateEnemy(gameState_t* gameState);
 void shootEnemy(gameState_t* gameState);
 void detectCityHit(gameState_t* gameState);
