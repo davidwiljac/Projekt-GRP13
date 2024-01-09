@@ -14,6 +14,6 @@
 
 void updateBullets(gameState_t* gameState);
 void detectBulletHit(gameState_t* gameState);
-void drawBullets(bulletNode_t* bulletNodeAdress);
+void drawBullets(bulletNode_t* head);
 
 #endif /* BULLET_H_ */

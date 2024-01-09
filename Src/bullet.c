@@ -6,21 +6,32 @@
  */
 #include "bullet.h"
 void updateBullets(gameState_t* gameState){
-
+	bulletNode_t* current = gameState->bulletHead;
+	while (current != NULL) {
+		current->bullet.nextPosition.x=current->bullet.position.x+current->bullet.velocity.x;
+		current->bullet.nextPosition.y=current->bullet.position.y+current->bullet.velocity.y;
+		current = current->nextBulletAddress;
+	}
 }
-void detectBulletHit(gameState_t* gameState);
 
-void drawBullets(bulletNode_t* bulletNodeAddress){
-	if(fpToInt(bulletNodeAddress->bullet.position.x)!=-1){ //not an empty bulletNode
-		gotoxy(fpToInt(bulletNodeAddress->bullet.position.x), fpToInt(bulletNodeAddress->bullet.position.y));
+void detectBulletHit(gameState_t* gameState){}
+
+void drawBullets(bulletNode_t* head){
+	bulletNode_t* current = head;
+	while (current != NULL) {
+		gotoxy(fpToInt(current->bullet.position.x), fpToInt(current->bullet.position.y));
 		printf(" ");
-		gotoxy(fpToInt(bulletNodeAddress->bullet.nextPosition.x), fpToInt(bulletNodeAddress->bullet.nextPosition.y));
+		gotoxy(fpToInt(current->bullet.nextPosition.x), fpToInt(current->bullet.nextPosition.y));
 		printf("H");
-	}
-	if(bulletNodeAddress->nextBulletNode==0){
-		return;
-	} else {
-		drawBullets(bulletNodeAddress->nextBulletNode);
+
+		current->bullet.position.x=current->bullet.nextPosition.x;
+		current->bullet.position.y=current->bullet.nextPosition.y;
+
+		current = current->nextBulletAddress;
 	}
 }
+
+
+
+
 

@@ -31,11 +31,8 @@ void shootSpaceship(gameState_t* gameState){
 
 		vector_t bulletVelocity = {intToFp(0),intToFp(-3)};
 		position_t bulletPos = {gameState->spaceship.position.x, gameState->spaceship.position.y-intToFp(1)};
-		//bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
+		bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
 
-		gotoxy(10,10);
-		printf("lastShotTime: %lu, spaceship x: %u", gameState->spaceship.lastShotTime, fpToInt(gameState->spaceship.position.x));
-		//
-		//appendBullet(gameState, bullet);
+		appendBullet(&(gameState->bulletHead), bullet);
 	}
 }

@@ -17,11 +17,11 @@
 
 void initVariables(gameState_t* gameState){
 
-	spaceship_t initSpaceship = {{intToFp(2), intToFp(42)}, {intToFp(2), intToFp(42)}, 1, 100, 0};
-	position_t initBulletPos = {intToFp(-1),intToFp(-1)};
-	bullet_t initBullet = {initBulletPos, initBulletPos};
-	bulletNode_t initBulletNode = {initBullet, 0};
-	gameState->bulletLL = initBulletNode;
+
+	spaceship_t initSpaceship = {{intToFp(2), intToFp(42)}, {intToFp(2), intToFp(42)}, 1, 20, 0};
+
+	gameState->bulletHead = NULL;
+
 	gameState->activeScreen=0; //menu screen
 	gameState->difficulty=1;   // medium (if changed here, update also definition of diffBtn)
 	gameState->btnSelected=0; //start game
@@ -40,7 +40,7 @@ void drawScreen(gameState_t* gameState) {
 	printf("A");
 	gameState->spaceship.position=gameState->spaceship.nextPosition;
 
-	drawBullets(&(gameState->bulletLL));
+	drawBullets(gameState->bulletHead);
 
 }
 
@@ -114,7 +114,7 @@ int main(void) {
 //					updateEnemy(&gameState);
 					shootSpaceship(&gameState);
 //					shootEnemy(&gameState);
-//					//updateBullets(&gameState);
+					updateBullets(&gameState);
 //					detectBulletHit(&gameState);
 //					detectCityHit(&gameState);
 //					powerUp(&gameState);
