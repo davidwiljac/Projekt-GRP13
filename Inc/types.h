@@ -90,7 +90,7 @@ typedef struct {
 
 // gameState_t
 typedef struct {
-	bulletNode_t* bulletHead;
+	bulletNode_t* bulletLL;
 	enemyNode_t* enemyLL;
 	moon_t* moons;
 	spaceship_t spaceship;

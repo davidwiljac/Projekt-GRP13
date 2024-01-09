@@ -6,7 +6,7 @@
  */
 #include "bullet.h"
 void updateBullets(gameState_t* gameState){
-	bulletNode_t* current = gameState->bulletHead;
+	bulletNode_t* current = gameState->bulletLL;
 	while (current != NULL) {
 		current->bullet.nextPosition.x=current->bullet.position.x+current->bullet.velocity.x;
 		current->bullet.nextPosition.y=current->bullet.position.y+current->bullet.velocity.y;
@@ -16,12 +16,12 @@ void updateBullets(gameState_t* gameState){
 
 void detectBulletHit(gameState_t* gameState){
 
-	bulletNode_t* current = gameState->bulletHead;
+	bulletNode_t* current = gameState->bulletLL;
 	while (current != NULL) {
 
 
 		if(fpToInt(current->bullet.nextPosition.y)<=1){ //TODO: add other boundaries
-			deleteBulletNode(&(gameState->bulletHead), current);
+			deleteBulletNode(&(gameState->bulletLL), current);
 		}
 		current = current->nextBulletAddress;
 
@@ -29,7 +29,7 @@ void detectBulletHit(gameState_t* gameState){
 }
 
 void drawBullets(gameState_t* gameState){
-	bulletNode_t* current = gameState->bulletHead;
+	bulletNode_t* current = gameState->bulletLL;
 	while (current != NULL) {
 		gotoxy(fpToInt(current->bullet.position.x), fpToInt(current->bullet.position.y));
 		printf(" ");

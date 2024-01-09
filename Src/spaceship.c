@@ -33,6 +33,6 @@ void shootSpaceship(gameState_t* gameState){
 		position_t bulletPos = {gameState->spaceship.position.x, gameState->spaceship.position.y-intToFp(1)};
 		bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
 
-		appendBullet(&(gameState->bulletHead), bullet);
+		appendBullet(&(gameState->bulletLL), bullet);
 	}
 }
