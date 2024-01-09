@@ -53,6 +53,29 @@ void appendEnemy(gameState_t* gameState, enemy_t* enemy){
 	}
 }
 
+void deleteEnemyNode(gameState_t* gameState, enemyNode_t* enemy){
+	enemyNode_t* preNode = gameState->enemyLL;
+	enemyNode_t* thisNode = gameState->enemyLL->nextEnemyNode;
+
+	while(1){
+		if(thisNode == enemy){
+			gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
+			printf("  ");
+			preNode->nextEnemyNode = thisNode->nextEnemyNode;
+			free(thisNode->enemy->nextPosition);
+			free(thisNode->enemy->position);
+			free(thisNode->enemy->velocity);
+			free(thisNode->enemy);
+			break;
+		}
+		if(thisNode->nextEnemyNode == 0){
+			break;
+		}
+		preNode = thisNode;
+		thisNode = thisNode->nextEnemyNode;
+	}
+}
+
 void deleteBulletNode(bulletNode_t** head, bulletNode_t* nodeToDelete) {
 
     if (*head == NULL || nodeToDelete == NULL) {

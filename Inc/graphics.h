@@ -17,7 +17,7 @@ void drawEnemy(gameState_t* gameState);
 void drawBullet();
 void drawMe();
 void drawbackground();
-void drawhearth();
+void drawhearth(gameState_t* gameState);
 void drawCity();
 
 #endif /* GRAPHICS_H_ */

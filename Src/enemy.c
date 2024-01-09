@@ -6,7 +6,7 @@
  */
 #include"enemy.h"
 void spawnEnemy(gameState_t* gameState){
-	int shouldGenEnemy = rand() % 100;      // Returns a pseudo-random integer [0:49].
+	int shouldGenEnemy = rand() % 33;      // Returns a pseudo-random integer [0:32].
 	if(shouldGenEnemy == 0){
 		int8_t enemyPos = rand() % 156;
 
@@ -51,5 +51,16 @@ void shootEnemy(gameState_t* gameState){
 }
 
 void detectCityHit(gameState_t* gameState){
-
+	enemyNode_t* thisNode = gameState->enemyLL;
+	while(1){
+		if(thisNode->enemy->position->x != 0 && fpToInt(thisNode->enemy->position->y) >= 40){
+			gameState->cityLives--;
+			deleteEnemyNode(gameState, thisNode);
+			break;
+		}
+		if(thisNode->nextEnemyNode == 0){
+			break;
+		}
+		thisNode = thisNode->nextEnemyNode;
+	}
 }
