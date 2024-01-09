@@ -31,6 +31,9 @@ void initVariables(gameState_t* gameState){
 
 	gameState->bulletHead = NULL;
 
+	gameState->enemyLL.nextEnemyNode = -1;
+
+
 	gameState->activeScreen=0; //menu screen
 	gameState->difficulty=1;   // medium (if changed here, update also definition of diffBtn)
 	gameState->btnSelected=0; //start game
@@ -51,7 +54,6 @@ void drawScreen(gameState_t* gameState) {
 	gameState->spaceship.position=gameState->spaceship.nextPosition;
 
 	drawEnemies(gameState);
-	drawBullets(&(gameState->bulletLL));
 	drawBullets(gameState->bulletHead);
 
 }
