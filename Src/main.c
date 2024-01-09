@@ -25,6 +25,10 @@ void initVariables(gameState_t* gameState){
 
 	gameState->enemyLL.nextEnemyNode = -1;
 
+	spaceship_t initSpaceship = {{intToFp(2), intToFp(42)}, {intToFp(2), intToFp(42)}, 1, 20, 0};
+
+	gameState->bulletHead = NULL;
+
 	gameState->activeScreen=0; //menu screen
 	gameState->difficulty=1;   // medium (if changed here, update also definition of diffBtn)
 	gameState->btnSelected=0; //start game
@@ -46,6 +50,8 @@ void drawScreen(gameState_t* gameState) {
 
 	drawEnemies(gameState);
 	drawBullets(&(gameState->bulletLL));
+	drawBullets(gameState->bulletHead);
+
 }
 
 int8_t bossKey(gameState_t* gameState){
@@ -152,7 +158,7 @@ int main(void) {
 //					updateEnemy(&gameState);
 					shootSpaceship(&gameState);
 //					shootEnemy(&gameState);
-//					//updateBullets(&gameState);
+					updateBullets(&gameState);
 //					detectBulletHit(&gameState);
 //					detectCityHit(&gameState);
 //					powerUp(&gameState);

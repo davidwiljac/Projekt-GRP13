@@ -47,7 +47,7 @@ typedef struct bulletNode_t bulletNode_t;
 // bullet_node_t
 struct bulletNode_t {
 	bullet_t bullet;
-	bulletNode_t * nextBulletNode;
+	bulletNode_t * nextBulletAddress;
 };
 
 typedef struct enemyNode_t enemyNode_t;
@@ -90,8 +90,7 @@ typedef struct {
 
 // gameState_t
 typedef struct {
-	//uint16_t runtime; //in centiseconds
-	bulletNode_t bulletLL;
+	bulletNode_t* bulletHead;
 	enemyNode_t enemyLL;
 	moon_t* moons;
 	spaceship_t spaceship;
