@@ -4,9 +4,8 @@
  *  Created on: 8 Jan 2024
  *      Author: Bivertical
  */
-#include "stdint.h"
-#include "stdio.h"
-#include "ansi.h"
+#include "graphics.h"
+
 void drawMoon(uint8_t X, uint8_t Y){
 	// FX (51,17)
 	gotoxy(X-1,Y+3);
@@ -140,8 +139,25 @@ void drawMoon(uint8_t X, uint8_t Y){
 //}
 
 
-void drawEnemy(){
+void drawEnemy(gameState_t* gameState){
+	int isLastElement = 0;
+	enemyNode_t* thisNode = gameState->enemyLL;
 
+	while(1){
+		if(thisNode->enemy->position->x != 0){
+			gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
+			//printf("%d %d", fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
+			printf("  ");
+			gotoxy(fpToInt(thisNode->enemy->nextPosition->x), fpToInt(thisNode->enemy->nextPosition->y));
+			printf(":E");
+			thisNode->enemy->position->x = thisNode->enemy->nextPosition->x;
+			thisNode->enemy->position->y = thisNode->enemy->nextPosition->y;
+		}
+		if(thisNode->nextEnemyNode == 0){
+			break;
+		}
+		thisNode = thisNode->nextEnemyNode;
+	}
 }
 
 void drawBullet(){
