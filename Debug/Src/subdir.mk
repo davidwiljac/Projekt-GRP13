@@ -6,6 +6,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Src/30010_io.c \
+../Src/MoonGravity.c \
 ../Src/ansi.c \
 ../Src/bullet.c \
 ../Src/drivers.c \
@@ -24,6 +25,7 @@ C_SRCS += \
 
 OBJS += \
 ./Src/30010_io.o \
+./Src/MoonGravity.o \
 ./Src/ansi.o \
 ./Src/bullet.o \
 ./Src/drivers.o \
@@ -42,6 +44,7 @@ OBJS += \
 
 C_DEPS += \
 ./Src/30010_io.d \
+./Src/MoonGravity.d \
 ./Src/ansi.d \
 ./Src/bullet.d \
 ./Src/drivers.d \
@@ -66,7 +69,7 @@ Src/%.o: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/30010_io.d ./Src/30010_io.o ./Src/ansi.d ./Src/ansi.o ./Src/bullet.d ./Src/bullet.o ./Src/drivers.d ./Src/drivers.o ./Src/enemy.d ./Src/enemy.o ./Src/fixedPoint.d ./Src/fixedPoint.o ./Src/graphics.d ./Src/graphics.o ./Src/linkedList.d ./Src/linkedList.o ./Src/main.d ./Src/main.o ./Src/menu.d ./Src/menu.o ./Src/nuke.d ./Src/nuke.o ./Src/powerup.d ./Src/powerup.o ./Src/spaceship.d ./Src/spaceship.o ./Src/syscalls.d ./Src/syscalls.o ./Src/sysmem.d ./Src/sysmem.o ./Src/system_stm32f30x.d ./Src/system_stm32f30x.o
+	-$(RM) ./Src/30010_io.d ./Src/30010_io.o ./Src/MoonGravity.d ./Src/MoonGravity.o ./Src/ansi.d ./Src/ansi.o ./Src/bullet.d ./Src/bullet.o ./Src/drivers.d ./Src/drivers.o ./Src/enemy.d ./Src/enemy.o ./Src/fixedPoint.d ./Src/fixedPoint.o ./Src/graphics.d ./Src/graphics.o ./Src/linkedList.d ./Src/linkedList.o ./Src/main.d ./Src/main.o ./Src/menu.d ./Src/menu.o ./Src/nuke.d ./Src/nuke.o ./Src/powerup.d ./Src/powerup.o ./Src/spaceship.d ./Src/spaceship.o ./Src/syscalls.d ./Src/syscalls.o ./Src/sysmem.d ./Src/sysmem.o ./Src/system_stm32f30x.d ./Src/system_stm32f30x.o
 
 .PHONY: clean-Src
 

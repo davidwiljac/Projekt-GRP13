@@ -20,7 +20,7 @@ void spawnEnemy(gameState_t* gameState){
 
 		vector_t* vEnemy = malloc(sizeof(vector_t));
 		vEnemy->x = intToFp(0);
-		vEnemy->y = 0x0040;
+		vEnemy->y = 0x00008000;
 		enemy->velocity  = vEnemy;
 
 		position_t* newPos = malloc(sizeof(position_t));

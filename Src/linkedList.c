@@ -51,6 +51,8 @@ void appendEnemy(gameState_t* gameState, enemy_t* enemy){
 			thisNode = thisNode->nextEnemyNode;
 		}
 	}
+}
+
 void deleteBulletNode(bulletNode_t** head, bulletNode_t* nodeToDelete) {
 
     if (*head == NULL || nodeToDelete == NULL) {
@@ -85,7 +87,6 @@ void deleteBulletNode(bulletNode_t** head, bulletNode_t* nodeToDelete) {
     // Free the memory of the deleted node
 
     free(nodeToDelete);
-
 }
 
 //void appendEnemy(gameState_t* gameState, enemy_t enemy){

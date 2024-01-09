@@ -160,14 +160,13 @@ int main(void) {
 					updateSpaceship(&gameState, &dir);
 					spawnEnemy(&gameState);
 					updateEnemy(&gameState);
-					//shootSpaceship(&gameState);
+					shootSpaceship(&gameState);
 //					shootEnemy(&gameState);
 					updateBullets(&gameState);
 					detectBulletHit(&gameState);
 //					detectCityHit(&gameState);
 //					powerUp(&gameState);
 //					nukeUpdate(&gameState);
-//					bossKey(&gameState);
 
 					drawScreen(&gameState);
 					frameLastUpdated=runtime;
