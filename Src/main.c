@@ -166,6 +166,10 @@ int main(void) {
 			drawbackground(); // stars in background
 			drawMoon(51,17);
 			drawhearth();
+			drawMoon(51,17); // moon graphics
+			drawCity();
+			drawMe(30,35);
+			drawBullet(85,20);
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
 				//Bosskey test
