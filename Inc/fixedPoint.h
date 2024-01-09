@@ -12,8 +12,8 @@
 #include "stdio.h"
 
 
-uint16_t intToFp(uint8_t n);
-uint8_t fpToInt(uint16_t fp);
+uint32_t intToFp(uint16_t n);
+int fpToInt(uint32_t fp);
 
 
 #endif /* FIXEDPOINT_H_ */

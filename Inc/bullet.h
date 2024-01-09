@@ -11,9 +11,11 @@
 #include "types.h"
 #include "ansi.h"
 #include "fixedPoint.h"
+#include "linkedList.h"
+#include "drivers.h"
 
 void updateBullets(gameState_t* gameState);
 void detectBulletHit(gameState_t* gameState);
-void drawBullets(bulletNode_t* head);
+void drawBullets(gameState_t* gameState);
 
 #endif /* BULLET_H_ */

@@ -7,20 +7,24 @@
 
 #include "fixedPoint.h"
 
-//Converts normal uint_t to fixed point 8.8 format with type uint16_t
-uint16_t intToFp(uint8_t n){
-	uint16_t output = 0;
+//Converts uint_t to fixed point 16.16 format type uint32_t
+uint32_t intToFp(uint16_t n){
+	uint32_t output = 0;
 	output+=n;
-	output<<=8;
+	output<<=16;
 	return output;
 }
 
-//Converts fixed point 8.8 format to normal integer and rounds correctly
-uint8_t fpToInt(uint16_t fp){
-	uint8_t output=0;
-	fp+=128; //128 in 8.8 format is 0,5
-	fp>>=8;
+//Converts fixed point 16.16 format to normal integer and rounds correctly
+int fpToInt(uint32_t fp){
+	uint32_t in = fp;
+	int output=0;
+	fp+=32768; //32768 in 16.16 format is 0,5
+	fp>>=16;
 	output+=fp;
+	if((in & 0x80000000)!=0) {
+		output-=65536;
+	}
 	return output;
 
 }

@@ -16,7 +16,7 @@
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
 
 void initVariables(gameState_t* gameState){
-	gameState->enemyLL.nextEnemyNode = -1;
+
 
 	spaceship_t initSpaceship = {{intToFp(2), intToFp(42)}, {intToFp(2), intToFp(42)}, 1, 20, 0};
 
@@ -31,7 +31,7 @@ void initVariables(gameState_t* gameState){
 
 	gameState->bulletHead = NULL;
 
-	gameState->enemyLL.nextEnemyNode = -1;
+	//gameState->enemyLL.nextEnemyNode = -1;
 
 
 	gameState->activeScreen=0; //menu screen
@@ -53,8 +53,8 @@ void drawScreen(gameState_t* gameState) {
 	printf("A");
 	gameState->spaceship.position=gameState->spaceship.nextPosition;
 
-	drawEnemies(gameState);
-	drawBullets(gameState->bulletHead);
+	//drawEnemies(gameState);
+	drawBullets(gameState);
 
 }
 
@@ -154,8 +154,8 @@ int main(void) {
 			uint32_t frameLastUpdated=0;
 			uint8_t dir = 0;
 			gameState.spaceship.lastShotTime=runtime;
-			drawbackground(); // stars in background
-			drawMoon(51,17);
+			//drawbackground(); // stars in background
+			//drawMoon(51,17);
 			while(gameState.activeScreen==1){
 				if(runtime-frameLastUpdated>=framePeriod){//
 					updateSpaceship(&gameState, &dir);
@@ -163,7 +163,7 @@ int main(void) {
 					shootSpaceship(&gameState);
 //					shootEnemy(&gameState);
 					updateBullets(&gameState);
-//					detectBulletHit(&gameState);
+					detectBulletHit(&gameState);
 //					detectCityHit(&gameState);
 //					powerUp(&gameState);
 //					nukeUpdate(&gameState);
@@ -181,7 +181,7 @@ int main(void) {
 					clrscr();
 					printf("GAME SCREEN");
 				}
-				updateEnemy(&gameState);
+				//updateEnemy(&gameState);
 		}
 			break;
 		case 2:// HELP SCREEN ------------------------------------------------------------------------
