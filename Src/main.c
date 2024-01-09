@@ -10,6 +10,7 @@
 #include "spaceship.h"
 #include "menu.h"
 #include "graphics.h"
+#include "MoonGravity.h"
 
 void initVariables(gameState_t* gameState){
 //	gameState->runtime=0;
@@ -91,7 +92,10 @@ int main(void) {
 			clrscr();
 			printf("GAME SCREEN");
 			drawbackground(); // stars in background
-			drawMoon(51,17);
+			drawhearth();
+			drawMoon(51,17); // moon graphics
+			drawMe(30,35);
+//			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
 
 			}

@@ -12,7 +12,8 @@ void drawMoon(uint8_t x, uint8_t y);
 void drawEnemy();
 void drawBullet();
 void drawMe();
-void Moongravity();
-
+void drawbackground();
+void drawhearth();
+void drawCity();
 
 #endif /* GRAPHICS_H_ */

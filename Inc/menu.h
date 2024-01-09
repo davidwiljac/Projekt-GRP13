@@ -19,5 +19,4 @@ void drawHelpScreen();
 void drawButton(button_t btn);
 void drawBtnAsSelected(button_t btn);
 void drawBtnAsDeselected(button_t btn);
-void drawbackground();
 #endif /* MENU_H_ */
