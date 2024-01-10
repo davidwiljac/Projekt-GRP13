@@ -11,17 +11,17 @@
 #include "stdint.h"
 #include "stdio.h"
 
-// position_t 8.8 fixed point format
+// position_t 16.16 fixed point format
 typedef struct {
-	uint16_t x;
-	uint16_t y;
+	uint32_t x;
+	uint32_t y;
 }position_t;
 
 
-// vector_t 8.8 fixed point format
+// vector_t 16.16 fixed point format
 typedef struct {
-	uint16_t x;
-	uint16_t y;
+	uint32_t x;
+	uint32_t y;
 }vector_t;
 
 
@@ -90,7 +90,7 @@ typedef struct {
 
 // gameState_t
 typedef struct {
-	bulletNode_t* bulletHead;
+	bulletNode_t* bulletLL;
 	enemyNode_t* enemyLL;
 	moon_t* moons;
 	spaceship_t spaceship;
@@ -101,6 +101,8 @@ typedef struct {
 	uint8_t btnSelected;  // 0=start game, 1=difficulty, 2=help
 	uint8_t isDead;
 	uint8_t difficulty; // 0=easy, 1=medium, 2=hard
+	int8_t direction;
+	uint32_t lastKeyPressTime;
 } gameState_t ;
 
 

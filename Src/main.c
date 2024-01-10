@@ -12,6 +12,7 @@
 #include "fixedPoint.h"
 #include "linkedList.h"
 #include "graphics.h"
+#include "MoonGravity.h"
 
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
 
@@ -29,7 +30,7 @@ void initVariables(gameState_t* gameState){
 	node->nextEnemyNode = 0;
 	gameState->enemyLL = node;
 
-	gameState->bulletHead = NULL;
+	gameState->bulletLL = NULL;
 
 	gameState->activeScreen=0; //menu screen
 	gameState->difficulty=1;   // medium (if changed here, update also definition of diffBtn)
@@ -39,6 +40,7 @@ void initVariables(gameState_t* gameState){
 	gameState->cityLives=3;
 	gameState->spaceship= initSpaceship;
 	gameState->bossMode = 0;
+	gameState->lastKeyPressTime = 0;
 	//TODO: continue to initialize everything
 }
 
@@ -49,16 +51,14 @@ void drawScreen(gameState_t* gameState) {
 	gotoxy(fpToInt(gameState->spaceship.nextPosition.x),fpToInt(gameState->spaceship.nextPosition.y));
 	printf("A");
 	gameState->spaceship.position=gameState->spaceship.nextPosition;
-
 	drawEnemy(gameState);
 	drawBullets(gameState);
 
-	drawhearth(gameState);
 	drawMoon(51,17); // moon graphics
 }
 
 int8_t bossKey(gameState_t* gameState){
-	char c = uart_get_char();
+	/*char c = uart_get_char();
 	if(c == 'f'){
 		if(gameState->bossMode == 0){
 			clrscr();
@@ -76,11 +76,27 @@ int8_t bossKey(gameState_t* gameState){
 	}
 	return 0;
 	uart_clear();
+	*/
 }
 
 void checkIfDead(gameState_t* gameState){
 	if(gameState->cityLives == 0){
 		gameState->activeScreen = 3;
+	}
+}
+
+void readKey(gameState_t* gameState){
+	char c = uart_get_char();
+	if(c == 'd'){
+		gameState->direction = 1;
+		gameState->lastKeyPressTime = runtime;
+	}
+	if(c == 'a'){
+		gameState->direction = -1;
+		gameState->lastKeyPressTime = runtime;
+	}
+	if(runtime - gameState->lastKeyPressTime > 15){
+		gameState->direction = 0;
 	}
 }
 
@@ -98,22 +114,16 @@ int main(void) {
 	I2C_init();
 	srand(time(NULL));   //RNG
 
-
-
 	while(1){
 		switch(gameState.activeScreen){
 		case 0: //MENU SCREEN ---------------------------------------------------------------------
 			clrscr();
 			drawWindow();
-			drawBox(1,1,156,43,0);//window
 			drawbackground(); // stars in background
 			drawMenuScreen(btnList, &gameState);
 
 
 			while(gameState.activeScreen==0){
-				gotoxy(20,20);
-				uint8_t x = I2C_Read(0x98, 0x98, NULL, 1);
-				printf("%d\n", x);
 				//Bosskey test
 				int bossKeyChange = bossKey(&gameState);
 				if(bossKeyChange == 1) continue;
@@ -122,6 +132,7 @@ int main(void) {
 					clrscr();
 					drawBox(1,1,156,43,0);//window
 					drawbackground(); // stars in background
+					drawWindow();
 					drawMenuScreen(btnList, &gameState);
 				}
 
@@ -161,12 +172,14 @@ int main(void) {
 			clrscr();
 			printf("GAME SCREEN");
 			uint32_t frameLastUpdated=0;
-			uint8_t dir = 0;
 			gameState.spaceship.lastShotTime=runtime;
-			drawbackground(); // stars in background
+			drawWindow();
 			drawMoon(51,17);
+			drawhearth(&gameState);
+			drawCity();
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
+				readKey(&gameState);
 				//Bosskey test
 				int bossKeyChange = bossKey(&gameState);
 				if(bossKeyChange == 1) continue;
@@ -174,14 +187,16 @@ int main(void) {
 					//Initialize window agian
 					clrscr();
 					gotoxy(0,0);
+					drawCity();
 					printf("GAME SCREEN");
 				}
 
 				if(runtime-frameLastUpdated>=framePeriod){//
-					updateSpaceship(&gameState, &dir);
+					readKey(&gameState);
+					updateSpaceship(&gameState);
 					spawnEnemy(&gameState);
 					updateEnemy(&gameState);
-					//shootSpaceship(&gameState);
+					shootSpaceship(&gameState);
 //					shootEnemy(&gameState);
 					updateBullets(&gameState);
 					detectBulletHit(&gameState);
