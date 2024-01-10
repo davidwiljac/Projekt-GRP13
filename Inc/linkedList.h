@@ -13,6 +13,7 @@
 #include "ansi.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "menu.h"
 
 void appendBullet(bulletNode_t** head, bullet_t bullet);
 bulletNode_t* createBulletNode(bullet_t bullet);

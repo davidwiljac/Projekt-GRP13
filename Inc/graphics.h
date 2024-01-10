@@ -11,11 +11,12 @@
 #include "fixedPoint.h"
 #include "stdint.h"
 #include "stdio.h"
+#include "menu.h"
 
 void drawMoon(uint8_t x, uint8_t y);
 void drawEnemy(gameState_t* gameState);
-void drawBullet();
-void drawMe();
+void drawBullet(uint8_t X, uint8_t Y);
+void drawMe(uint8_t X, uint8_t Y);
 void Moongravity();
 
 void drawbackground();

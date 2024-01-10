@@ -7,6 +7,7 @@
 #include "stdint.h"
 #include "stdio.h"
 #include "ansi.h"
+#include "graphics.h"
 
 void drawbackground(){
 	gotoxy(55,35);
@@ -89,6 +90,9 @@ void drawbackground(){
 
 
 void drawMoon(uint8_t X, uint8_t Y){
+	Y /= yScale;
+//	gotoxy(X,Y);
+//	printf("X");
 	// FX (51,17)
 	gotoxy(X-1,Y+3);
 	printf("_");
@@ -204,7 +208,7 @@ void drawhearth(gameState_t* gameState){
 
 
 void drawEnemy(gameState_t* gameState){
-	int isLastElement = 0;
+	//int isLastElement = 0;
 	enemyNode_t* thisNode = gameState->enemyLL;
 
 	while(1){

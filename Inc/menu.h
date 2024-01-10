@@ -16,6 +16,10 @@
 
 #define screenWidth 156
 #define screenHeight 43
+//IMPORTANT! virtual screen height is 86 (can be changed beneath)
+
+#define yScale 2 //1 is normal, 2 makes the virtual screen height 86
+
 
 
 

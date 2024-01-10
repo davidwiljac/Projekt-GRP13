@@ -22,14 +22,14 @@ void updateSpaceship(gameState_t* gameState, uint8_t* dir){
 
 
 void shootSpaceship(gameState_t* gameState){
-	uint8_t firingPeriod = gameState->spaceship.firingPeriod;
 
+	//if(centerIsPressed()){
+	if(runtime-gameState->spaceship.lastShotTime>=gameState->spaceship.firingPeriod){
 
-	if(runtime-gameState->spaceship.lastShotTime>=firingPeriod){//
 		gameState->spaceship.lastShotTime = runtime;
 
 
-		vector_t bulletVelocity = {intToFp(0),intToFp(-3)};
+		vector_t bulletVelocity = {intToFp(0),0xffff8000*yScale}; //0xffff8000 is -0,5
 		position_t bulletPos = {gameState->spaceship.position.x, gameState->spaceship.position.y-intToFp(1)};
 		bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
 

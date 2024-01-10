@@ -76,7 +76,7 @@ void deleteBulletNode(bulletNode_t** head, bulletNode_t* nodeToDelete) {
         return;
     }
 
-    gotoxy(fpToInt(nodeToDelete->bullet.position.x), fpToInt(nodeToDelete->bullet.position.y));
+    gotoxy(fpToInt(nodeToDelete->bullet.position.x), fpToInt(nodeToDelete->bullet.position.y)/yScale);
     printf(" ");
 
     if (*head == nodeToDelete) {

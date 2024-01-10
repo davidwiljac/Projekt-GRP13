@@ -13,6 +13,8 @@
 #include "fixedPoint.h"
 #include "linkedList.h"
 #include "drivers.h"
+#include "math.h"
+#include "menu.h"
 
 void updateBullets(gameState_t* gameState);
 void detectBulletHit(gameState_t* gameState);

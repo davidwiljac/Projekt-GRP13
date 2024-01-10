@@ -8,7 +8,7 @@
 void spawnEnemy(gameState_t* gameState){
 	int shouldGenEnemy = rand() % 33;      // Returns a pseudo-random integer [0:32].
 	if(shouldGenEnemy == 0){
-		int8_t enemyPos = rand() % 156;
+		int8_t enemyPos = 70;//rand() % 156
 
 		enemy_t* enemy = malloc(sizeof(enemy_t));
 		enemy->firingRate = 2;
