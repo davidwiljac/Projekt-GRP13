@@ -6,8 +6,14 @@
  */
 #include "spaceship.h"
 
-void updateSpaceship(gameState_t* gameState, uint8_t* dir){
-
+void updateSpaceship(gameState_t* gameState){
+	if(gameState->direction == -1 && gameState->spaceship.position.x > intToFp(2)){
+		gameState->spaceship.nextPosition.x = gameState->spaceship.position.x - intToFp(1);
+	}
+	if(gameState->direction == 1 && gameState->spaceship.position.x < intToFp(148)){
+		gameState->spaceship.nextPosition.x = gameState->spaceship.position.x + intToFp(1);
+	}
+	/*
 	if(fpToInt(gameState->spaceship.position.x)>=screenWidth-1){
 		*dir =1;
 	} else if(fpToInt(gameState->spaceship.position.x)<=2){
@@ -18,6 +24,7 @@ void updateSpaceship(gameState_t* gameState, uint8_t* dir){
 	} else {
 		gameState->spaceship.nextPosition.x=gameState->spaceship.position.x-intToFp(2);
 	}
+	*/
 }
 
 

@@ -207,19 +207,13 @@ void drawEnemy(gameState_t* gameState){
 	int isLastElement = 0;
 	enemyNode_t* thisNode = gameState->enemyLL;
 
-	while(1){
-		if(thisNode->enemy->position->x != 0){
-			gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
-			//printf("%d %d", fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
-			printf("  ");
-			gotoxy(fpToInt(thisNode->enemy->nextPosition->x), fpToInt(thisNode->enemy->nextPosition->y));
-			printf(":E");
-			thisNode->enemy->position->x = thisNode->enemy->nextPosition->x;
-			thisNode->enemy->position->y = thisNode->enemy->nextPosition->y;
-		}
-		if(thisNode->nextEnemyNode == 0){
-			break;
-		}
+	while(thisNode != NULL){
+		gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
+		printf("  ");
+		gotoxy(fpToInt(thisNode->enemy->nextPosition->x), fpToInt(thisNode->enemy->nextPosition->y));
+		printf(":E");
+		thisNode->enemy->position->x = thisNode->enemy->nextPosition->x;
+		thisNode->enemy->position->y = thisNode->enemy->nextPosition->y;
 		thisNode = thisNode->nextEnemyNode;
 	}
 }
@@ -535,6 +529,4 @@ void drawCity(){
 
 	gotoxy(142,44);
 	printf("%c",220);
-
-
 }
