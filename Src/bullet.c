@@ -12,20 +12,20 @@ void updateBullets(gameState_t* gameState){
 
 
 
-//		VED BRUG AF FLOATING POINT (sqrt())
-		vector_t v = {intToFp(gameState->moon.x-fpToInt(current->bullet.position.x)), intToFp(gameState->moon.y-fpToInt(current->bullet.position.y))};
-		uint32_t vLength = intToFp((int)sqrt(fpToInt(v.x)*fpToInt(v.x)+fpToInt(v.y)*fpToInt(v.y)));
-		v = scaleVector(v, fpDivide(intToFp(1),vLength));
-		//v har nu længde 1
-		vector_t accVec = scaleVector(v, fpDivide(intToFp(gameState->moon.mass),fpMultiply(vLength, vLength)));
-
-
-//		//UDEN BRUG AF FLOATING POINT (vLength er et estimat)
-//		vector_t v = {intToFp(gameState->moon.x)-current->bullet.position.x, intToFp(gameState->moon.y)-current->bullet.position.y};
-//		uint32_t vLength = fpMultiply(fpAbs(v.x)+fpAbs(v.y), 0x0000b400); // 0x0000b400 er ca. sqrt(2)/2
+////		VED BRUG AF FLOATING POINT (sqrt())
+//		vector_t v = {intToFp(gameState->moon.x-fpToInt(current->bullet.position.x)), intToFp(gameState->moon.y-fpToInt(current->bullet.position.y))};
+//		uint32_t vLength = intToFp((int)sqrt(fpToInt(v.x)*fpToInt(v.x)+fpToInt(v.y)*fpToInt(v.y)));
 //		v = scaleVector(v, fpDivide(intToFp(1),vLength));
-//		//v er nu ca. 1 lang
+//		//v har nu længde 1
 //		vector_t accVec = scaleVector(v, fpDivide(intToFp(gameState->moon.mass),fpMultiply(vLength, vLength)));
+
+
+		//UDEN BRUG AF FLOATING POINT (vLength er et estimat)
+		vector_t v = {intToFp(gameState->moon.x)-current->bullet.position.x, intToFp(gameState->moon.y)-current->bullet.position.y};
+		uint32_t vLength = fpMultiply(fpAbs(v.x)+fpAbs(v.y), 0x0000b400); // 0x0000b400 er ca. sqrt(2)/2
+		v = scaleVector(v, fpDivide(intToFp(1),vLength));
+		//v er nu ca. 1 lang
+		vector_t accVec = scaleVector(v, fpDivide(intToFp(gameState->moon.mass),fpMultiply(vLength, vLength)));
 
 
 		current->bullet.velocity.x+=accVec.x;

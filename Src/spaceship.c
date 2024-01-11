@@ -23,8 +23,8 @@ void updateSpaceship(gameState_t* gameState, uint8_t* dir){
 
 void shootSpaceship(gameState_t* gameState){
 
-	//if(centerIsPressed()){
-	if(runtime-gameState->spaceship.lastShotTime>=gameState->spaceship.firingPeriod){
+	if(centerIsPressed()){
+	//if(runtime-gameState->spaceship.lastShotTime>=gameState->spaceship.firingPeriod){
 
 		gameState->spaceship.lastShotTime = runtime;
 
