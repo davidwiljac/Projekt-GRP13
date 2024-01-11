@@ -9,6 +9,11 @@ void spawnEnemy(gameState_t* gameState){
 	int shouldGenEnemy = rand() % 50;      // Returns a pseudo-random integer [0:32].
 	if(shouldGenEnemy == 0){
 		int8_t enemyPos = rand() % 156;
+<<<<<<< Updated upstream
+=======
+		//TODO: Fix tilfældighedsgenerator
+
+>>>>>>> Stashed changes
 
 		enemy_t* enemy = malloc(sizeof(enemy_t));
 		enemy->firingRate = 2;
@@ -20,7 +25,11 @@ void spawnEnemy(gameState_t* gameState){
 
 		vector_t* vEnemy = malloc(sizeof(vector_t));
 		vEnemy->x = intToFp(0);
+<<<<<<< Updated upstream
 		vEnemy->y = 0x0040;
+=======
+		vEnemy->y = 0x00004000 * yScale;
+>>>>>>> Stashed changes
 		enemy->velocity  = vEnemy;
 
 		position_t* newPos = malloc(sizeof(position_t));
@@ -74,8 +83,13 @@ void shootEnemy(gameState_t* gameState){
 void detectCityHit(gameState_t* gameState){
 	enemyNode_t* thisNode = gameState->enemyLL;
 	while(thisNode != NULL){
+<<<<<<< Updated upstream
 		if(fpToInt(thisNode->enemy->position->y) >= 40){
 			//gameState->cityLives--;
+=======
+		if(fpToInt(thisNode->enemy->position->y) >= 40 * yScale){
+			gameState->cityLives--;
+>>>>>>> Stashed changes
 			deleteEnemyNode(gameState, thisNode);
 			drawhearth(gameState);
 		}
