@@ -49,28 +49,6 @@ void drawScreen(gameState_t* gameState) {
 	drawMoon(gameState->moon.x, gameState->moon.y);
 }
 
-int8_t bossKey(gameState_t* gameState){
-	/*char c = uart_get_char();
-	if(c == 'f'){
-		if(gameState->bossMode == 0){
-			clrscr();
-			gameState->bossMode = 1;
-		}else{
-			gameState->bossMode = 0;
-			return 2;
-		}
-	}
-
-	if(gameState->bossMode == 1){
-		gotoxy(0,0);
-		printf("Noget meget vigtigt!");
-		return 1;
-	}
-	return 0;
-	uart_clear();
-	*/
-}
-
 void checkIfDead(gameState_t* gameState){
 
 	if(gameState->cityLives == 0){
@@ -79,7 +57,7 @@ void checkIfDead(gameState_t* gameState){
 }
 
 //TODO: Måske find på noget bedre her??? Det lagger lidt
-void readKey(gameState_t* gameState){
+void readInput(gameState_t* gameState){
 	char c = uart_get_char();
 	if(c == 'd'){
 		gameState->direction = 1;
@@ -88,6 +66,15 @@ void readKey(gameState_t* gameState){
 	if(c == 'a'){
 		gameState->direction = -1;
 		gameState->lastKeyPressTime = runtime;
+	}
+	if(c == 'f'){
+		if(gameState->activeScreen != 4){
+			clrscr();
+			gameState->lastScreen = gameState->activeScreen;
+			gameState->activeScreen = 4;
+		}else{
+			gameState->activeScreen = gameState->lastScreen;
+		}
 	}
 	if(runtime - gameState->lastKeyPressTime > 5){
 		gameState->direction = 0;
@@ -106,7 +93,9 @@ int main(void) {
 	initTimer();
 	initJoystick();
 	I2C_init();
-	srand(time(NULL));   //RNG
+	analogConfigPorts();
+
+	srand(readPotentiometer());   //RNG
 
 	while(1){
 		switch(gameState.activeScreen){
@@ -119,17 +108,7 @@ int main(void) {
 
 
 			while(gameState.activeScreen==0){
-				//Bosskey test
-				int bossKeyChange = bossKey(&gameState);
-				if(bossKeyChange == 1) continue;
-				else if(bossKeyChange == 2){
-					//Initialize window agian
-					clrscr();
-					drawbackground(); // stars in background
-					drawWindow();
-					drawMenuScreen(btnList, &gameState);
-				}
-
+				readInput(&gameState);
 				if(downIsPressed()){
 					drawBtnAsDeselected(btnList[gameState.btnSelected]);
 					gameState.btnSelected=(gameState.btnSelected+1)%3;
@@ -174,18 +153,7 @@ int main(void) {
 			drawCity();
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
-				readKey(&gameState);
-				//Bosskey test
-				int bossKeyChange = bossKey(&gameState);
-				if(bossKeyChange == 1) continue;
-				else if(bossKeyChange == 2){
-					//Initialize window agian
-					clrscr();
-					gotoxy(0,0);
-					drawCity();
-					printf("GAME SCREEN");
-				}
-
+				readInput(&gameState);
 				if(runtime-frameLastUpdated>=framePeriod){//
 					updateSpaceship(&gameState);
 					spawnEnemy(&gameState);
@@ -211,17 +179,7 @@ int main(void) {
 			drawbackground(); // stars in background
 			drawHelpScreen();
 			while(gameState.activeScreen==2){
-				//Bosskey test
-				int bossKeyChange = bossKey(&gameState);
-				if(bossKeyChange == 1) continue;
-				else if(bossKeyChange == 2){
-					//Initialize window agian
-					clrscr();
-					drawBox(1,1,156,43,0);//window
-					drawbackground(); // stars in background
-					drawHelpScreen();
-				}
-
+				readInput(&gameState);
 				if(centerIsPressed()){
 					gameState.activeScreen=0;//MENU SCREEN
 				}
@@ -231,19 +189,17 @@ int main(void) {
 			clrscr();
 			printf("YOU HELLA DEAD!\n YOU SUCK Your score is %d", gameState.score);
 			while(gameState.activeScreen==3){
-				//Bosskey test
-				int bossKeyChange = bossKey(&gameState);
-				if(bossKeyChange == 1) continue;
-				else if(bossKeyChange == 2){
-					//Initialize window agian
-					clrscr();
-					printf("YOU HELLA DEAD!\n YOU SUCK Your score is %d", gameState.score);
-				}
+				readInput(&gameState);
 				if(centerIsPressed()){
 					initVariables(&gameState);
 					gameState.activeScreen=0;//MENU SCREEN
 				}
 			}
+			break;
+		case 4:
+			readInput(&gameState);
+			gotoxy(0,0);
+			printf("Noget meget vigtigt!");
 			break;
 		}
 	}

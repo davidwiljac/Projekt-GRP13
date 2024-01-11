@@ -36,5 +36,6 @@ uint8_t I2C_Read(uint16_t address, uint8_t reg, uint8_t* vals, uint8_t n);
 void initTimer();
 void TIM1_BRK_TIM15_IRQHandler(void);
 
-
+void analogConfigPorts();
+uint16_t readPotentiometer();
 #endif /* DRIVERS_H_ */

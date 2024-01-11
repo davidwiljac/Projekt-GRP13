@@ -7,24 +7,27 @@
 #include "spaceship.h"
 
 void updateSpaceship(gameState_t* gameState){
+	/*
 	if(gameState->direction == -1 && gameState->spaceship.position.x > intToFp(2)){
 		gameState->spaceship.nextPosition.x = gameState->spaceship.position.x - intToFp(1);
 	}
 	if(gameState->direction == 1 && gameState->spaceship.position.x < intToFp(148)){
 		gameState->spaceship.nextPosition.x = gameState->spaceship.position.x + intToFp(1);
+	}*/
+	uint16_t potVal = readPotentiometer();
+	uint32_t x = fpDivide(intToFp(potVal), intToFp(13)) ;
+	if(fpToInt(x) <= 1){
+		x = intToFp(2);
 	}
-	/*
-	if(fpToInt(gameState->spaceship.position.x)>=screenWidth-1){
-		*dir =1;
-	} else if(fpToInt(gameState->spaceship.position.x)<=2){
-		*dir =0;
+	if(fpToInt(x) >= 156){
+		x = intToFp(155);
 	}
-	if(*dir==0){
-		gameState->spaceship.nextPosition.x=gameState->spaceship.position.x+intToFp(2);
-	} else {
-		gameState->spaceship.nextPosition.x=gameState->spaceship.position.x-intToFp(2);
-	}
-	*/
+	gotoxy(10,10);
+	printf("               ");
+	gotoxy(10,10);
+	printf("%d, %d", potVal, fpToInt(x));
+	gameState->spaceship.nextPosition.x = x;
+
 }
 
 
