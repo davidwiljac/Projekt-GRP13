@@ -42,22 +42,31 @@ void appendEnemy(gameState_t* gameState, enemy_t* enemy){
 	newEnemy->nextEnemyNode = 0;
 
 	enemyNode_t* thisNode = gameState->enemyLL;
-	int8_t isEndOfList = 0;
-	while(isEndOfList == 0){
-		if(thisNode->nextEnemyNode == 0){
-			isEndOfList = 1;
+	if(gameState->enemyLL == NULL){
+		gameState->enemyLL = newEnemy;
+	}
+	while(thisNode != NULL){
+		if(thisNode->nextEnemyNode == NULL){
 			thisNode->nextEnemyNode = newEnemy;
-		}else{
-			thisNode = thisNode->nextEnemyNode;
+			break;
 		}
+		thisNode = thisNode->nextEnemyNode;
 	}
 }
 
 void deleteEnemyNode(gameState_t* gameState, enemyNode_t* enemy){
-	enemyNode_t* preNode = gameState->enemyLL;
-	enemyNode_t* thisNode = gameState->enemyLL->nextEnemyNode;
+	enemyNode_t* preNode = NULL;
+	enemyNode_t* thisNode = gameState->enemyLL;
 
-	while(1){
+	if(gameState->enemyLL == enemy){
+		gotoxy(fpToInt(enemy->enemy->position->x), fpToInt(enemy->enemy->position->y));
+		printf("  ");
+		gameState->enemyLL = gameState->enemyLL->nextEnemyNode;
+		free(enemy);
+		return;
+	}
+
+	while(thisNode != NULL){
 		if(thisNode == enemy){
 			gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
 			printf("  ");
@@ -66,10 +75,7 @@ void deleteEnemyNode(gameState_t* gameState, enemyNode_t* enemy){
 			free(thisNode->enemy->position);
 			free(thisNode->enemy->velocity);
 			free(thisNode->enemy);
-			break;
-		}
-		if(thisNode->nextEnemyNode == 0){
-			break;
+			return;
 		}
 		preNode = thisNode;
 		thisNode = thisNode->nextEnemyNode;

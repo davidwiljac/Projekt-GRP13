@@ -31,6 +31,7 @@ typedef struct {
 	position_t* nextPosition;
 	vector_t* velocity;
 	uint8_t firingRate;
+	uint32_t lastShotTime;
 } enemy_t ;
 
 
@@ -103,6 +104,10 @@ typedef struct {
 	uint8_t difficulty; // 0=easy, 1=medium, 2=hard
 	int8_t direction;
 	uint32_t lastKeyPressTime;
+<<<<<<< Updated upstream
+=======
+	uint8_t keyboardDelay;
+>>>>>>> Stashed changes
 } gameState_t ;
 
 

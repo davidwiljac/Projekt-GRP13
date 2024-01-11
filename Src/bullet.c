@@ -16,8 +16,39 @@ void updateBullets(gameState_t* gameState){
 
 void detectBulletHit(gameState_t* gameState){}
 
+<<<<<<< Updated upstream
 void drawBullets(bulletNode_t* head){
 	bulletNode_t* current = head;
+=======
+	bulletNode_t* current = gameState->bulletLL;
+	while (current != NULL) {
+		//Detect upper bound
+		if(fpToInt(current->bullet.nextPosition.y)<=1){ //TODO: add other boundaries
+			deleteBulletNode(&(gameState->bulletLL), current);
+		}
+
+		//Detect lower bound
+		if(fpToInt(current->bullet.nextPosition.y)>=45){ //TODO: add other boundaries
+			deleteBulletNode(&(gameState->bulletLL), current);
+		}
+
+		//Detect enemy hit
+		while(1){
+			enemyNode_t* currentEnemy = gameState->enemyLL;
+			break;
+
+		}
+
+
+
+		current = current->nextBulletAddress;
+
+	}
+}
+
+void drawBullets(gameState_t* gameState){
+	bulletNode_t* current = gameState->bulletLL;
+>>>>>>> Stashed changes
 	while (current != NULL) {
 		gotoxy(fpToInt(current->bullet.position.x), fpToInt(current->bullet.position.y));
 		printf(" ");

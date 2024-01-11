@@ -143,7 +143,7 @@ void TIM1_BRK_TIM15_IRQHandler(void) {
 // TIMER ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-//I2C shit
+//I2C shit TODO: ret kommentar
 void I2C_Write(uint16_t address, uint8_t reg, uint8_t val) {
     while (I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY) == SET); // Wait until free
 

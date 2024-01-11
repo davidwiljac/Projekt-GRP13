@@ -6,7 +6,7 @@
  */
 #include"enemy.h"
 void spawnEnemy(gameState_t* gameState){
-	int shouldGenEnemy = rand() % 33;      // Returns a pseudo-random integer [0:32].
+	int shouldGenEnemy = rand() % 50;      // Returns a pseudo-random integer [0:32].
 	if(shouldGenEnemy == 0){
 		int8_t enemyPos = rand() % 156;
 
@@ -28,38 +28,56 @@ void spawnEnemy(gameState_t* gameState){
 		newPos->y = pos->y;
 		enemy->nextPosition = newPos;
 
+		enemy->lastShotTime = runtime;
+		enemy->firingRate = 100;
 		appendEnemy(gameState, enemy);
 	}
 }
 
 void updateEnemy(gameState_t* gameState){
 	enemyNode_t* thisNode = gameState->enemyLL;
-	while(1){
-		if(thisNode->enemy->position->x != 0){
-			thisNode->enemy->nextPosition->x = thisNode->enemy->position->x + thisNode->enemy->velocity->x;
-			thisNode->enemy->nextPosition->y = thisNode->enemy->position->y + thisNode->enemy->velocity->y;
-		}
-		if(thisNode->nextEnemyNode == 0){
-			break;
-		}
+	while(thisNode != NULL){
+		thisNode->enemy->nextPosition->x = thisNode->enemy->position->x + thisNode->enemy->velocity->x;
+		thisNode->enemy->nextPosition->y = thisNode->enemy->position->y + thisNode->enemy->velocity->y;
 		thisNode = thisNode->nextEnemyNode;
 	}
 }
 
 void shootEnemy(gameState_t* gameState){
+	enemyNode_t* thisNode = gameState->enemyLL;
+	while(thisNode != NULL){
+		if(thisNode->enemy->lastShotTime + thisNode->enemy->firingRate < runtime){
+			vector_t bulletVector = {intToFp(0), intToFp(2)};
+			position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(1)};
+			bullet_t bullet = {bulletPos, bulletPos, bulletVector};
+			appendBullet(&(gameState->bulletLL), bullet);
+			thisNode->enemy->lastShotTime = runtime;
+		}
+		thisNode = thisNode->nextEnemyNode;
+	}
+	/*
+	uint8_t firingPeriod = gameState->enemyLL->enemy->firingPeriod;
 
+
+	if(runtime-gameState->spaceship.lastShotTime>=firingPeriod){//
+		gameState->spaceship.lastShotTime = runtime;
+
+
+		vector_t bulletVelocity = {intToFp(0),intToFp(-3)};
+		position_t bulletPos = {gameState->spaceship.position.x, gameState->spaceship.position.y-intToFp(1)};
+		bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
+
+		appendBullet(&(gameState->bulletLL), bullet);
+	}*/
 }
 
 void detectCityHit(gameState_t* gameState){
 	enemyNode_t* thisNode = gameState->enemyLL;
-	while(1){
-		if(thisNode->enemy->position->x != 0 && fpToInt(thisNode->enemy->position->y) >= 40){
-			gameState->cityLives--;
+	while(thisNode != NULL){
+		if(fpToInt(thisNode->enemy->position->y) >= 40){
+			//gameState->cityLives--;
 			deleteEnemyNode(gameState, thisNode);
-			break;
-		}
-		if(thisNode->nextEnemyNode == 0){
-			break;
+			drawhearth(gameState);
 		}
 		thisNode = thisNode->nextEnemyNode;
 	}

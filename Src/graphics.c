@@ -182,19 +182,13 @@ void drawEnemy(gameState_t* gameState){
 	int isLastElement = 0;
 	enemyNode_t* thisNode = gameState->enemyLL;
 
-	while(1){
-		if(thisNode->enemy->position->x != 0){
-			gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
-			//printf("%d %d", fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
-			printf("  ");
-			gotoxy(fpToInt(thisNode->enemy->nextPosition->x), fpToInt(thisNode->enemy->nextPosition->y));
-			printf(":E");
-			thisNode->enemy->position->x = thisNode->enemy->nextPosition->x;
-			thisNode->enemy->position->y = thisNode->enemy->nextPosition->y;
-		}
-		if(thisNode->nextEnemyNode == 0){
-			break;
-		}
+	while(thisNode != NULL){
+		gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
+		printf("  ");
+		gotoxy(fpToInt(thisNode->enemy->nextPosition->x), fpToInt(thisNode->enemy->nextPosition->y));
+		printf(":E");
+		thisNode->enemy->position->x = thisNode->enemy->nextPosition->x;
+		thisNode->enemy->position->y = thisNode->enemy->nextPosition->y;
 		thisNode = thisNode->nextEnemyNode;
 	}
 }
@@ -203,6 +197,289 @@ void drawBullet(){
 
 }
 
+<<<<<<< Updated upstream
 void drawMe(){
 
+=======
+void drawCity(){
+
+	gotoxy(14,44);
+	printf("%c",219);
+
+	gotoxy(16,44);
+	printf("%c",219);
+
+	gotoxy(17,44);
+	printf("%c",219);
+	gotoxy(17,43);
+	printf("%c",219);
+
+	gotoxy(19,44);
+	printf("%c",220);
+
+	gotoxy(21,44);
+	printf("%c",219);
+
+	gotoxy(23,44);
+	printf("%c",219);
+	gotoxy(23,43);
+	printf("%c",220);
+
+	gotoxy(25,44);
+	printf("%c",219);
+	gotoxy(25,43);
+	printf("%c",219);
+	gotoxy(25,42);
+	printf("%c",219);
+
+	gotoxy(27,44);
+	printf("%c",219);
+	gotoxy(27,43);
+	printf("%c",220);
+
+	gotoxy(28,44);
+	printf("%c",219);
+
+	gotoxy(36,44);
+	printf("%c",219);
+	gotoxy(36,43);
+	printf("%c",219);
+
+	gotoxy(37,44);
+	printf("%c",219);
+
+	gotoxy(38,44);
+	printf("%c",220);
+
+	gotoxy(40,44);
+	printf("%c",219);
+	gotoxy(40,43);
+	printf("%c",219);
+
+	gotoxy(41,43);
+	printf("%c",205);
+
+	gotoxy(42,44);
+	printf("%c",219);
+	gotoxy(42,43);
+	printf("%c",219);
+
+	gotoxy(45,44);
+	printf("%c",186);
+
+	gotoxy(47,44);
+	printf("%c",220);
+
+	gotoxy(55,44);
+	printf("%c",219);
+	gotoxy(55,43);
+	printf("%c",220);
+
+	gotoxy(58,44);
+	printf("%c",219);
+	gotoxy(58,43);
+	printf("%c",219);
+	gotoxy(58,42);
+	printf("%c",220);
+
+	gotoxy(59,44);
+	printf("%c",219);
+	gotoxy(59,43);
+	printf("%c",220);
+
+	gotoxy(60,44);
+	printf("%c",219);
+
+	gotoxy(61,44);
+	printf("%c",219);
+	gotoxy(61,43);
+	printf("%c",219);
+
+	gotoxy(63,44);
+	printf("%c",219);
+
+	gotoxy(64,44);
+	printf("%c",220);
+
+	gotoxy(65,44);
+	printf("%c",219);
+
+	gotoxy(67,44);
+	printf("%c",219);
+	gotoxy(67,43);
+	printf("%c",219);
+	gotoxy(67,42);
+	printf("%c",219);
+
+	gotoxy(69,44);
+	printf("%c",219);
+	gotoxy(69,43);
+	printf("%c",219);
+	gotoxy(69,42);
+	printf("%c",219);
+
+	gotoxy(71,44);
+	printf("%c",219);
+	gotoxy(71,43);
+	printf("%c",219);
+	gotoxy(71,42);
+	printf("%c",219);
+
+	gotoxy(73,44);
+	printf("%c",219);
+	gotoxy(73,43);
+	printf("%c",219);
+
+	gotoxy(74,44);
+	printf("%c",219);
+
+	gotoxy(76,44);
+	printf("%c",219);
+
+	gotoxy(77,44);
+	printf("%c",219);
+	gotoxy(77,43);
+	printf("%c",219);
+
+	gotoxy(79,44);
+	printf("%c",219);
+	gotoxy(79,44);
+	printf("%c",220);
+
+	gotoxy(81,44);
+	printf("%c",219);
+	gotoxy(81,43);
+	printf("%c",219);
+
+	gotoxy(82,44);
+	printf("%c",219);
+
+	gotoxy(85,44);
+	printf("%c",219);
+	gotoxy(85,43);
+	printf("%c",219);
+	gotoxy(85,42);
+	printf("%c",220);
+
+	gotoxy(86,44);
+	printf("%c",219);
+
+	gotoxy(87,44);
+	printf("%c",220);
+
+	gotoxy(88,44);
+	printf("%c",219);
+	gotoxy(88,43);
+	printf("%c",220);
+
+	gotoxy(93,44);
+	printf("%c",219);
+
+	gotoxy(94,44);
+	printf("%c",219);
+	gotoxy(94,43);
+	printf("%c",220);
+
+	gotoxy(95,44);
+	printf("%c",220);
+
+	gotoxy(96,44);
+	printf("%c",219);
+
+	gotoxy(98,44);
+	printf("%c",219);
+	gotoxy(98,43);
+	printf("%c",220);
+
+	gotoxy(99,44);
+	printf("%c",219);
+
+	gotoxy(103,44);
+	printf("%c",219);
+
+	gotoxy(104,44);
+	printf("%c",220);
+
+	gotoxy(107,44);
+	printf("%c",219);
+
+	gotoxy(108,44);
+	printf("%c",219);
+	gotoxy(108,43);
+	printf("%c",219);
+
+	gotoxy(109,44);
+	printf("%c",220);
+
+	gotoxy(112,44);
+	printf("%c",219);
+
+	gotoxy(113,44);
+	printf("%c",220);
+
+	gotoxy(114,44);
+	printf("%c",219);
+	gotoxy(114,43);
+	printf("%c",219);
+
+	gotoxy(115,44);
+	printf("%c",219);
+
+	gotoxy(120,44);
+	printf("%c",47);
+	gotoxy(121,43);
+	printf("%c",47);
+	gotoxy(122,43);
+	printf("%c",223);
+	gotoxy(122,42);
+	printf("%c",168);
+	gotoxy(123,43);
+	printf("%c",92);
+	gotoxy(124,44);
+	printf("%c",92);
+
+	gotoxy(127,44);
+	printf("%c",219);
+	gotoxy(127,43);
+	printf("%c",219);
+	gotoxy(127,42);
+	printf("%c",219);
+
+	gotoxy(129,44);
+	printf("%c",219);
+	gotoxy(129,43);
+	printf("%c",220);
+
+	gotoxy(130,44);
+	printf("%c",219);
+
+	gotoxy(131,44);
+	printf("%c",220);
+
+	gotoxy(132,44);
+	printf("%c",219);
+
+	gotoxy(133,44);
+	printf("%c",219);
+	gotoxy(133,43);
+	printf("%c",219);
+
+	gotoxy(134,44);
+	printf("%c",219);
+
+	gotoxy(135,44);
+	printf("%c",220);
+
+	gotoxy(137,44);
+	printf("%c",220);
+
+	gotoxy(139,44);
+	printf("%c",220);
+
+	gotoxy(141,44);
+	printf("%c",219);
+
+	gotoxy(142,44);
+	printf("%c",220);
+>>>>>>> Stashed changes
 }

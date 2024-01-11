@@ -19,17 +19,8 @@
 void initVariables(gameState_t* gameState){
 	spaceship_t initSpaceship = {{intToFp(2), intToFp(42)}, {intToFp(2), intToFp(42)}, 1, 20, 0};
 
-	enemyNode_t* node = malloc(sizeof(enemyNode_t));
-	enemy_t* enemy = malloc(sizeof(enemy_t));
-	position_t* pos = malloc(sizeof(position_t));
 
-	node->enemy = enemy;
-	pos->x = 0;
-	enemy->position = pos;
-	node->enemy = enemy;
-	node->nextEnemyNode = 0;
-	gameState->enemyLL = node;
-
+	gameState->enemyLL = NULL;
 	gameState->bulletLL = NULL;
 
 	gameState->activeScreen=0; //menu screen
@@ -85,6 +76,10 @@ void checkIfDead(gameState_t* gameState){
 	}
 }
 
+<<<<<<< Updated upstream
+=======
+//TODO: Måske find på noget bedre her??? Det lagger lidt
+>>>>>>> Stashed changes
 void readKey(gameState_t* gameState){
 	char c = uart_get_char();
 	if(c == 'd'){
@@ -95,7 +90,11 @@ void readKey(gameState_t* gameState){
 		gameState->direction = -1;
 		gameState->lastKeyPressTime = runtime;
 	}
+<<<<<<< Updated upstream
 	if(runtime - gameState->lastKeyPressTime > 15){
+=======
+	if(runtime - gameState->lastKeyPressTime > 5){
+>>>>>>> Stashed changes
 		gameState->direction = 0;
 	}
 }
@@ -191,13 +190,17 @@ int main(void) {
 					printf("GAME SCREEN");
 				}
 
+				readKey(&gameState);
 				if(runtime-frameLastUpdated>=framePeriod){//
+<<<<<<< Updated upstream
 					readKey(&gameState);
+=======
+>>>>>>> Stashed changes
 					updateSpaceship(&gameState);
 					spawnEnemy(&gameState);
 					updateEnemy(&gameState);
 					shootSpaceship(&gameState);
-//					shootEnemy(&gameState);
+					shootEnemy(&gameState);
 					updateBullets(&gameState);
 					detectBulletHit(&gameState);
 					detectCityHit(&gameState);
