@@ -11,6 +11,8 @@
 #include "stdint.h"
 #include "stdio.h"
 
+
+
 // position_t 16.16 fixed point format
 typedef struct {
 	uint32_t x;
@@ -93,7 +95,7 @@ typedef struct {
 typedef struct {
 	bulletNode_t* bulletLL;
 	enemyNode_t* enemyLL;
-	moon_t* moons;
+	moon_t moon;
 	spaceship_t spaceship;
 	uint8_t cityLives;
 	uint16_t score;

@@ -17,9 +17,9 @@
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
 
 void initVariables(gameState_t* gameState){
-	spaceship_t initSpaceship = {{intToFp(2), intToFp(42)}, {intToFp(2), intToFp(42)}, 1, 20, 0};
-
-
+	spaceship_t initSpaceship = {{intToFp(2), intToFp(42*yScale)}, {intToFp(2), intToFp(42*yScale)}, 1, 20, 0};
+	moon_t moon = {70,20*yScale,100};// (x, y, mass)
+	
 	gameState->enemyLL = NULL;
 	gameState->bulletLL = NULL;
 
@@ -31,21 +31,22 @@ void initVariables(gameState_t* gameState){
 	gameState->cityLives=3;
 	gameState->spaceship= initSpaceship;
 	gameState->bossMode = 0;
-	gameState->lastKeyPressTime = 0;
+	gameState->moon = moon;
 	//TODO: continue to initialize everything
 }
 
 
 void drawScreen(gameState_t* gameState) {
-	gotoxy(fpToInt(gameState->spaceship.position.x),fpToInt(gameState->spaceship.position.y));
+	gotoxy(fpToInt(gameState->spaceship.position.x),fpToInt(gameState->spaceship.position.y)/yScale); //TODO
 	printf(" ");
-	gotoxy(fpToInt(gameState->spaceship.nextPosition.x),fpToInt(gameState->spaceship.nextPosition.y));
+	gotoxy(fpToInt(gameState->spaceship.nextPosition.x),fpToInt(gameState->spaceship.nextPosition.y)/yScale); //TODO
 	printf("A");
 	gameState->spaceship.position=gameState->spaceship.nextPosition;
 	drawEnemy(gameState);
 	drawBullets(gameState);
 
-	drawMoon(51,17); // moon graphics
+	drawhearth(gameState);
+	drawMoon(gameState->moon.x, gameState->moon.y);
 }
 
 int8_t bossKey(gameState_t* gameState){
@@ -71,6 +72,7 @@ int8_t bossKey(gameState_t* gameState){
 }
 
 void checkIfDead(gameState_t* gameState){
+
 	if(gameState->cityLives == 0){
 		gameState->activeScreen = 3;
 	}
@@ -112,6 +114,7 @@ int main(void) {
 			clrscr();
 			drawWindow();
 			drawbackground(); // stars in background
+			drawMoon(gameState.moon.x, gameState.moon.y);
 			drawMenuScreen(btnList, &gameState);
 
 
@@ -122,7 +125,6 @@ int main(void) {
 				else if(bossKeyChange == 2){
 					//Initialize window agian
 					clrscr();
-					drawBox(1,1,156,43,0);//window
 					drawbackground(); // stars in background
 					drawWindow();
 					drawMenuScreen(btnList, &gameState);
@@ -166,8 +168,9 @@ int main(void) {
 			uint32_t frameLastUpdated=0;
 			gameState.spaceship.lastShotTime=runtime;
 			drawWindow();
-			drawMoon(51,17);
+			drawMoon(gameState.moon.x, gameState.moon.y);
 			drawhearth(&gameState);
+			//drawWindow();
 			drawCity();
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
@@ -184,7 +187,8 @@ int main(void) {
 				}
 
 				if(runtime-frameLastUpdated>=framePeriod){//
-					readKey(&gameState);
+					updateSpaceship(&gameState);
+					spawnEnemy(&gameState);
 					updateSpaceship(&gameState);
 					spawnEnemy(&gameState);
 					updateEnemy(&gameState);
@@ -195,7 +199,7 @@ int main(void) {
 					detectCityHit(&gameState);
 //					powerUp(&gameState);
 //					nukeUpdate(&gameState);
-					checkIfDead(&gameState);
+					//checkIfDead(&gameState);
 					drawScreen(&gameState);
 					frameLastUpdated=runtime;
 				}
@@ -204,7 +208,6 @@ int main(void) {
 		case 2:// HELP SCREEN ------------------------------------------------------------------------
 			clrscr();
 			drawWindow();
-			drawBox(1,1,156,43,0);//window
 			drawbackground(); // stars in background
 			drawHelpScreen();
 			while(gameState.activeScreen==2){
