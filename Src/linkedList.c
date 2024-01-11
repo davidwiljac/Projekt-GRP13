@@ -53,8 +53,10 @@ void deleteEnemyNode(gameState_t* gameState, enemyNode_t* enemy){
 	enemyNode_t* thisNode = gameState->enemyLL;
 
 	if(gameState->enemyLL == enemy){
-		gotoxy(fpToInt(enemy->enemy->position->x), fpToInt(enemy->enemy->position->y));
-		printf("  ");
+		gotoxy(fpToInt(enemy->enemy->position->x), fpToInt(enemy->enemy->position->y)/yScale);
+		printf("       ");
+		gotoxy(fpToInt(enemy->enemy->position->x), (fpToInt(enemy->enemy->position->y) + 1 * yScale)/yScale);
+		printf("       ");
 		gameState->enemyLL = gameState->enemyLL->nextEnemyNode;
 		free(enemy);
 		return;

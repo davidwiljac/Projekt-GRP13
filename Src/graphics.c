@@ -212,15 +212,23 @@ void drawEnemy(gameState_t* gameState){
 	enemyNode_t* thisNode = gameState->enemyLL;
 
 	while(thisNode != NULL){
-		gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
-		printf("  ");
-		gotoxy(fpToInt(thisNode->enemy->nextPosition->x), fpToInt(thisNode->enemy->nextPosition->y));
-		printf(":E");
+		gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y)/yScale);
+		printf("       ");
+		gotoxy(fpToInt(thisNode->enemy->position->x), (fpToInt(thisNode->enemy->position->y) + 1 * yScale)/yScale);
+		printf("       ");
+
+		gotoxy(fpToInt(thisNode->enemy->nextPosition->x), fpToInt(thisNode->enemy->nextPosition->y)/yScale);
+		printf("  o o  ");
+		gotoxy(fpToInt(thisNode->enemy->nextPosition->x), (fpToInt(thisNode->enemy->nextPosition->y) + 1 * yScale)/yScale);
+		printf("%c%c%c%c%c%c%c", 201, 205, 205, 205, 205, 205, 187);
+
 		thisNode->enemy->position->x = thisNode->enemy->nextPosition->x;
 		thisNode->enemy->position->y = thisNode->enemy->nextPosition->y;
 		thisNode = thisNode->nextEnemyNode;
 	}
 }
+// ^ ^ ^ ^
+// -------
 
 void drawBullet(uint8_t X, uint8_t Y){
 	gotoxy(X,Y);

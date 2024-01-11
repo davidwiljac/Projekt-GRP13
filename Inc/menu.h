@@ -20,9 +20,6 @@
 
 #define yScale 2 //1 is normal, 2 makes the virtual screen height 86
 
-
-
-
 void drawMenuScreen(button_t btnList[], gameState_t* gameState);
 void drawHelpScreen();
 void drawButton(button_t btn);

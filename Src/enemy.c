@@ -6,7 +6,7 @@
  */
 #include"enemy.h"
 void spawnEnemy(gameState_t* gameState){
-	int shouldGenEnemy = rand() % 50;      // Returns a pseudo-random integer [0:32].
+	int shouldGenEnemy = rand() % 100;      // Returns a pseudo-random integer [0:32].
 	if(shouldGenEnemy == 0){
 		//int8_t enemyPos = rand() % 156;
 		//TODO: Fix tilfældighedsgenerator
@@ -23,7 +23,7 @@ void spawnEnemy(gameState_t* gameState){
 
 		vector_t* vEnemy = malloc(sizeof(vector_t));
 		vEnemy->x = intToFp(0);
-		vEnemy->y = 0x00008000;
+		vEnemy->y = 0x00008000 * yScale;
 		enemy->velocity  = vEnemy;
 
 		position_t* newPos = malloc(sizeof(position_t));
@@ -51,7 +51,7 @@ void shootEnemy(gameState_t* gameState){
 	while(thisNode != NULL){
 		if(thisNode->enemy->lastShotTime + thisNode->enemy->firingRate < runtime){
 			vector_t bulletVector = {intToFp(0), intToFp(2)};
-			position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(1)};
+			position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(2)};
 			bullet_t bullet = {bulletPos, bulletPos, bulletVector};
 			appendBullet(&(gameState->bulletLL), bullet);
 			thisNode->enemy->lastShotTime = runtime;
@@ -77,7 +77,7 @@ void shootEnemy(gameState_t* gameState){
 void detectCityHit(gameState_t* gameState){
 	enemyNode_t* thisNode = gameState->enemyLL;
 	while(thisNode != NULL){
-		if(fpToInt(thisNode->enemy->position->y) >= 40){
+		if(fpToInt(thisNode->enemy->position->y) >= 40 * yScale){
 			//gameState->cityLives--;
 			deleteEnemyNode(gameState, thisNode);
 			drawhearth(gameState);
