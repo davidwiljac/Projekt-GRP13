@@ -106,10 +106,6 @@ typedef struct {
 	uint8_t difficulty; // 0=easy, 1=medium, 2=hard
 	int8_t direction;
 	uint32_t lastKeyPressTime;
-<<<<<<< Updated upstream
-=======
-	uint8_t keyboardDelay;
->>>>>>> Stashed changes
 } gameState_t ;
 
 

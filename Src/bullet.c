@@ -52,31 +52,7 @@ void detectBulletHit(gameState_t* gameState){
 		if(fpToInt(current->bullet.nextPosition.y)<=1 || fpToInt(current->bullet.nextPosition.y)>=43*yScale || fpToInt(current->bullet.nextPosition.x)<=1 ||fpToInt(current->bullet.nextPosition.x)>=153 ||distToMoon<=6){ //TODO: add other boundaries
 			deleteBulletNode(&(gameState->bulletLL), current);
 		}
-	}
-}
-
-void drawBullets(bulletNode_t* head){
-	bulletNode_t* current = head;
-	bulletNode_t* current = gameState->bulletLL;
-	while (current != NULL) {
-		//Detect upper bound
-		if(fpToInt(current->bullet.nextPosition.y)<=1){ //TODO: add other boundaries
-			deleteBulletNode(&(gameState->bulletLL), current);
-		}
-
-		//Detect lower bound
-		if(fpToInt(current->bullet.nextPosition.y)>=45){ //TODO: add other boundaries
-			deleteBulletNode(&(gameState->bulletLL), current);
-		}
-
-		//Detect enemy hit
-		while(1){
-			enemyNode_t* currentEnemy = gameState->enemyLL;
-			break;
-
-		}
 		current = current->nextBulletAddress;
-
 	}
 }
 

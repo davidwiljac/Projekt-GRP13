@@ -10,7 +10,7 @@ void spawnEnemy(gameState_t* gameState){
 	if(shouldGenEnemy == 0){
 		//int8_t enemyPos = rand() % 156;
 		//TODO: Fix tilfældighedsgenerator
-		uint8_t enemyPos = 70;
+		uint8_t enemyPos = 20;
 
 
 		enemy_t* enemy = malloc(sizeof(enemy_t));
