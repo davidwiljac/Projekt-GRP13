@@ -36,12 +36,22 @@ typedef struct {
 	uint32_t lastShotTime;
 } enemy_t ;
 
+//powerup_t
+typedef struct {
+	uint8_t isVisible;
+	position_t position;
+	position_t nextPosition;
+	vector_t velocity;
+	uint32_t lastUseTime;
+} powerup_t ;
+
 
 //bullet_t
 typedef struct {
 	position_t position;
 	position_t nextPosition;
 	vector_t velocity;
+	uint32_t distanceToMoon; //(estimate) 16.16 fixed point
 }bullet_t;
 
 
@@ -107,8 +117,8 @@ typedef struct {
 	uint8_t difficulty; // 0=easy, 1=medium, 2=hard
 	int8_t direction;
 	uint32_t lastKeyPressTime;
-	uint8_t keyboardDelay;
 	char lastKeyPress;
+	powerup_t powerup;
 } gameState_t ;
 
 

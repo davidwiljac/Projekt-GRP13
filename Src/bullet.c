@@ -8,19 +8,13 @@
 void updateBullets(gameState_t* gameState){
 	bulletNode_t* current = gameState->bulletLL;
 	while (current != NULL) {
-////		VED BRUG AF FLOATING POINT (sqrt())
-//		vector_t v = {intToFp(gameState->moon.x-fpToInt(current->bullet.position.x)), intToFp(gameState->moon.y-fpToInt(current->bullet.position.y))};
-//		uint32_t vLength = intToFp((int)sqrt(fpToInt(v.x)*fpToInt(v.x)+fpToInt(v.y)*fpToInt(v.y)));
-//		v = scaleVector(v, fpDivide(intToFp(1),vLength));
-//		//v har nu længde 1
-//		vector_t accVec = scaleVector(v, fpDivide(intToFp(gameState->moon.mass),fpMultiply(vLength, vLength)));
 
 		//UDEN BRUG AF FLOATING POINT (vLength er et estimat)
 		vector_t v = {intToFp(gameState->moon.x)-current->bullet.position.x, intToFp(gameState->moon.y)-current->bullet.position.y};
-		uint32_t vLength = fpMultiply(fpAbs(v.x)+fpAbs(v.y), 0x0000b400); // 0x0000b400 er ca. sqrt(2)/2
-		v = scaleVector(v, fpDivide(intToFp(1),vLength));
+		current->bullet.distanceToMoon = fpMultiply(fpAbs(v.x)+fpAbs(v.y), 0x0000b400); // 0x0000b400 er ca. sqrt(2)/2
+		v = scaleVector(v, fpDivide(intToFp(1),current->bullet.distanceToMoon));
 		//v er nu ca. 1 lang
-		vector_t accVec = scaleVector(v, fpDivide(intToFp(gameState->moon.mass),fpMultiply(vLength, vLength)));
+		vector_t accVec = scaleVector(v, fpDivide(intToFp(gameState->moon.mass),fpMultiply(current->bullet.distanceToMoon, current->bullet.distanceToMoon)));
 
 
 		current->bullet.velocity.x+=accVec.x;
@@ -36,10 +30,8 @@ void updateBullets(gameState_t* gameState){
 void detectBulletHit(gameState_t* gameState){
 	bulletNode_t* current = gameState->bulletLL;
 	while (current != NULL) {
-		//Check if bullet hit a wall or the moon
-		vector_t v = {intToFp(gameState->moon.x-fpToInt(current->bullet.position.x)), intToFp(gameState->moon.y-fpToInt(current->bullet.position.y))};
-		int distToMoon = (int)sqrt(fpToInt(v.x)*fpToInt(v.x)+fpToInt(v.y)*fpToInt(v.y));
-		//TODO: afstandsberegning herover kan optimeres. Den beregnes allerede i updateBullet();
+
+		uint8_t distToMoon = fpToInt(current->bullet.distanceToMoon);
 
 		int8_t hitInertObject = 0;
 		hitInertObject = fpToInt(current->bullet.nextPosition.y)<=2*yScale ||

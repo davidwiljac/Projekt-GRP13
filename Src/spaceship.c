@@ -27,11 +27,49 @@ void shootSpaceship(gameState_t* gameState){
 
 		gameState->spaceship.lastShotTime = runtime;
 
+		for (int i = 0; i<gameState->spaceship.numberOfParts; i++){
+			if(i ==2){
+				vector_t bulletVelocity = {intToFp(0),0xffff8000*yScale}; //0xffff8000 is -0,5
+				position_t bulletPos = {gameState->spaceship.position.x-intToFp(spaceshipWidth), gameState->spaceship.position.y-intToFp(1)*yScale};
+				bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
+				appendBullet(&(gameState->bulletLL), bullet);
+			} else {
+				vector_t bulletVelocity = {intToFp(0),0xffff8000*yScale}; //0xffff8000 is -0,5
+				position_t bulletPos = {gameState->spaceship.position.x+intToFp(i*spaceshipWidth), gameState->spaceship.position.y-intToFp(1)*yScale};
+				bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
+				appendBullet(&(gameState->bulletLL), bullet);
+			}
 
-		vector_t bulletVelocity = {intToFp(0),0xffff8000*yScale}; //0xffff8000 is -0,5
-		position_t bulletPos = {gameState->spaceship.position.x, gameState->spaceship.position.y-intToFp(1)};
-		bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
 
-		appendBullet(&(gameState->bulletLL), bullet);
+
+
+		}
+
+
 	}
+
+}
+
+void drawSpaceship(gameState_t* gameState){
+
+	deleteAttachmentRods(fpToInt(gameState->spaceship.position.x), fpToInt(gameState->spaceship.position.y)/yScale);
+	drawAttachmentRods(fpToInt(gameState->spaceship.nextPosition.x), fpToInt(gameState->spaceship.nextPosition.y)/yScale);
+
+	for (int i = 0; i<gameState->spaceship.numberOfParts; i++){
+
+		if(i == 2){
+			deleteMe(fpToInt(gameState->spaceship.position.x)-spaceshipWidth, fpToInt(gameState->spaceship.position.y)/yScale);
+			drawMe(fpToInt(gameState->spaceship.nextPosition.x)-spaceshipWidth, fpToInt(gameState->spaceship.nextPosition.y)/yScale);
+		} else {
+			deleteMe(fpToInt(gameState->spaceship.position.x)+i*spaceshipWidth, fpToInt(gameState->spaceship.position.y)/yScale);
+			drawMe(fpToInt(gameState->spaceship.nextPosition.x)+i*spaceshipWidth, fpToInt(gameState->spaceship.nextPosition.y)/yScale);
+
+		}
+
+
+	}
+
+
+
+	gameState->spaceship.position=gameState->spaceship.nextPosition;
 }

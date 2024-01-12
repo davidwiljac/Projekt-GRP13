@@ -63,7 +63,7 @@ void detectCityHit(gameState_t* gameState){
 		if(fpToInt(thisNode->enemy->position->y) >= 40 * yScale){
 			gameState->cityLives--;
 			deleteEnemyNode(gameState, thisNode);
-			drawhearth(gameState);
+			//drawhearth(gameState);
 		}
 		thisNode = thisNode->nextEnemyNode;
 	}
