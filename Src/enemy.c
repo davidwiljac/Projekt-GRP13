@@ -6,6 +6,7 @@
  */
 #include"enemy.h"
 void spawnEnemy(gameState_t* gameState){
+<<<<<<< Updated upstream
 	int shouldGenEnemy = rand() % 50;      // Returns a pseudo-random integer [0:32].
 	if(shouldGenEnemy == 0){
 		int8_t enemyPos = rand() % 156;
@@ -14,12 +15,17 @@ void spawnEnemy(gameState_t* gameState){
 		//TODO: Fix tilfældighedsgenerator
 
 >>>>>>> Stashed changes
+=======
+	int shouldGenEnemy = rand() % 150;
+	if(shouldGenEnemy == 0){
+		//TODO: Fix tilfældighedsgenerator
+		uint16_t enemyPos = (rand() % 149) + 1;
+>>>>>>> Stashed changes
 
 		enemy_t* enemy = malloc(sizeof(enemy_t));
-		enemy->firingRate = 2;
 		position_t* pos = malloc(sizeof(position_t));
 		pos->x = intToFp(enemyPos);
-		pos->y = intToFp(2);
+		pos->y = intToFp(3*yScale);
 		enemy->position = pos;
 
 
@@ -57,7 +63,11 @@ void shootEnemy(gameState_t* gameState){
 	while(thisNode != NULL){
 		if(thisNode->enemy->lastShotTime + thisNode->enemy->firingRate < runtime){
 			vector_t bulletVector = {intToFp(0), intToFp(2)};
+<<<<<<< Updated upstream
 			position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(1)};
+=======
+			position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(2 * yScale)};
+>>>>>>> Stashed changes
 			bullet_t bullet = {bulletPos, bulletPos, bulletVector};
 			appendBullet(&(gameState->bulletLL), bullet);
 			thisNode->enemy->lastShotTime = runtime;

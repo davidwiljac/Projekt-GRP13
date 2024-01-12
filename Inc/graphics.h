@@ -21,5 +21,6 @@ void Moongravity();
 void drawbackground();
 void drawhearth(gameState_t* gameState);
 void drawCity();
+void drawScore(gameState_t* gameState);
 
 #endif /* GRAPHICS_H_ */

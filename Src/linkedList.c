@@ -68,13 +68,16 @@ void deleteEnemyNode(gameState_t* gameState, enemyNode_t* enemy){
 
 	while(thisNode != NULL){
 		if(thisNode == enemy){
-			gotoxy(fpToInt(thisNode->enemy->position->x), fpToInt(thisNode->enemy->position->y));
-			printf("  ");
+			gotoxy(fpToInt(enemy->enemy->position->x), fpToInt(enemy->enemy->position->y)/yScale);
+			printf("       ");
+			gotoxy(fpToInt(enemy->enemy->position->x), (fpToInt(enemy->enemy->position->y) + 1 * yScale)/yScale);
+			printf("       ");
 			preNode->nextEnemyNode = thisNode->nextEnemyNode;
 			free(thisNode->enemy->nextPosition);
 			free(thisNode->enemy->position);
 			free(thisNode->enemy->velocity);
 			free(thisNode->enemy);
+			free(thisNode);
 			return;
 		}
 		preNode = thisNode;

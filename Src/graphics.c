@@ -179,7 +179,10 @@ void drawhearth(gameState_t* gameState){
 
 
 void drawEnemy(gameState_t* gameState){
+<<<<<<< Updated upstream
 	int isLastElement = 0;
+=======
+>>>>>>> Stashed changes
 	enemyNode_t* thisNode = gameState->enemyLL;
 
 	while(thisNode != NULL){
@@ -202,7 +205,6 @@ void drawMe(){
 
 =======
 void drawCity(){
-
 	gotoxy(14,44);
 	printf("%c",219);
 
@@ -482,4 +484,9 @@ void drawCity(){
 	gotoxy(142,44);
 	printf("%c",220);
 >>>>>>> Stashed changes
+}
+
+void drawScore(gameState_t* gameState){
+	gotoxy(140, 0);
+	printf("Your score is: %d", gameState->score);
 }

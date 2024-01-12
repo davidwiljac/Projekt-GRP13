@@ -63,10 +63,10 @@ void detectBulletHit(gameState_t* gameState){
 		//TODO: afstandsberegning herover kan optimeres. Den beregnes allerede i updateBullet();
 
 		int8_t hitInertObject = 0;
-		hitInertObject = fpToInt(current->bullet.nextPosition.y)<=1 ||
+		hitInertObject = fpToInt(current->bullet.nextPosition.y)<=2 ||
 				fpToInt(current->bullet.nextPosition.y)>=43*yScale ||
-				fpToInt(current->bullet.nextPosition.x)<=1 ||
-				fpToInt(current->bullet.nextPosition.x)>=153 ||
+				fpToInt(current->bullet.nextPosition.x)<=0 ||
+				fpToInt(current->bullet.nextPosition.x)>=156 ||
 				distToMoon<=6;
 
 		if(hitInertObject){ //TODO: add other boundaries
@@ -74,14 +74,16 @@ void detectBulletHit(gameState_t* gameState){
 		}
 
 		//Check if the bullet hit an enemy
-		int8_t hitEnemy = 0;
 		enemyNode_t* currentEnemy = gameState->enemyLL;
 		while(currentEnemy != NULL){
-			hitEnemy = fpToInt(current->bullet.nextPosition.x) >= fpToInt(currentEnemy->enemy->position->x) &&
-					fpToInt(current->bullet.nextPosition.x) <= fpToInt(currentEnemy->enemy->position->x) + 7 * yScale &&
-					fpToInt(current->bullet.nextPosition.y) >= fpToInt(currentEnemy->enemy->position->y) &&
-					fpToInt(current->bullet.nextPosition.y) <= fpToInt(currentEnemy->enemy->position->y) + 1 * yScale;
-			if(hitEnemy){
+			uint8_t hitEnemy = 0;
+			hitEnemy = (fpToInt(current->bullet.position.x) >= fpToInt(currentEnemy->enemy->position->x) &&
+					fpToInt(current->bullet.position.x) <= fpToInt(currentEnemy->enemy->position->x) + 7 &&
+					fpToInt(current->bullet.position.y) >= fpToInt(currentEnemy->enemy->position->y) &&
+					fpToInt(current->bullet.position.y) <= fpToInt(currentEnemy->enemy->position->y) + 1 * yScale);
+			if(hitEnemy == 1){
+				gameState->score += 10;
+				drawScore(gameState);
 				deleteBulletNode(&(gameState->bulletLL), current);
 				deleteEnemyNode(gameState, currentEnemy);
 			}

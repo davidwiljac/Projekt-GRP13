@@ -44,8 +44,12 @@ void drawScreen(gameState_t* gameState) {
 	gameState->spaceship.position=gameState->spaceship.nextPosition;
 	drawEnemy(gameState);
 	drawBullets(gameState);
+<<<<<<< Updated upstream
 
 	drawMoon(51,17); // moon graphics
+=======
+	drawMoon(gameState->moon.x, gameState->moon.y);
+>>>>>>> Stashed changes
 }
 
 void checkIfDead(gameState_t* gameState){
@@ -100,7 +104,7 @@ int main(void) {
 	const button_t helpBtn = {75,25,"HELP"};
 	button_t btnList[] = {startBtn, diffBtn, helpBtn}; //always only 3 buttons!
 
-	uart_init(256000);
+	uart_init(512000);
 	initVariables(&gameState);
 	initTimer();
 	initJoystick();
@@ -176,6 +180,7 @@ int main(void) {
 			drawMoon(51,17);
 			drawhearth(&gameState);
 			drawCity();
+			drawScore(&gameState);
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
 <<<<<<< Updated upstream
@@ -197,7 +202,10 @@ int main(void) {
 >>>>>>> Stashed changes
 				if(runtime-frameLastUpdated>=framePeriod){//
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 					readKey(&gameState);
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 					updateSpaceship(&gameState);
