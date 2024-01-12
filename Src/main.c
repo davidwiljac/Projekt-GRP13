@@ -154,7 +154,7 @@ int main(void) {
 			while(gameState.activeScreen==1){
 				readInput(&gameState);
 				if(runtime-frameLastUpdated>=framePeriod){//
-					readKey(&gameState);
+					readInput(&gameState);
 					updateSpaceship(&gameState);
 					spawnEnemy(&gameState);
 					updateEnemy(&gameState);

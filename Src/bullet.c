@@ -42,9 +42,9 @@ void detectBulletHit(gameState_t* gameState){
 		//TODO: afstandsberegning herover kan optimeres. Den beregnes allerede i updateBullet();
 
 		int8_t hitInertObject = 0;
-		hitInertObject = fpToInt(current->bullet.nextPosition.y)<=2 ||
+		hitInertObject = fpToInt(current->bullet.nextPosition.y)<=2*yScale ||
 				fpToInt(current->bullet.nextPosition.y)>=43*yScale ||
-				fpToInt(current->bullet.nextPosition.x)<=0 ||
+				fpToInt(current->bullet.nextPosition.x)<=1 ||
 				fpToInt(current->bullet.nextPosition.x)>=156 ||
 				distToMoon<=6;
 
