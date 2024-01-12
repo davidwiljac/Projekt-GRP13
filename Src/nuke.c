@@ -38,4 +38,5 @@ void shootNuke(gameState_t* gameState){
 
 void updateNuke(gameState_t* gameState){
 	chargeNuke(gameState);
+
 }

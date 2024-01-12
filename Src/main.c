@@ -193,9 +193,9 @@ int main(void) {
 					updateSpaceship(&gameState);
 					updateEnemy(&gameState);
 					updatePowerup(&gameState);
+					shootSpaceship(&gameState);
 					updateBullets(&gameState);
 
-					shootSpaceship(&gameState);
 					shootEnemy(&gameState);
 
 					detectBulletHit(&gameState);
