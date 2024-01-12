@@ -115,8 +115,9 @@ int main(void) {
 
 	uart_init(512000);
 	initVariables(&gameState);
-	initTimer();
 	initJoystick();
+	initTimer();
+	initBuzzerPin();
 	initRGB();
 	I2C_init();
 	analogConfigPorts();

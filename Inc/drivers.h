@@ -41,4 +41,7 @@ uint16_t readPotentiometer();
 
 void initRGB();
 void RGBColor(uint8_t color[]);
+
+void setFreq(uint16_t freq);
+void initBuzzerPin();
 #endif /* DRIVERS_H_ */
