@@ -10,6 +10,12 @@
 
 #include "types.h"
 #include "drivers.h"
+#include "ansi.h"
+#include "menu.h"
+#include "fixedPoint.h"
+#include "linkedList.h"
+#include "graphics.h"
+
 void updateNuke(gameState_t* gameState);
 void chargeNuke(gameState_t* gameState);
 void shootNuke(gameState_t* gameState);

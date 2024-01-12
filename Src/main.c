@@ -25,8 +25,17 @@ void initVariables(gameState_t* gameState){
 	gameState->enemyLL = NULL;
 	gameState->bulletLL = NULL;
 
-	nuke_t nuke = {NULL, NULL, 0, 0, 0};
-	gameState->nuke = &nuke;
+	nuke_t* nuke = malloc(sizeof(nuke_t));
+	position_t pos = {0,0};
+	nuke->position = pos;
+	nuke->nextPosition = pos;
+	//nuke->velocity = {0,0};
+	nuke->isDeployed = 0;
+	nuke->readyState = 0;
+	gameState->nuke = nuke;
+	gameState->nuke->lastDetonationTime = 0xFFFFFFFF;
+	gameState->nuke->circleClear = 1;
+
 
 	gameState->activeScreen=0; //menu screen
 	gameState->difficulty=1;   // medium (if changed here, update also definition of diffBtn)
@@ -51,6 +60,7 @@ void drawScreen(gameState_t* gameState) {
 	drawPowerup(gameState);
 	drawhearth(gameState);
 	drawMoon(gameState->moon.x, gameState->moon.y);
+	drawNuke(gameState);
 }
 
 int8_t bossKey(gameState_t* gameState){
@@ -78,6 +88,10 @@ void checkIfDead(gameState_t* gameState){
 
 	if(gameState->cityLives == 0){
 		gameState->activeScreen = 3;
+		uint16_t oldScore = readFromFlash(0x0800F800);
+		if(gameState->score > oldScore){
+			writeToFlash(gameState->score, 0x0800F800);
+		}
 	}
 }
 
@@ -133,7 +147,6 @@ int main(void) {
 			drawMoon(gameState.moon.x, gameState.moon.y);
 			drawMenuScreen(btnList, &gameState);
 
-
 			while(gameState.activeScreen==0){
 				readInput(&gameState);
 				if(downIsPressed()){
@@ -178,6 +191,7 @@ int main(void) {
 			drawMoon(gameState.moon.x, gameState.moon.y);
 			drawhearth(&gameState);
 			//drawWindow();
+			gameState.powerup.lastUseTime = runtime;
 			drawCity();
 			drawScore(&gameState);
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
@@ -202,7 +216,7 @@ int main(void) {
 					detectCityHit(&gameState);
 //					powerUp(&gameState);
 					updateNuke(&gameState);
-					//checkIfDead(&gameState);
+					checkIfDead(&gameState);
 					drawScreen(&gameState);
 					frameLastUpdated=runtime;
 				}
@@ -222,7 +236,8 @@ int main(void) {
 			break;
 		case 3:// GAME OVER SCREEN -------------------------------------------------------------------
 			clrscr();
-			printf("YOU HELLA DEAD!\n YOU SUCK Your score is %d", gameState.score);
+			printf("YOU HELLA DEAD!\n YOU SUCK Your score is %d\n", gameState.score);
+			printf("Your highscore is %d", readFromFlash(0x0800F800));
 			while(gameState.activeScreen==3){
 				readInput(&gameState);
 				if(centerIsPressed()){
@@ -232,9 +247,13 @@ int main(void) {
 			}
 			break;
 		case 4:
-			readInput(&gameState);
-			gotoxy(0,0);
-			printf("Noget meget vigtigt!");
+			drawBossKey();
+			while(1){
+				readInput(&gameState);
+				if(gameState.activeScreen !=4){
+					break;
+				}
+			}
 			break;
 		}
 	}

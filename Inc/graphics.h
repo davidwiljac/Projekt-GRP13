@@ -30,4 +30,9 @@ void deletePowerupGraphics(uint8_t x, uint8_t y);
 void drawAttachmentRods(uint8_t x, uint8_t y);
 void deleteAttachmentRods(uint8_t x, uint8_t y);
 
+void drawNuke(gameState_t* gameState);
+void drawNukeCircle(gameState_t* gameState);
+void clearNukeCircle(gameState_t* gameState);
+
+void drawBossKey();
 #endif /* GRAPHICS_H_ */

@@ -41,4 +41,7 @@ uint16_t readPotentiometer();
 
 void initRGB();
 void RGBColor(uint8_t color[]);
+
+void writeToFlash(uint16_t data, uint32_t address);
+uint16_t readFromFlash(uint32_t address);
 #endif /* DRIVERS_H_ */
