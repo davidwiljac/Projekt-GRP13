@@ -15,6 +15,10 @@
 #include "MoonGravity.h"
 
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
+const sound_t sounds[][10] = {
+		{{500, 50}, {1000,50}},
+		{{500,50}, {1000,50}, {1500, 50}}
+};
 
 void initVariables(gameState_t* gameState){
 	spaceship_t initSpaceship = {{intToFp(2), intToFp(42*yScale)}, {intToFp(2), intToFp(42*yScale)}, 1, 20, 0};

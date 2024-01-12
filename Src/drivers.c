@@ -131,6 +131,31 @@ void initTimer(){ //period = 0,01 sec
 	 TIM15->DIER |= 0x0001; // Enable timer 15 interrupts
 	 NVIC_SetPriority(TIM1_BRK_TIM15_IRQn, 0); // Set interrupt priority
 	 NVIC_EnableIRQ(TIM1_BRK_TIM15_IRQn); // Enable interrupt
+<<<<<<< Updated upstream
+=======
+
+
+
+	 //BUZZER timer (TIM2)vvvvvvvvvvvvvvvv
+
+	 RCC->APB1ENR |= RCC_APB1Periph_TIM2; // Enable clock line to timer 2;
+	 TIM2->CR1 &= 0xF400; // Configure timer 2
+	 //TIM2->CR1 = 0x0000; // Configure timer 2
+	 TIM2->ARR = 63999; // Set reload value //63999
+	 TIM2->PSC = 0x0009; // Set prescale value
+
+	 //TIM2->CR1 |= 0x0001; //counter enable
+
+	  TIM2->CCER &= ~TIM_CCER_CC3P; // Clear CCER register
+	  TIM2->CCER |= 0x00000001 << 8; // Enable OC3 output
+	  TIM2->CCMR2 &= ~TIM_CCMR2_OC3M; // Clear CCMR2 register
+	  TIM2->CCMR2 &= ~TIM_CCMR2_CC3S;
+	  TIM2->CCMR2 |= TIM_OCMode_PWM1; // Set output mode to PWM1
+	  TIM2->CCMR2 &= ~TIM_CCMR2_OC3PE;
+	  TIM2->CCMR2 |= TIM_OCPreload_Enable;
+	  TIM2->CCR3 = 63999 / 2; // Set duty cycle to 50 %
+
+>>>>>>> Stashed changes
 }
 
 void TIM1_BRK_TIM15_IRQHandler(void) {

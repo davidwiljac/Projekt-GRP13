@@ -11,8 +11,6 @@
 #include "stdint.h"
 #include "stdio.h"
 
-
-
 // position_t 16.16 fixed point format
 typedef struct {
 	uint32_t x;
@@ -121,5 +119,11 @@ typedef struct {
 	uint8_t y;
 	char* text;
 } button_t;
+
+//sound with frequency and time
+typedef struct {
+	uint16_t freq;
+	uint16_t time; //in centiseconds
+} sound_t;
 
 #endif /* TYPES_H_ */
