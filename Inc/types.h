@@ -66,9 +66,12 @@ struct enemyNode_t {
 typedef struct {
 	position_t position;
 	position_t nextPosition;
+	vector_t velocity;
 	uint8_t isDeployed; //(0 = not deployed, 1 = deployed)
 	uint8_t readyState; //(0 = not ready, 1 = ready)
-	uint8_t lastActivationTime; //(i centiSekunder)
+	uint32_t lastDetonationTime;
+	uint8_t circleClear;
+	uint32_t lastActivationTime; //(i centiSekunder)
 } nuke_t ;
 
 //spaceShip_t
@@ -79,7 +82,6 @@ typedef struct {
 	uint8_t firingPeriod; //time in centiseconds between each shot
 	uint8_t powerups;
 	uint32_t lastShotTime;
-	//nuke_t nuke; //skal uncommentes senere
 } spaceship_t ;
 
 

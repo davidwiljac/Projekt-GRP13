@@ -236,6 +236,10 @@ void I2C_init()
     I2C1->CR1  |= 0x00000000;  // Set mode (0x00000000 - I2C, 0x00200000 - SMBus Device, 0x00100000 - SMBus Host)
     I2C1->CR2  &= 0x07FF7FFF;  // Clear config 2
     I2C1->CR2  |= 0x00000000;  // Configure acknowledgment (0x00000000 - Enabled, 0x00008000 - Disabled)
+
+	I2C_Write(0x98, 0x07, 0x01); //Turn on acc
+	I2C_Write(0x98, 0x0A, 0x00); //Enable all tab axis
+	I2C_Write(0x98, 0x09, 0x1F); //Set tabthreshold to max value 11111
 }
 
 //Potentiometers  vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -322,4 +326,17 @@ void RGBColor(uint8_t color[]){
 	if(color[2] == 1){ //Blue A9
 		GPIOA->ODR &= (0x000 << 9);
 	}
+}
+
+//Flash memory
+void writeToFlash(uint16_t data, uint32_t address){
+	FLASH_Unlock();
+	FLASH_ClearFlag( FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPERR );
+	FLASH_ErasePage(address);
+	FLASH_ProgramHalfWord(address, data);
+	FLASH_Lock();
+}
+
+uint16_t readFromFlash(uint32_t address){
+	return *(uint16_t *)address;
 }

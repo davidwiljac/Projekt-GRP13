@@ -545,3 +545,203 @@ void drawScore(gameState_t* gameState){
 	gotoxy(140, 0);
 	printf("Your score is: %d", gameState->score);
 }
+<<<<<<< Updated upstream
+=======
+
+void drawMe(uint8_t X, uint8_t Y){
+	gotoxy(X,Y);
+	printf("%c",219);
+	gotoxy(X-1,Y);
+	printf("%c",220);
+	gotoxy(X+1,Y);
+	printf("%c",220);
+	gotoxy(X-1,Y+1);
+	printf("%c",223);
+	gotoxy(X+1,Y+1);
+	printf("%c",223);
+
+	gotoxy(X,Y-1);
+	printf("%c",179);
+}
+
+void deleteMe(uint8_t X, uint8_t Y){
+	gotoxy(X,Y);
+	printf(" ");
+	gotoxy(X-1,Y);
+	printf(" ");
+	gotoxy(X+1,Y);
+	printf(" ");
+	gotoxy(X-1,Y+1);
+	printf(" ");
+	gotoxy(X+1,Y+1);
+	printf(" ");
+
+	gotoxy(X,Y-1);
+	printf(" ");
+}
+
+void drawAttachmentRods(uint8_t x, uint8_t y){
+	gotoxy(x+2, y);
+	printf("____");
+	gotoxy(x-5, y);
+	printf("____");
+}
+
+void deleteAttachmentRods(uint8_t x, uint8_t y){
+	gotoxy(x+2, y);
+	printf("    ");
+	gotoxy(x-5, y);
+	printf("    ");
+}
+
+void deletePowerupGraphics(uint8_t x, uint8_t y){
+	gotoxy(x, y);
+	printf("     ");
+	gotoxy(x, y+1);
+	printf("     ");
+	gotoxy(x, y+2);
+	printf("     ");
+
+}
+
+void drawPowerupGraphics(uint8_t x, uint8_t y){
+ drawBox(x, y, x+4, y+2, 1);
+ gotoxy(x+2, y+1);
+ printf("$");
+}
+
+void drawNuke(gameState_t* gameState){
+	if(gameState->nuke->isDeployed == 1){
+		gotoxy(fpToInt(gameState->nuke->position.x),(fpToInt(gameState->nuke->position.y)) / yScale);
+		printf("     ");
+		gotoxy(fpToInt(gameState->nuke->position.x),(fpToInt(gameState->nuke->position.y) + 1 * yScale) / yScale);
+		printf("     ");
+		gotoxy(fpToInt(gameState->nuke->position.x),(fpToInt(gameState->nuke->position.y) + 2 * yScale) / yScale);
+		printf("     ");
+
+		gotoxy(fpToInt(gameState->nuke->nextPosition.x),fpToInt(gameState->nuke->nextPosition.y) / yScale);
+		printf("  |  ");
+		gotoxy(fpToInt(gameState->nuke->nextPosition.x),(fpToInt(gameState->nuke->nextPosition.y) + 1 * yScale) / yScale);
+		printf("- o -");
+		gotoxy(fpToInt(gameState->nuke->nextPosition.x),(fpToInt(gameState->nuke->nextPosition.y) + 2 * yScale) / yScale);
+		printf(" / %c ", 92);
+
+		gameState->nuke->position = gameState->nuke->nextPosition;
+	}
+}
+
+void drawNukeCircle(gameState_t* gameState){
+	uint32_t x = fpToInt(gameState->nuke->position.x);
+	uint32_t y = fpToInt(gameState->nuke->position.y)/yScale;
+
+	gotoxy(x-15, y-7);
+	printf("              ___-------___               \n");
+	gotoxy(x-15, y-6);
+	printf("           __-             -__            \n");
+	gotoxy(x-15, y-5);
+	printf("         _-                   -_          \n");
+	gotoxy(x-15, y-4);
+	printf("       _-                       -_        \n");
+	gotoxy(x-15, y-3);
+	printf("     _-                            -_     \n");
+	gotoxy(x-15, y-2);
+	printf("   _-                                -_   \n");
+	gotoxy(x-15, y-1);
+	printf("  =                                    =  \n");
+	gotoxy(x-15, y);
+	printf("_-                                      -_\n");
+	gotoxy(x-15, y+1);
+	printf("=                                        =\n");
+	gotoxy(x-15, y+2);
+	printf("=                                        =\n");
+	gotoxy(x-15, y+3);
+	printf("=                                        =\n");
+	gotoxy(x-15, y+4);
+	printf("=                                        =\n");
+	gotoxy(x-15, y+5);
+	printf("-_                                      _-\n");
+	gotoxy(x-15, y+6);
+	printf("  =                                    =  \n");
+	gotoxy(x-15, y+7);
+	printf("   -_                                _-   \n");
+	gotoxy(x-15, y+8);
+	printf("     -_                            _-     \n");
+	gotoxy(x-15, y+9);
+	printf("       -_                       _-        \n");
+	gotoxy(x-15, y+10);
+	printf("         -_                   _-          \n");
+	gotoxy(x-15, y+11);
+	printf("           -__             _--            \n");
+	gotoxy(x-15, y+12);
+	printf("              ---_______---               \n");
+}
+
+void clearNukeCircle(gameState_t* gameState){
+	uint32_t x = fpToInt(gameState->nuke->position.x);
+	uint32_t y = fpToInt(gameState->nuke->position.y)/yScale;
+
+	gotoxy(x-15, y-7);
+	printf("                                          \n");
+	gotoxy(x-15, y-6);
+	printf("                                          \n");
+	gotoxy(x-15, y-5);
+	printf("                                          \n");
+	gotoxy(x-15, y-4);
+	printf("                                          \n");
+	gotoxy(x-15, y-3);
+	printf("                                          \n");
+	gotoxy(x-15, y-2);
+	printf("                                          \n");
+	gotoxy(x-15, y-1);
+	printf("                                          \n");
+	gotoxy(x-15, y);
+	printf("                                          \n");
+	gotoxy(x-15, y+1);
+	printf("                                          \n");
+	gotoxy(x-15, y+2);
+	printf("                                          \n");
+	gotoxy(x-15, y+3);
+	printf("                                          \n");
+	gotoxy(x-15, y+4);
+	printf("                                          \n");
+	gotoxy(x-15, y+5);
+	printf("                                          \n");
+	gotoxy(x-15, y+6);
+	printf("                                          \n");
+	gotoxy(x-15, y+7);
+	printf("                                          \n");
+	gotoxy(x-15, y+8);
+	printf("                                          \n");
+	gotoxy(x-15, y+9);
+	printf("                                          \n");
+	gotoxy(x-15, y+10);
+	printf("                                          \n");
+	gotoxy(x-15, y+11);
+	printf("                                          \n");
+	gotoxy(x-15, y+12);
+	printf("                                          \n");
+}
+
+void drawBossKey(){
+	printf("int8_t bossKey(gameState_t* gameState){\n");
+	printf("	char c = uart_get_char();\n");
+	printf("	if(c == 'f'){\n");
+	printf("		if(gameState->bossMode == 0){\n");
+	printf("			clrscr();\n");
+	printf("			gameState->bossMode = 1;\n");
+	printf("		}else{\n");
+	printf("			gameState->bossMode = 0;\n");
+	printf("			return 2;\n");
+	printf("	f	}\n");
+	printf("	}\n");
+	printf("\n");
+	printf("	if(gameState->bossMode == 1){\n");
+	printf("		gotoxy(0,0);\n");
+	printf("		drawBossKey();\n");
+	printf("		return 1;\n");
+	printf("	}\n");
+	printf("	return 0;\n");
+	printf("	uart_clear();\n");
+	printf("}\n");
+}
+>>>>>>> Stashed changes
