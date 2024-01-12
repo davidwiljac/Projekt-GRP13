@@ -239,3 +239,6 @@ void I2C_init()
     I2C1->CR2  &= 0x07FF7FFF;  // Clear config 2
     I2C1->CR2  |= 0x00000000;  // Configure acknowledgment (0x00000000 - Enabled, 0x00008000 - Disabled)
 }
+
+
+

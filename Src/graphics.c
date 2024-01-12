@@ -235,31 +235,7 @@ void drawBullet(uint8_t X, uint8_t Y){
 	printf("%c",127);
 }
 
-void drawMe(uint8_t X, uint8_t Y){
-	//middle 20,35
-	gotoxy(X,Y);
-	printf("%c",219);
-	gotoxy(X-1,Y);
-	printf("%c",220);
-	gotoxy(X+1,Y);
-	printf("%c",220);
-	gotoxy(X-1,Y+1);
-	printf("%c",223);
-	gotoxy(X+1,Y+1);
-	printf("%c",223);
 
-	gotoxy(X,Y-1);
-	printf("%c",179);
-//186
-	gotoxy(X-1,Y+2);
-	printf("%c",176);
-	gotoxy(X+1,Y+2);
-	printf("%c",176);
-
-//47 92
-
-
-}
 
 void drawCity(){
 
@@ -541,4 +517,66 @@ void drawCity(){
 
 	gotoxy(142,44);
 	printf("%c",220);
+}
+
+void drawMe(uint8_t X, uint8_t Y){
+	gotoxy(X,Y);
+	printf("%c",219);
+	gotoxy(X-1,Y);
+	printf("%c",220);
+	gotoxy(X+1,Y);
+	printf("%c",220);
+	gotoxy(X-1,Y+1);
+	printf("%c",223);
+	gotoxy(X+1,Y+1);
+	printf("%c",223);
+
+	gotoxy(X,Y-1);
+	printf("%c",179);
+}
+
+void deleteMe(uint8_t X, uint8_t Y){
+	gotoxy(X,Y);
+	printf(" ");
+	gotoxy(X-1,Y);
+	printf(" ");
+	gotoxy(X+1,Y);
+	printf(" ");
+	gotoxy(X-1,Y+1);
+	printf(" ");
+	gotoxy(X+1,Y+1);
+	printf(" ");
+
+	gotoxy(X,Y-1);
+	printf(" ");
+}
+
+void drawAttachmentRods(uint8_t x, uint8_t y){
+	gotoxy(x+2, y);
+	printf("____");
+	gotoxy(x-5, y);
+	printf("____");
+}
+
+void deleteAttachmentRods(uint8_t x, uint8_t y){
+	gotoxy(x+2, y);
+	printf("    ");
+	gotoxy(x-5, y);
+	printf("    ");
+}
+
+void deletePowerupGraphics(uint8_t x, uint8_t y){
+	gotoxy(x, y);
+	printf("     ");
+	gotoxy(x, y+1);
+	printf("     ");
+	gotoxy(x, y+2);
+	printf("     ");
+
+}
+
+void drawPowerupGraphics(uint8_t x, uint8_t y){
+ drawBox(x, y, x+4, y+2, 1);
+ gotoxy(x+2, y+1);
+ printf("$");
 }
