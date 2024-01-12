@@ -37,28 +37,16 @@ uint32_t fpMultiply(uint32_t n, uint32_t m){  //32 32 32
 	if ((n & 0x00800000) != 0) {
 		output-=(2*0x00800000*m);
 	}
-
-	//output>>=8;//16
-
-
-//	if(((n ^ m) & 0x80) != 0){
-////		output=(~output)+1;
-//		output|=0x80;
-//	}
 	return output;
 }
 
 uint32_t fpDivide(uint32_t n, uint32_t m){
-    // Shift numerator to avoid overflow during multiplication
     uint64_t numerator = (long long)n << 16;
-
-    // Perform the division and round to the nearest integer
     uint32_t result = (uint32_t)((numerator + (m / 2)) / m);
-
     return result;
 }
 
-
+//IMPORTANT: Scalar must be non negative
 vector_t scaleVector(vector_t vectorIn, uint32_t fpScalar){
 	vector_t vectorOut;
 	vectorOut.x=fpMultiply(vectorIn.x,fpScalar);

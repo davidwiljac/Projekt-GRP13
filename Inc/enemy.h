@@ -22,5 +22,6 @@ void updateEnemy(gameState_t* gameState);
 void shootEnemy(gameState_t* gameState);
 void detectCityHit(gameState_t* gameState);
 void drawEnemies(gameState_t* gameState);
+uint8_t xValIsValid(uint8_t xVal, uint8_t objectWidth);
 
 #endif /* ENEMY_H_ */

@@ -33,16 +33,54 @@ void detectBulletHit(gameState_t* gameState){
 
 		uint8_t distToMoon = fpToInt(current->bullet.distanceToMoon);
 
-		int8_t hitInertObject = 0;
-		hitInertObject = fpToInt(current->bullet.nextPosition.y)<=2*yScale ||
+
+		uint8_t hitInertObject = fpToInt(current->bullet.nextPosition.y)<=2*yScale ||
 				fpToInt(current->bullet.nextPosition.y)>=43*yScale ||
 				fpToInt(current->bullet.nextPosition.x)<=1 ||
 				fpToInt(current->bullet.nextPosition.x)>=156 ||
 				distToMoon<=6;
 
-		if(hitInertObject){ //TODO: add other boundaries
+		if(hitInertObject){
 			deleteBulletNode(&(gameState->bulletLL), current);
+			current = current->nextBulletAddress;
+			continue;
 		}
+
+		uint8_t hitSpaceship;
+
+		if(gameState->spaceship.numberOfParts==1){
+			hitSpaceship = fpToInt(current->bullet.nextPosition.y)>=fpToInt(gameState->spaceship.position.y)-1 &&
+						(fpToInt(current->bullet.nextPosition.x)>=fpToInt(gameState->spaceship.position.x)-1 &&
+						fpToInt(current->bullet.nextPosition.x)<=fpToInt(gameState->spaceship.position.x)+1);
+		}
+		else if(gameState->spaceship.numberOfParts==2){
+			hitSpaceship = fpToInt(current->bullet.nextPosition.y)>=fpToInt(gameState->spaceship.position.y)-1 &&
+							(fpToInt(current->bullet.nextPosition.x)>=fpToInt(gameState->spaceship.position.x)-1 &&
+							fpToInt(current->bullet.nextPosition.x)<=fpToInt(gameState->spaceship.position.x)+9);
+		}
+		else if(gameState->spaceship.numberOfParts==3){
+			hitSpaceship = fpToInt(current->bullet.nextPosition.y)>=fpToInt(gameState->spaceship.position.y)-1 &&
+							(fpToInt(current->bullet.nextPosition.x)>=fpToInt(gameState->spaceship.position.x)-9 &&
+							fpToInt(current->bullet.nextPosition.x)<=fpToInt(gameState->spaceship.position.x)+9);
+		}
+
+		if(hitSpaceship){
+
+			if(gameState->spaceship.numberOfParts==3){
+				deleteMe(fpToInt(gameState->spaceship.position.x)-7, fpToInt(gameState->spaceship.position.y)/yScale);
+				gameState->spaceship.numberOfParts--;
+			} else if(gameState->spaceship.numberOfParts==2){
+				//gotoxy(fpToInt(gameState->spaceship.position.x)+7, fpToInt(gameState->spaceship.position.y));
+				deleteMe(fpToInt(gameState->spaceship.position.x)+7, fpToInt(gameState->spaceship.position.y)/yScale);
+				gameState->spaceship.numberOfParts--;
+			}
+
+
+			deleteBulletNode(&(gameState->bulletLL), current);
+			current = current->nextBulletAddress;
+			continue;
+		}
+
 
 		//Check if the bullet hit an enemy
 		enemyNode_t* currentEnemy = gameState->enemyLL;
@@ -57,6 +95,7 @@ void detectBulletHit(gameState_t* gameState){
 				drawScore(gameState);
 				deleteBulletNode(&(gameState->bulletLL), current);
 				deleteEnemyNode(gameState, currentEnemy);
+				break;
 			}
 			currentEnemy = currentEnemy->nextEnemyNode;
 		}

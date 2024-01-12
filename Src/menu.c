@@ -43,8 +43,27 @@ void drawHelpScreen(){
 
 }
 
-void drawWindow(){
+void drawWindow(uint8_t isGameWindow){
 	drawBox(1,1,screenWidth, screenHeight,0);
+	if(isGameWindow){//bottom line is deleted
+		gotoxy(1,screenHeight-1);
+		printf(" ");
+		gotoxy(1,screenHeight-2);
+		printf(" ");
+		gotoxy(1,screenHeight-3);
+		printf(" ");
+		gotoxy(screenWidth,screenHeight-1);
+		printf(" ");
+		gotoxy(screenWidth,screenHeight-2);
+		printf(" ");
+		gotoxy(screenWidth,screenHeight-3);
+		printf(" ");
+		for(int x = 1; x<screenWidth+1;x++){
+			gotoxy(x, screenHeight);
+			printf(" ");
+
+		}
+	}
 }
 
 

@@ -5,11 +5,23 @@
  *      Author: david
  */
 #include"enemy.h"
+
+uint8_t xValIsValid(uint8_t xVal, uint8_t objectWidth){ //ensure powerups and enemies dont spawn over the moon
+	if ((xVal>=2 && xVal<=63-objectWidth) || (xVal>=77 && xVal<=screenWidth)){
+		return 1;
+	} else {
+		return 0;
+	}
+}
 void spawnEnemy(gameState_t* gameState){
 	uint8_t shouldGenEnemy = rand() % 100;      // Returns a pseudo-random integer [0:32].
 	if(shouldGenEnemy == 0){
-		//TODO: Fix tilfældighedsgenerator
-		uint16_t enemyPos = (rand() % 149) + 1;
+		uint8_t enemyPos;
+
+		while(!xValIsValid(enemyPos, 7)){
+			enemyPos  = (rand() % 149) + 1;
+		}
+
 
 		enemy_t* enemy = malloc(sizeof(enemy_t));
 		position_t* pos = malloc(sizeof(position_t));
@@ -62,6 +74,19 @@ void detectCityHit(gameState_t* gameState){
 	while(thisNode != NULL){
 		if(fpToInt(thisNode->enemy->position->y) >= 40 * yScale){
 			gameState->cityLives--;
+
+			if(gameState->cityLives == 2){
+				gotoxy(1, 42);
+				for(int i = 0; i<screenWidth;i++){
+					printf(" ");
+				}
+			}
+			if(gameState->cityLives == 1){
+				gotoxy(1, 43);
+				for(int i = 0; i<screenWidth;i++){
+					printf(" ");
+				}
+			}
 			deleteEnemyNode(gameState, thisNode);
 			//drawhearth(gameState);
 		}
