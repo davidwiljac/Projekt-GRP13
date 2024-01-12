@@ -208,7 +208,6 @@ void drawhearth(gameState_t* gameState){
 
 
 void drawEnemy(gameState_t* gameState){
-	//int isLastElement = 0;
 	enemyNode_t* thisNode = gameState->enemyLL;
 
 	while(thisNode != NULL){
@@ -262,7 +261,6 @@ void drawMe(uint8_t X, uint8_t Y){
 }
 
 void drawCity(){
-
 	gotoxy(14,44);
 	printf("%c",219);
 
@@ -541,4 +539,9 @@ void drawCity(){
 
 	gotoxy(142,44);
 	printf("%c",220);
+}
+
+void drawScore(gameState_t* gameState){
+	gotoxy(140, 0);
+	printf("Your score is: %d", gameState->score);
 }

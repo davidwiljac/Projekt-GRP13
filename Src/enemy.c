@@ -9,13 +9,15 @@ void spawnEnemy(gameState_t* gameState){
 	int shouldGenEnemy = rand() % 100;      // Returns a pseudo-random integer [0:32].
 	if(shouldGenEnemy == 0){
 		//TODO: Fix tilfældighedsgenerator
-		int8_t enemyPos = rand() % 156;
+	int shouldGenEnemy = rand() % 150;
+	if(shouldGenEnemy == 0){
+		//TODO: Fix tilfældighedsgenerator
+		uint16_t enemyPos = (rand() % 149) + 1;
 
 		enemy_t* enemy = malloc(sizeof(enemy_t));
-		enemy->firingRate = 2;
 		position_t* pos = malloc(sizeof(position_t));
 		pos->x = intToFp(enemyPos);
-		pos->y = intToFp(2);
+		pos->y = intToFp(3*yScale);
 		enemy->position = pos;
 
 
@@ -49,27 +51,13 @@ void shootEnemy(gameState_t* gameState){
 	while(thisNode != NULL){
 		if(thisNode->enemy->lastShotTime + thisNode->enemy->firingRate < runtime){
 			vector_t bulletVector = {intToFp(0), intToFp(2)};
-			position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(2)};
+			position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(2 * yScale)};
 			bullet_t bullet = {bulletPos, bulletPos, bulletVector};
 			appendBullet(&(gameState->bulletLL), bullet);
 			thisNode->enemy->lastShotTime = runtime;
 		}
 		thisNode = thisNode->nextEnemyNode;
 	}
-	/*
-	uint8_t firingPeriod = gameState->enemyLL->enemy->firingPeriod;
-
-
-	if(runtime-gameState->spaceship.lastShotTime>=firingPeriod){//
-		gameState->spaceship.lastShotTime = runtime;
-
-
-		vector_t bulletVelocity = {intToFp(0),intToFp(-3)};
-		position_t bulletPos = {gameState->spaceship.position.x, gameState->spaceship.position.y-intToFp(1)};
-		bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
-
-		appendBullet(&(gameState->bulletLL), bullet);
-	}*/
 }
 
 void detectCityHit(gameState_t* gameState){

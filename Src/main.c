@@ -44,8 +44,6 @@ void drawScreen(gameState_t* gameState) {
 	gameState->spaceship.position=gameState->spaceship.nextPosition;
 	drawEnemy(gameState);
 	drawBullets(gameState);
-
-	drawhearth(gameState);
 	drawMoon(gameState->moon.x, gameState->moon.y);
 }
 
@@ -88,7 +86,7 @@ int main(void) {
 	const button_t helpBtn = {75,25,"HELP"};
 	button_t btnList[] = {startBtn, diffBtn, helpBtn}; //always only 3 buttons!
 
-	uart_init(256000);
+	uart_init(512000);
 	initVariables(&gameState);
 	initTimer();
 	initJoystick();
@@ -151,12 +149,12 @@ int main(void) {
 			drawhearth(&gameState);
 			//drawWindow();
 			drawCity();
+			drawScore(&gameState);
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
 			while(gameState.activeScreen==1){
 				readInput(&gameState);
 				if(runtime-frameLastUpdated>=framePeriod){//
-					updateSpaceship(&gameState);
-					spawnEnemy(&gameState);
+					readKey(&gameState);
 					updateSpaceship(&gameState);
 					spawnEnemy(&gameState);
 					updateEnemy(&gameState);
