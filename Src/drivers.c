@@ -57,8 +57,6 @@ void initJoystick(){
 
 }
 
-
-
 uint8_t centerIsPressed(){
 	 if(((GPIOB->IDR & (0x0001 << 5))!=0 )&& (runtime-centerPrevPressed>btnDelay)){
 		 centerPrevPressed=runtime;
@@ -276,4 +274,52 @@ uint16_t readPotentiometer(){
 	while (ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == 0); // Wait for ADC read
 	uint16_t potVal = ADC_GetConversionValue(ADC1);
 	return potVal;
+}
+
+//LED vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+void initRGB(){
+	//setup PA9 (Blue)
+		uint8_t pin = 9;
+		GPIOA->OSPEEDR &= ~(0x00000003 << (2*pin));
+		GPIOA->OSPEEDR |= (0x00000002 << (2*pin));
+		GPIOA->OTYPER &= ~(0x0001 << (pin));
+		GPIOA->OTYPER |= 0x0000 << (pin);
+		GPIOA->MODER &= ~(0x00000003 << (2*pin));
+		GPIOA->MODER |= 0x00000001 << (2*pin);
+
+		//setup PC7 (Green)
+		pin = 7;
+		GPIOC->OSPEEDR &= ~(0x00000003 << (2*pin));
+		GPIOC->OSPEEDR |= (0x00000002 << (2*pin));
+		GPIOC->OTYPER &= ~(0x0001 << (pin));
+		GPIOC->OTYPER |= 0x0000 << (pin);
+		GPIOC->MODER &= ~(0x00000003 << (2*pin));
+		GPIOC->MODER |= 0x00000001 << (2*pin);
+
+		//setup PB4 (Red)
+		pin = 4;
+		GPIOB->OSPEEDR &= ~(0x00000003 << (2*pin));
+		GPIOB->OSPEEDR |= (0x00000002 << (2*pin));
+		GPIOB->OTYPER &= ~(0x0001 << (pin));
+		GPIOB->OTYPER |= 0x0000 << (pin);
+		GPIOB->MODER &= ~(0x00000003 << (2*pin));
+		GPIOB->MODER |= 0x00000001 << (2*pin);
+}
+
+//Sets the color of the LED based on an array [R, G, B]
+void RGBColor(uint8_t color[]){
+	//Resets LED
+	GPIOB->ODR |= (0x0001 << 4);
+	GPIOC->ODR |= (0x0001 << 7);
+	GPIOA->ODR |= (0x0001 << 9);
+
+	if(color[0] == 1){ //Red PB4
+		GPIOB->ODR &= (0x0000 << 4);
+	}
+	if(color[1] == 1){ //Green C7
+		GPIOC->ODR &= (0x0000 << 7);
+	}
+	if(color[2] == 1){ //Blue A9
+		GPIOA->ODR &= (0x000 << 9);
+	}
 }

@@ -76,9 +76,9 @@ struct enemyNode_t {
 typedef struct {
 	position_t position;
 	position_t nextPosition;
-	uint8_t isDeployed;
-	uint8_t readyState; //(0=rød, 1=magenta, 2=gul, 3=grøn)
-	uint8_t timeSinceLastActivation; //(i sekunder)
+	uint8_t isDeployed; //(0 = not deployed, 1 = deployed)
+	uint8_t readyState; //(0 = not ready, 1 = ready)
+	uint8_t lastActivationTime; //(i centiSekunder)
 } nuke_t ;
 
 //spaceShip_t
@@ -107,6 +107,7 @@ typedef struct {
 	enemyNode_t* enemyLL;
 	moon_t moon;
 	spaceship_t spaceship;
+	nuke_t* nuke;
 	uint8_t cityLives;
 	uint16_t score;
 	uint8_t lastScreen; //For the purpose of bossKey

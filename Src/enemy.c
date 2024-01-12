@@ -6,7 +6,7 @@
  */
 #include"enemy.h"
 void spawnEnemy(gameState_t* gameState){
-	int shouldGenEnemy = rand() % 100;      // Returns a pseudo-random integer [0:32].
+	uint8_t shouldGenEnemy = rand() % 100;      // Returns a pseudo-random integer [0:32].
 	if(shouldGenEnemy == 0){
 		//TODO: Fix tilfældighedsgenerator
 		uint16_t enemyPos = (rand() % 149) + 1;

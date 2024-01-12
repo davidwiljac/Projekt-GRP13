@@ -25,6 +25,9 @@ void initVariables(gameState_t* gameState){
 	gameState->enemyLL = NULL;
 	gameState->bulletLL = NULL;
 
+	nuke_t nuke = {NULL, NULL, 0, 0, 0};
+	gameState->nuke = &nuke;
+
 	gameState->activeScreen=0; //menu screen
 	gameState->difficulty=1;   // medium (if changed here, update also definition of diffBtn)
 	gameState->btnSelected=0; //start game
@@ -114,9 +117,11 @@ int main(void) {
 	initVariables(&gameState);
 	initTimer();
 	initJoystick();
+	initRGB();
 	I2C_init();
 	analogConfigPorts();
-
+	uint8_t color[] = {1,0,0};
+	RGBColor(color);
 	srand(readPotentiometer());   //RNG
 
 	while(1){
@@ -176,6 +181,7 @@ int main(void) {
 			drawCity();
 			drawScore(&gameState);
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);
+			gameState.nuke->lastActivationTime = runtime; //Start charing of nuke
 			while(gameState.activeScreen==1){
 				readInput(&gameState);
 				if(runtime-frameLastUpdated>=framePeriod){//
@@ -194,8 +200,8 @@ int main(void) {
 
 					detectBulletHit(&gameState);
 					detectCityHit(&gameState);
-
-//					nukeUpdate(&gameState);
+//					powerUp(&gameState);
+					updateNuke(&gameState);
 					//checkIfDead(&gameState);
 					drawScreen(&gameState);
 					frameLastUpdated=runtime;
