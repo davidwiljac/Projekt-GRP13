@@ -14,6 +14,7 @@
 #include "menu.h"
 #include "graphics.h"
 #include "spaceship.h"
+#include "enemy.h"
 
 void spawnPowerup(gameState_t* gameState);
 void updatePowerup(gameState_t* gameState);

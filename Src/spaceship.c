@@ -9,12 +9,35 @@
 void updateSpaceship(gameState_t* gameState){
 	uint16_t potVal = readPotentiometer();
 	uint32_t x = fpDivide(intToFp(potVal), intToFp(13)) ;
-	if(fpToInt(x) <= 1){
-		x = intToFp(2);
+
+
+	if(gameState->spaceship.numberOfParts==1){
+		if(fpToInt(x) <= 2){
+			x = intToFp(3);
+		}
+		if(fpToInt(x) >= 155){
+			x = intToFp(154);
+		}
 	}
-	if(fpToInt(x) >= 156){
-		x = intToFp(155);
-	}
+
+	else if(gameState->spaceship.numberOfParts==2){
+			if(fpToInt(x) <= 2){
+				x = intToFp(3);
+			}
+			if(fpToInt(x) >= 155-7){
+				x = intToFp(154-7);
+			}
+		}
+	else if(gameState->spaceship.numberOfParts==3){
+				if(fpToInt(x) <= 2+7){
+					x = intToFp(3+7);
+				}
+				if(fpToInt(x) >= 155-7){
+					x = intToFp(154-7);
+				}
+			}
+
+
 	gameState->spaceship.nextPosition.x = x;
 
 }

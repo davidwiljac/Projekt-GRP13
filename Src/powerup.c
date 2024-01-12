@@ -15,7 +15,12 @@ void spawnPowerup(gameState_t* gameState){
 		gameState->powerup.lastUseTime=runtime;
 		gameState->powerup.isVisible=1;
 
-		position_t spawnPos = {intToFp(100), intToFp(2)*yScale};
+		uint8_t randomX;
+				while(!xValIsValid(randomX, 5)){
+					randomX = (rand() % 147) + 1;
+				}
+
+		position_t spawnPos = {intToFp(randomX), intToFp(2)*yScale};
 		vector_t vel = {intToFp(0), 0x00008000*yScale};
 		gameState->powerup.position=spawnPos;
 		gameState->powerup.nextPosition=spawnPos;
@@ -30,7 +35,7 @@ void updatePowerup(gameState_t* gameState){
 		gameState->powerup.nextPosition.y=gameState->powerup.position.y+gameState->powerup.velocity.y;
 
 
-		if(fpToInt(gameState->powerup.nextPosition.y)/yScale>=39){
+		if(fpToInt(gameState->powerup.nextPosition.y)/yScale>=fpToInt(gameState->spaceship.position.y)/yScale-3){
 
 			uint8_t powerupIsTaken;
 			if(gameState->spaceship.numberOfParts==3){
@@ -50,23 +55,15 @@ void updatePowerup(gameState_t* gameState){
 				if(gameState->spaceship.numberOfParts<3){
 					gameState->spaceship.numberOfParts++;
 				} else {
-
 					//TODO: tilføj point??
 				}
-
 			}
 		}
-		if(fpToInt(gameState->powerup.nextPosition.y)/yScale>=42){
+		if(fpToInt(gameState->powerup.nextPosition.y)/yScale>=fpToInt(gameState->spaceship.position.y)/yScale+1){
 			deletePowerupGraphics(fpToInt(gameState->powerup.position.x),fpToInt(gameState->powerup.position.y)/yScale);
 			gameState->powerup.isVisible=0;
 		}
-
-
-
-
 	}
-
-
 }
 
 void drawPowerup(gameState_t* gameState){

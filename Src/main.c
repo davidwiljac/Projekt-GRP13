@@ -19,7 +19,7 @@
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
 
 void initVariables(gameState_t* gameState){
-	spaceship_t initSpaceship = {{intToFp(3), intToFp(42*yScale)}, {intToFp(3), intToFp(42*yScale)}, 1, 20, 0};
+	spaceship_t initSpaceship = {{intToFp(3), intToFp(40*yScale)}, {intToFp(3), intToFp(40*yScale)}, 1, 20, 0};
 	moon_t moon = {70,20*yScale,100};// (x, y, mass)
 	
 	gameState->enemyLL = NULL;
@@ -142,7 +142,7 @@ int main(void) {
 		switch(gameState.activeScreen){
 		case 0: //MENU SCREEN ---------------------------------------------------------------------
 			clrscr();
-			drawWindow();
+			drawWindow(0);
 			drawbackground(); // stars in background
 			drawMoon(gameState.moon.x, gameState.moon.y);
 			drawMenuScreen(btnList, &gameState);
@@ -187,7 +187,7 @@ int main(void) {
 			uint32_t frameLastUpdated=0;
 			gameState.spaceship.lastShotTime=runtime;
 			gameState.powerup.lastUseTime = runtime;
-			drawWindow();
+			drawWindow(1);
 			drawMoon(gameState.moon.x, gameState.moon.y);
 			drawhearth(&gameState);
 			//drawWindow();
@@ -224,7 +224,7 @@ int main(void) {
 			break;
 		case 2:// HELP SCREEN ------------------------------------------------------------------------
 			clrscr();
-			drawWindow();
+			drawWindow(0);
 			drawbackground(); // stars in background
 			drawHelpScreen();
 			while(gameState.activeScreen==2){
