@@ -545,24 +545,6 @@ void drawScore(gameState_t* gameState){
 	gotoxy(140, 0);
 	printf("Your score is: %d", gameState->score);
 }
-<<<<<<< Updated upstream
-=======
-
-void drawMe(uint8_t X, uint8_t Y){
-	gotoxy(X,Y);
-	printf("%c",219);
-	gotoxy(X-1,Y);
-	printf("%c",220);
-	gotoxy(X+1,Y);
-	printf("%c",220);
-	gotoxy(X-1,Y+1);
-	printf("%c",223);
-	gotoxy(X+1,Y+1);
-	printf("%c",223);
-
-	gotoxy(X,Y-1);
-	printf("%c",179);
-}
 
 void deleteMe(uint8_t X, uint8_t Y){
 	gotoxy(X,Y);
@@ -732,7 +714,7 @@ void drawBossKey(){
 	printf("		}else{\n");
 	printf("			gameState->bossMode = 0;\n");
 	printf("			return 2;\n");
-	printf("	f	}\n");
+	printf("		}\n");
 	printf("	}\n");
 	printf("\n");
 	printf("	if(gameState->bossMode == 1){\n");
@@ -744,4 +726,3 @@ void drawBossKey(){
 	printf("	uart_clear();\n");
 	printf("}\n");
 }
->>>>>>> Stashed changes

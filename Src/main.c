@@ -57,10 +57,7 @@ void drawScreen(gameState_t* gameState) {
 	drawEnemy(gameState);
 	drawBullets(gameState);
 	drawMoon(gameState->moon.x, gameState->moon.y);
-<<<<<<< Updated upstream
-=======
 	drawNuke(gameState);
->>>>>>> Stashed changes
 }
 
 void checkIfDead(gameState_t* gameState){
@@ -165,14 +162,11 @@ int main(void) {
 			printf("GAME SCREEN");
 			uint32_t frameLastUpdated=0;
 			gameState.spaceship.lastShotTime=runtime;
-<<<<<<< Updated upstream
 			drawWindow();
 			drawMoon(gameState.moon.x, gameState.moon.y);
 			drawhearth(&gameState);
 			//drawWindow();
-=======
-			gameState.powerup.lastUseTime = runtime;
->>>>>>> Stashed changes
+			//gameState.powerUp.lastUseTime = runtime;
 			drawCity();
 			drawScore(&gameState);
 //			applyGravity(bullet *bullet, drawMoon *drawMoon);

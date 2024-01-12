@@ -24,8 +24,6 @@ void drawhearth(gameState_t* gameState);
 void drawCity();
 void drawScore(gameState_t* gameState);
 
-<<<<<<< Updated upstream
-=======
 void drawPowerupGraphics(uint8_t x, uint8_t y);
 void deletePowerupGraphics(uint8_t x, uint8_t y);
 void drawAttachmentRods(uint8_t x, uint8_t y);
@@ -36,5 +34,4 @@ void drawNukeCircle(gameState_t* gameState);
 void clearNukeCircle(gameState_t* gameState);
 
 void drawBossKey();
->>>>>>> Stashed changes
 #endif /* GRAPHICS_H_ */

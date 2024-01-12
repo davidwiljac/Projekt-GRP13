@@ -29,7 +29,7 @@ void chargeNuke(gameState_t* gameState){
 		color[2] = 0;
 		gameState->nuke->readyState = 1;
 	}
-	int8_t nullColor[] = {0,0,0};
+	uint8_t nullColor[] = {0,0,0};
 	RGBColor(nullColor);
 	RGBColor(color);
 }
@@ -78,8 +78,6 @@ void shootNuke(gameState_t* gameState){
 
 void updateNuke(gameState_t* gameState){
 	chargeNuke(gameState);
-<<<<<<< Updated upstream
-=======
 	shootNuke(gameState);
 	if(gameState->nuke->isDeployed == 1){
 		gameState->nuke->nextPosition.x = gameState->nuke->position.x + gameState->nuke->velocity.x;
@@ -90,5 +88,4 @@ void updateNuke(gameState_t* gameState){
 		gameState->nuke->lastDetonationTime = 0xFFFFFFFF;
 		gameState->nuke->circleClear = 1;
 	}
->>>>>>> Stashed changes
 }
