@@ -121,6 +121,7 @@ uint8_t rightIsPressed(){
 // TIMER vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 void initTimer(){ //period = 0,01 sec
+
 	 RCC->APB2ENR |= RCC_APB2Periph_TIM15; // Enable clock line to timer 15;
 	 TIM15->CR1 &= 0xF470; // Configure timer 15
 	 TIM15->ARR = 63999; // Set reload value
@@ -131,6 +132,28 @@ void initTimer(){ //period = 0,01 sec
 	 TIM15->DIER |= 0x0001; // Enable timer 15 interrupts
 	 NVIC_SetPriority(TIM1_BRK_TIM15_IRQn, 0); // Set interrupt priority
 	 NVIC_EnableIRQ(TIM1_BRK_TIM15_IRQn); // Enable interrupt
+
+
+
+	 //BUZZER timer (TIM2)vvvvvvvvvvvvvvvv
+
+	 RCC->APB1ENR |= RCC_APB1Periph_TIM2; // Enable clock line to timer 2;
+	 TIM2->CR1 &= 0xF400; // Configure timer 2
+	 //TIM2->CR1 = 0x0000; // Configure timer 2
+	 TIM2->ARR = 63999; // Set reload value //63999
+	 TIM2->PSC = 0x0009; // Set prescale value
+
+	 TIM2->CR1 |= 0x0001; //counter enable
+
+	  TIM2->CCER &= ~TIM_CCER_CC3P; // Clear CCER register
+	  TIM2->CCER |= 0x00000001 << 8; // Enable OC3 output
+	  TIM2->CCMR2 &= ~TIM_CCMR2_OC3M; // Clear CCMR2 register
+	  TIM2->CCMR2 &= ~TIM_CCMR2_CC3S;
+	  TIM2->CCMR2 |= TIM_OCMode_PWM1; // Set output mode to PWM1
+	  TIM2->CCMR2 &= ~TIM_CCMR2_OC3PE;
+	  TIM2->CCMR2 |= TIM_OCPreload_Enable;
+	  TIM2->CCR3 = 63999 / 2; // Set duty cycle to 50 %
+
 }
 
 void TIM1_BRK_TIM15_IRQHandler(void) {
@@ -140,6 +163,19 @@ void TIM1_BRK_TIM15_IRQHandler(void) {
 
 // TIMER ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+void initBuzzerPin(){
+
+  	RCC->AHBENR |= RCC_AHBPeriph_GPIOB;
+
+	GPIOB->OSPEEDR &= ~(0x00000003 << (2*10));
+	GPIOB->OSPEEDR |= (0x00000002 << (2*10));
+	GPIOB->OTYPER &= ~(0x0001 << (10));
+	GPIOB->OTYPER |= 0x0000 << (10);
+	GPIOB->MODER &= ~(0x00000003 << (2*10));
+	GPIOB->MODER |= 0x00000002 << (2*10);
+
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource10, GPIO_AF_1);
+}
 
 //I2C shit TODO: ret kommentar
 void I2C_Write(uint16_t address, uint8_t reg, uint8_t val) {
@@ -339,4 +375,11 @@ void writeToFlash(uint16_t data, uint32_t address){
 
 uint16_t readFromFlash(uint32_t address){
 	return *(uint16_t *)address;
+}
+
+void setFreq(uint16_t freq) {
+	uint32_t reload = 64e6 / freq / (9 + 1) - 1;
+	TIM2->ARR = reload; // Set auto reload value
+	TIM2->CCR3 = reload/2; // Set compare register
+	TIM2->EGR |= 0x01;
 }

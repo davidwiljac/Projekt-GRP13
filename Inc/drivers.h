@@ -44,4 +44,7 @@ void RGBColor(uint8_t color[]);
 
 void writeToFlash(uint16_t data, uint32_t address);
 uint16_t readFromFlash(uint32_t address);
+
+void setFreq(uint16_t freq);
+void initBuzzerPin();
 #endif /* DRIVERS_H_ */
