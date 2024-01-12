@@ -38,4 +38,7 @@ void TIM1_BRK_TIM15_IRQHandler(void);
 
 void analogConfigPorts();
 uint16_t readPotentiometer();
+
+void initRGB();
+void RGBColor(uint8_t color[]);
 #endif /* DRIVERS_H_ */

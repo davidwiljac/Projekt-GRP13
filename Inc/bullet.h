@@ -15,6 +15,7 @@
 #include "drivers.h"
 #include "math.h"
 #include "menu.h"
+#include "graphics.h"
 
 void updateBullets(gameState_t* gameState);
 void detectBulletHit(gameState_t* gameState);
