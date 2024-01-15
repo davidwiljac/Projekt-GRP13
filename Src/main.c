@@ -17,9 +17,16 @@
 #include "sound.h"
 
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
+const sound_t sounds[][10] = {
+		{{500, 50}, {1000,50}},
+		{{500,50}, {1000,50}, {1500, 50}}
+};
 
 void initVariables(gameState_t* gameState){
-	spaceship_t initSpaceship = {{intToFp(3), intToFp(40*yScale)}, {intToFp(3), intToFp(40*yScale)}, 1, 20, 0};
+	spaceship_t initSpaceship = {{intToFp(3), intToFp(40*yScale)}, //previous position
+			{intToFp(3), intToFp(40*yScale)}, //position
+			{intToFp(3), intToFp(40*yScale)}, //next Position
+			1, 0}; //Number of parts, powerups
 	moon_t moon = {70,20*yScale,100};// (x, y, mass)
 	
 	gameState->enemyLL = NULL;
@@ -181,9 +188,8 @@ int main(void) {
 					updateEnemy(&gameState);
 					updatePowerup(&gameState);
 					shootSpaceship(&gameState);
-					updateBullets(&gameState);
-
 					shootEnemy(&gameState);
+					updateBullets(&gameState);
 
 					detectBulletHit(&gameState);
 					detectCityHit(&gameState);
@@ -210,7 +216,6 @@ int main(void) {
 			break;
 		case 3:// GAME OVER SCREEN -------------------------------------------------------------------
 			clrscr();
-			printf("YOU HELLA DEAD!\n YOU SUCK Your score is %d\n", gameState.score);
 			printf("Your highscore is %d", readFromFlash(0x0800F800));
 			while(gameState.activeScreen==3){
 				readInput(&gameState);

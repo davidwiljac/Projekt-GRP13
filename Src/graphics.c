@@ -520,6 +520,8 @@ void drawCity(){
 void drawScore(gameState_t* gameState){
 	gotoxy(140, 0);
 	printf("Your score is: %d", gameState->score);
+	gotoxy(140,1*yScale);
+	printf("Level: %d", gameState->score/100);
 }
 
 void drawMe(uint8_t X, uint8_t Y){
@@ -533,7 +535,6 @@ void drawMe(uint8_t X, uint8_t Y){
 	printf("%c",223);
 	gotoxy(X+1,Y+1);
 	printf("%c",223);
-
 	gotoxy(X,Y-1);
 	printf("%c",179);
 }
@@ -706,7 +707,7 @@ void drawBossKey(){
 	printf("		}else{\n");
 	printf("			gameState->bossMode = 0;\n");
 	printf("			return 2;\n");
-	printf("	f	}\n");
+	printf("		}\n");
 	printf("	}\n");
 	printf("\n");
 	printf("	if(gameState->bossMode == 1){\n");

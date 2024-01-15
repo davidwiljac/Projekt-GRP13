@@ -14,14 +14,13 @@ uint8_t xValIsValid(uint8_t xVal, uint8_t objectWidth){ //ensure powerups and en
 	}
 }
 void spawnEnemy(gameState_t* gameState){
-	uint8_t shouldGenEnemy = rand() % 100;      // Returns a pseudo-random integer [0:32].
+	uint8_t shouldGenEnemy = rand() % 33;      // Returns a pseudo-random integer [0:32].
 	if(shouldGenEnemy == 0){
-		uint8_t enemyPos;
+		uint16_t enemyPos = (rand() % 149) + 1;
 
 		while(!xValIsValid(enemyPos, 7)){
 			enemyPos  = (rand() % 149) + 1;
 		}
-
 
 		enemy_t* enemy = malloc(sizeof(enemy_t));
 		position_t* pos = malloc(sizeof(position_t));
@@ -30,9 +29,10 @@ void spawnEnemy(gameState_t* gameState){
 		enemy->position = pos;
 
 
+		uint32_t levelMultiplier = fpMultiply(intToFp(gameState->score/100), 0x00004000) + intToFp(1); //level * 0.25 + 1
 		vector_t* vEnemy = malloc(sizeof(vector_t));
 		vEnemy->x = intToFp(0);
-		vEnemy->y = 0x00004000 * yScale;
+		vEnemy->y = fpMultiply((0x00004000 * yScale), levelMultiplier);
 		enemy->velocity  = vEnemy;
 
 		position_t* newPos = malloc(sizeof(position_t));

@@ -13,6 +13,7 @@ void updateSpaceship(gameState_t* gameState){
 	if(abs(gameState->spaceship.nextPosition.x - x) < 5){
 		return;
 	}
+
 	if(gameState->spaceship.numberOfParts==1){
 		if(fpToInt(x) <= 2){
 			x = intToFp(3);
@@ -38,6 +39,7 @@ void updateSpaceship(gameState_t* gameState){
 			x = intToFp(154-7);
 		}
 	}
+	gameState->spaceship.prePosition.x = gameState->spaceship.position.x;
 	gameState->spaceship.nextPosition.x = x;
 }
 
@@ -45,9 +47,6 @@ void updateSpaceship(gameState_t* gameState){
 void shootSpaceship(gameState_t* gameState){
 
 	if(centerIsPressed()){
-	//if(runtime-gameState->spaceship.lastShotTime>=gameState->spaceship.firingPeriod){
-
-		gameState->spaceship.lastShotTime = runtime;
 		gameState->soundToPlay = 1;
 		for (int i = 0; i<gameState->spaceship.numberOfParts; i++){
 			if(i ==2){
@@ -61,13 +60,7 @@ void shootSpaceship(gameState_t* gameState){
 				bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
 				appendBullet(&(gameState->bulletLL), bullet);
 			}
-
-
-
-
 		}
-
-
 	}
 
 }

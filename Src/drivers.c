@@ -133,8 +133,6 @@ void initTimer(){ //period = 0,01 sec
 	 NVIC_SetPriority(TIM1_BRK_TIM15_IRQn, 0); // Set interrupt priority
 	 NVIC_EnableIRQ(TIM1_BRK_TIM15_IRQn); // Enable interrupt
 
-
-
 	 //BUZZER timer (TIM2)vvvvvvvvvvvvvvvv
 
 	 RCC->APB1ENR |= RCC_APB1Periph_TIM2; // Enable clock line to timer 2;
@@ -151,7 +149,6 @@ void initTimer(){ //period = 0,01 sec
 	  TIM2->CCMR2 &= ~TIM_CCMR2_OC3PE;
 	  TIM2->CCMR2 |= TIM_OCPreload_Enable;
 	  TIM2->CCR3 = 63999 / 2; // Set duty cycle to 50 %
-
 }
 
 void TIM1_BRK_TIM15_IRQHandler(void) {
