@@ -17,10 +17,6 @@
 #include "sound.h"
 
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
-const sound_t sounds[][10] = {
-		{{500, 50}, {1000,50}},
-		{{500,50}, {1000,50}, {1500, 50}}
-};
 
 void initVariables(gameState_t* gameState){
 	spaceship_t initSpaceship = {{intToFp(3), intToFp(40*yScale)}, //previous position
@@ -163,7 +159,6 @@ int main(void) {
 			clrscr();
 			printf("GAME SCREEN");
 			uint32_t frameLastUpdated=0;
-			gameState.spaceship.lastShotTime=runtime;
 			gameState.powerup.lastUseTime = runtime;
 			drawWindow(1);
 			drawMoon(gameState.moon.x, gameState.moon.y);
@@ -174,6 +169,8 @@ int main(void) {
 			drawScore(&gameState);
 			gameState.nuke->lastActivationTime = runtime; //Start charing of nuke
 			gameState.soundTime = runtime;
+
+			gameState.nextEnemySpawn = runtime + 20; //Spawns first enemy after 0.2 seconds
 
 			while(gameState.activeScreen==1){
 				readInput(&gameState);
@@ -219,13 +216,13 @@ int main(void) {
 			printf("Your highscore is %d", readFromFlash(0x0800F800));
 			while(gameState.activeScreen==3){
 				readInput(&gameState);
-				if(centerIsPressed()){
+				if(downIsPressed()){
 					initVariables(&gameState);
 					gameState.activeScreen=0;//MENU SCREEN
 				}
 			}
 			break;
-		case 4:
+		case 4: // BOSS KEY
 			drawBossKey();
 			while(1){
 				readInput(&gameState);

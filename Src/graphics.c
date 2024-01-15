@@ -521,7 +521,7 @@ void drawScore(gameState_t* gameState){
 	gotoxy(140, 0);
 	printf("Your score is: %d", gameState->score);
 	gotoxy(140,1*yScale);
-	printf("Level: %d", gameState->score/100);
+	printf("Level: %d", gameState->score/100 + gameState->difficulty);
 }
 
 void drawMe(uint8_t X, uint8_t Y){

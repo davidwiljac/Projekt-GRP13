@@ -10,7 +10,7 @@ void updateSpaceship(gameState_t* gameState){
 	uint16_t potVal = readPotentiometer();
 	uint32_t x = fpDivide(intToFp(potVal), intToFp(13)) ;
 
-	if(abs(gameState->spaceship.nextPosition.x - x) < 5){
+	if(fpAbs(gameState->spaceship.prePosition.x - x) < intToFp(2)){
 		return;
 	}
 
@@ -49,13 +49,14 @@ void shootSpaceship(gameState_t* gameState){
 	if(centerIsPressed()){
 		gameState->soundToPlay = 1;
 		for (int i = 0; i<gameState->spaceship.numberOfParts; i++){
-			if(i ==2){
-				vector_t bulletVelocity = {intToFp(0),0xffff8000*yScale}; //0xffff8000 is -0,5
+			uint32_t levelMultiplier = fpMultiply(intToFp(gameState->score/100) + intToFp(gameState->difficulty), 0x00004000) + intToFp(1); //level * 0.25 + 1
+			if(i == 2){
+				vector_t bulletVelocity = {intToFp(0),fpMultiply(0xffff8000 * yScale, levelMultiplier)}; //0xffff8000 is -0,5
 				position_t bulletPos = {gameState->spaceship.position.x-intToFp(spaceshipWidth), gameState->spaceship.position.y-intToFp(1)*yScale};
 				bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
 				appendBullet(&(gameState->bulletLL), bullet);
 			} else {
-				vector_t bulletVelocity = {intToFp(0),0xffff8000*yScale}; //0xffff8000 is -0,5
+				vector_t bulletVelocity = {intToFp(0),fpMultiply(0xffff8000 * yScale, levelMultiplier)}; //0xffff8000 is -0,5
 				position_t bulletPos = {gameState->spaceship.position.x+intToFp(i*spaceshipWidth), gameState->spaceship.position.y-intToFp(1)*yScale};
 				bullet_t bullet = {bulletPos, bulletPos, bulletVelocity};
 				appendBullet(&(gameState->bulletLL), bullet);

@@ -14,8 +14,7 @@ uint8_t xValIsValid(uint8_t xVal, uint8_t objectWidth){ //ensure powerups and en
 	}
 }
 void spawnEnemy(gameState_t* gameState){
-	uint8_t shouldGenEnemy = rand() % 33;      // Returns a pseudo-random integer [0:32].
-	if(shouldGenEnemy == 0){
+	if(runtime >= gameState->nextEnemySpawn){
 		uint16_t enemyPos = (rand() % 149) + 1;
 
 		while(!xValIsValid(enemyPos, 7)){
@@ -28,8 +27,7 @@ void spawnEnemy(gameState_t* gameState){
 		pos->y = intToFp(3*yScale);
 		enemy->position = pos;
 
-
-		uint32_t levelMultiplier = fpMultiply(intToFp(gameState->score/100), 0x00004000) + intToFp(1); //level * 0.25 + 1
+		uint32_t levelMultiplier = fpMultiply(intToFp(gameState->score/100) + intToFp(gameState->difficulty), 0x00004000) + intToFp(1); //level * 0.25 + 1
 		vector_t* vEnemy = malloc(sizeof(vector_t));
 		vEnemy->x = intToFp(0);
 		vEnemy->y = fpMultiply((0x00004000 * yScale), levelMultiplier);
@@ -42,6 +40,8 @@ void spawnEnemy(gameState_t* gameState){
 
 		enemy->lastShotTime = runtime;
 		enemy->firingRate = 100;
+
+		gameState->nextEnemySpawn = runtime + (rand()%200) + 100; //spawns the next enemy after between 100 and 300 centiseconds
 		appendEnemy(gameState, enemy);
 	}
 }

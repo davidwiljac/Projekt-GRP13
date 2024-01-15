@@ -56,6 +56,7 @@ void updatePowerup(gameState_t* gameState){
 					gameState->spaceship.numberOfParts++;
 				} else {
 					//TODO: tilføj point??
+					gameState->score += 1000000;
 				}
 			}
 		}

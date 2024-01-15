@@ -104,6 +104,7 @@ typedef struct {
 typedef struct {
 	bulletNode_t* bulletLL;
 	enemyNode_t* enemyLL;
+	uint32_t nextEnemySpawn;
 	moon_t moon;
 	spaceship_t spaceship;
 	nuke_t* nuke;
