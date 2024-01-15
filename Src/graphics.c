@@ -627,6 +627,12 @@ void deletePowerupGraphics(uint8_t x, uint8_t y){
   * @param  gameState: the current state of the game
   * @retval None
   */
+void drawPowerupGraphics(uint8_t x, uint8_t y){
+ drawBox(x, y, x+4, y+2, 1);
+ gotoxy(x+2, y+1);
+ printf("?");
+}
+
 void drawNuke(gameState_t* gameState){
 	if(gameState->nuke->isDeployed == 1){
 		gotoxy(fpToInt(gameState->nuke->position.x),(fpToInt(gameState->nuke->position.y)) / yScale);

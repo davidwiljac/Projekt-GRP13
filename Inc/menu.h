@@ -13,6 +13,7 @@
 #include "types.h"
 #include <string.h>
 #include "ansi.h"
+#include "drivers.h"
 
 #define screenWidth 156
 #define screenHeight 43

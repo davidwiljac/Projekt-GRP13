@@ -17,6 +17,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define enemyDisableDuration 1000
+
 void spawnEnemy(gameState_t* gameState);
 void updateEnemy(gameState_t* gameState);
 void shootEnemy(gameState_t* gameState);

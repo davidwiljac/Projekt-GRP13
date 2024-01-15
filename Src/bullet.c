@@ -11,6 +11,22 @@
   * @param  gamestate: the current state of the game
   * @retval None
   */
+
+// fra https://www.geeksforgeeks.org/find-two-rectangles-overlap/ (modificeret)
+uint8_t rectsOverlap(position_t l1, position_t r1, position_t l2, position_t r2){
+
+		// If one rectangle is on left side of other
+		if (l1.x > r2.x || l2.x > r1.x){
+			return 0;
+		}
+
+		// If one rectangle is above other
+		if (r1.y < l2.y || r2.y < l1.y) {
+				return 0;
+		}
+    return 1;
+}
+
 void updateBullets(gameState_t* gameState){
 	bulletNode_t* current = gameState->bulletLL;
 	//Loops though the bullet linked list
@@ -42,6 +58,25 @@ void detectBulletHit(gameState_t* gameState){
 	bulletNode_t* current = gameState->bulletLL;
 	//Loops over all bullets
 	while (current != NULL) {
+		//do initial calculations
+		position_t bulletTopLftCnr = {0,0};
+		position_t bulletDwnRghtCnr = {0,0};
+
+		if(current->bullet.position.x<current->bullet.nextPosition.x){
+			bulletTopLftCnr.x=current->bullet.position.x;
+			bulletDwnRghtCnr.x=current->bullet.nextPosition.x;
+		} else {
+			bulletTopLftCnr.x=current->bullet.nextPosition.x;
+			bulletDwnRghtCnr.x=current->bullet.position.x;
+		}
+		if(current->bullet.position.y<current->bullet.nextPosition.y){
+			bulletTopLftCnr.y=current->bullet.position.y;
+			bulletDwnRghtCnr.y=current->bullet.nextPosition.y;
+		} else {
+			bulletTopLftCnr.y=current->bullet.nextPosition.y;
+			bulletDwnRghtCnr.y=current->bullet.position.y;
+		}
+
 
 		uint8_t distToMoon = fpToInt(current->bullet.distanceToMoon);
 
@@ -61,19 +96,19 @@ void detectBulletHit(gameState_t* gameState){
 		//Checks if the bullet hit the spaceship
 		uint8_t hitSpaceship;
 		if(gameState->spaceship.numberOfParts==1){
-			hitSpaceship = fpToInt(current->bullet.nextPosition.y)>=fpToInt(gameState->spaceship.position.y)-1 &&
-						(fpToInt(current->bullet.nextPosition.x)>=fpToInt(gameState->spaceship.position.x)-1 &&
-						fpToInt(current->bullet.nextPosition.x)<=fpToInt(gameState->spaceship.position.x)+1);
+			position_t spaceshipTopLftCnr= {gameState->spaceship.position.x-intToFp(1),gameState->spaceship.position.y};
+			position_t spaceshipDwnLftCnr= {gameState->spaceship.position.x+intToFp(1),gameState->spaceship.position.y+intToFp(1*yScale)};
+			hitSpaceship = rectsOverlap(bulletTopLftCnr, bulletDwnRghtCnr, spaceshipTopLftCnr, spaceshipDwnLftCnr);
 		}
 		else if(gameState->spaceship.numberOfParts==2){
-			hitSpaceship = fpToInt(current->bullet.nextPosition.y)>=fpToInt(gameState->spaceship.position.y)-1 &&
-							(fpToInt(current->bullet.nextPosition.x)>=fpToInt(gameState->spaceship.position.x)-1 &&
-							fpToInt(current->bullet.nextPosition.x)<=fpToInt(gameState->spaceship.position.x)+9);
+			position_t spaceshipTopLftCnr= {gameState->spaceship.position.x-intToFp(1),gameState->spaceship.position.y};
+			position_t spaceshipDwnLftCnr= {gameState->spaceship.position.x+intToFp(8),gameState->spaceship.position.y+intToFp(1*yScale)};
+			hitSpaceship = rectsOverlap(bulletTopLftCnr, bulletDwnRghtCnr, spaceshipTopLftCnr, spaceshipDwnLftCnr);
 		}
 		else if(gameState->spaceship.numberOfParts==3){
-			hitSpaceship = fpToInt(current->bullet.nextPosition.y)>=fpToInt(gameState->spaceship.position.y)-1 &&
-							(fpToInt(current->bullet.nextPosition.x)>=fpToInt(gameState->spaceship.position.x)-9 &&
-							fpToInt(current->bullet.nextPosition.x)<=fpToInt(gameState->spaceship.position.x)+9);
+			position_t spaceshipTopLftCnr= {gameState->spaceship.position.x-intToFp(8),gameState->spaceship.position.y};
+			position_t spaceshipDwnLftCnr= {gameState->spaceship.position.x+intToFp(8),gameState->spaceship.position.y+intToFp(1*yScale)};
+			hitSpaceship = rectsOverlap(bulletTopLftCnr, bulletDwnRghtCnr, spaceshipTopLftCnr, spaceshipDwnLftCnr);
 		}
 
 		//If a hit deletes a part of the spaceship
@@ -97,11 +132,14 @@ void detectBulletHit(gameState_t* gameState){
 		//Loops over all the enemies and checks for hits
 		enemyNode_t* currentEnemy = gameState->enemyLL;
 		while(currentEnemy != NULL){
-			uint8_t hitEnemy = 0;
-			hitEnemy = (fpToInt(current->bullet.position.x) >= fpToInt(currentEnemy->enemy->position->x) &&
-					fpToInt(current->bullet.position.x) <= fpToInt(currentEnemy->enemy->position->x) + 7 &&
-					fpToInt(current->bullet.position.y) >= fpToInt(currentEnemy->enemy->position->y) &&
-					fpToInt(current->bullet.position.y) <= fpToInt(currentEnemy->enemy->position->y) + 1 * yScale);
+
+
+			position_t enemyDwnRghtCnr = {currentEnemy->enemy->position->x+intToFp(6), currentEnemy->enemy->position->y+intToFp(1*yScale)};
+
+
+			uint8_t hitEnemy = rectsOverlap(bulletTopLftCnr, bulletDwnRghtCnr, *(currentEnemy->enemy->position), enemyDwnRghtCnr);
+
+
 			if(hitEnemy == 1){
 				gameState->score += 10;
 				drawScore(gameState);

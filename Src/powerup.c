@@ -61,7 +61,22 @@ void updatePowerup(gameState_t* gameState){
 					gameState->spaceship.numberOfParts++;
 				} else {
 					gameState->score += 100;
+
+				uint8_t powerupType = rand()%2;
+
+				if(powerupType==0){ //extra spaceship
+					if(gameState->spaceship.numberOfParts<3){
+						gameState->spaceship.numberOfParts++;
+					} else {
+						gameState->score += 100;
+					}
+				} else { //disable enemy canons
+					gameState->enemyCanonDisableTime=runtime;
+					gameState->enemyCanonsUnchanged =0;
 				}
+
+
+
 			}
 		}
 

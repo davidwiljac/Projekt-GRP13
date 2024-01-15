@@ -45,10 +45,22 @@ void drawBtnAsDeselected(button_t btn){
   * @retval None
   */
 void drawMenuScreen(button_t btnList[], gameState_t* gameState){
+
+	gotoxy(47,5); printf(" _____                 _ _             ___  _   _             _    ");
+	gotoxy(47,6); printf("|  __ \\               (_) |           / _ \\| | | |           | |   ");
+	gotoxy(47,7); printf("| |  \\/_ __ __ ___   ___| |_ _   _   / /_\\ \\ |_| |_ __ _  ___| | __");
+	gotoxy(47,8); printf("| | __| '__/ _` \\ \\ / / | __| | | |  |  _  | __| __/ _` |/ __| |/ /");
+	gotoxy(47,9); printf("| |_\\ \\ | | (_| |\\ V /| | |_| |_| |  | | | | |_| || (_| | (__|   < ");
+	gotoxy(47,10); printf(" \\____/_|  \\__,_| \\_/ |_|\\__|\\__, |  \\_| |_/\\__|\\__\\__,_|\\___|_|\\_\\");
+	gotoxy(47,11); printf("                              __/ |                                ");
+    gotoxy(47,12); printf("                             |___/                                 ");
+
 	drawButton(btnList[0]);
 	drawButton(btnList[1]);
 	drawButton(btnList[2]);
 	drawBtnAsSelected(btnList[gameState->btnSelected]);
+	gotoxy(73,35);
+	printf("Highscore: %d", readFromFlash(0x0800F800));
 }
 
 /**
