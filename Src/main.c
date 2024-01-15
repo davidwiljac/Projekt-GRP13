@@ -51,6 +51,8 @@ void initVariables(gameState_t* gameState){
 	gameState->moon = moon;
 	gameState->powerup.lastUseTime=0;
 	gameState->powerup.isVisible=0;
+	gameState->enemyCanonDisableTime = 0;
+	gameState->enemyCanonsUnchanged =1;
 
 	gameState->soundIndex = 0;
 	gameState->soundTime = 0;
@@ -58,8 +60,19 @@ void initVariables(gameState_t* gameState){
 	//TODO: continue to initialize everything
 }
 
+void drawOnscreenMessage(gameState_t* gameState){
+	if(runtime-gameState->enemyCanonDisableTime <= enemyDisableDuration && !gameState->enemyCanonsUnchanged){
+		gotoxy(65,5);
+		printf("Enemy canons are disabled");
+	} else {
+		gotoxy(65,5);
+		printf("                         ");
+	}
+}
 
 void drawScreen(gameState_t* gameState) {
+
+	drawOnscreenMessage(gameState);
 	drawSpaceship(gameState);
 	drawEnemy(gameState);
 	drawBullets(gameState);
@@ -67,16 +80,16 @@ void drawScreen(gameState_t* gameState) {
 	drawhearth(gameState);
 	drawMoon(gameState->moon.x, gameState->moon.y);
 	drawNuke(gameState);
+
 }
+
+
 
 void checkIfDead(gameState_t* gameState){
 
 	if(gameState->cityLives == 0){
 		gameState->activeScreen = 3;
-		uint16_t oldScore = readFromFlash(0x0800F800);
-		if(gameState->score > oldScore){
-			writeToFlash(gameState->score, 0x0800F800);
-		}
+
 	}
 }
 
@@ -213,7 +226,37 @@ int main(void) {
 			break;
 		case 3:// GAME OVER SCREEN -------------------------------------------------------------------
 			clrscr();
-			printf("Your highscore is %d", readFromFlash(0x0800F800));
+
+			gotoxy(50,5); printf(" _____   ___  ___  ___ _____   _____  _   _ ___________ ");
+			gotoxy(50,6); printf("|  __ \\ / _ \\ |  \\/  ||  ___| |  _  || | | |  ___| ___ \\");
+			gotoxy(50,7); printf("| |  \\// /_\\ \\| .  . || |__   | | | || | | | |__ | |_/ /");
+			gotoxy(50,8); printf("| | __ |  _  || |\\/| ||  __|  | | | || | | |  __||    /");
+			gotoxy(50,9); printf("| |_\\ \\| | | || |  | || |___  \\ \\_/ /\\ \\_/ / |___| |\\ \\ ");
+			gotoxy(50,10); printf(" \\____/\\_| |_/\\_|  |_/\\____/   \\___/  \\___/\\____/\\_| \\_|");
+
+
+			gotoxy(64,15);
+			printf("SCORE: %d", gameState.score);
+			if(gameState.score<=30){
+				printf(" (you suck)");
+			}
+
+			if(gameState.score>readFromFlash(0x0800F800)){
+				gotoxy(64,17);
+				printf("NEW HIGHSCORE!");
+				writeToFlash(gameState.score, 0x0800F800);
+			} else {
+				gotoxy(64,17);
+				printf("Your highscore is %d", readFromFlash(0x0800F800));
+			}
+
+			gotoxy(62,30);
+			printf("Press down on joystick to continue");
+
+
+
+
+
 			while(gameState.activeScreen==3){
 				readInput(&gameState);
 				if(downIsPressed()){

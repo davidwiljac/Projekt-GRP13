@@ -52,12 +52,22 @@ void updatePowerup(gameState_t* gameState){
 				deletePowerupGraphics(fpToInt(gameState->powerup.position.x),fpToInt(gameState->powerup.position.y)/yScale);
 				gameState->powerup.isVisible=0;
 				gameState->soundToPlay = 3;
-				if(gameState->spaceship.numberOfParts<3){
-					gameState->spaceship.numberOfParts++;
-				} else {
-					//TODO: tilføj point??
-					gameState->score += 1000000;
+
+				uint8_t powerupType = rand()%2;
+
+				if(powerupType==0){ //extra spaceship
+					if(gameState->spaceship.numberOfParts<3){
+						gameState->spaceship.numberOfParts++;
+					} else {
+						gameState->score += 100;
+					}
+				} else { //disable enemy canons
+					gameState->enemyCanonDisableTime=runtime;
+					gameState->enemyCanonsUnchanged =0;
 				}
+
+
+
 			}
 		}
 		if(fpToInt(gameState->powerup.nextPosition.y)/yScale>=fpToInt(gameState->spaceship.position.y)/yScale+1){

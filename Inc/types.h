@@ -105,6 +105,8 @@ typedef struct {
 	bulletNode_t* bulletLL;
 	enemyNode_t* enemyLL;
 	uint32_t nextEnemySpawn;
+	uint32_t enemyCanonDisableTime; // the time at which an enemycanon was disabled by a powerup
+	uint8_t enemyCanonsUnchanged;
 	moon_t moon;
 	spaceship_t spaceship;
 	nuke_t* nuke;

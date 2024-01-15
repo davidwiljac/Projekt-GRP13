@@ -6,6 +6,8 @@
  */
 #include"enemy.h"
 
+
+
 uint8_t xValIsValid(uint8_t xVal, uint8_t objectWidth){ //ensure powerups and enemies dont spawn over the moon
 	if ((xVal>=2 && xVal<=63-objectWidth) || (xVal>=77 && xVal<=screenWidth)){
 		return 1;
@@ -57,15 +59,17 @@ void updateEnemy(gameState_t* gameState){
 
 void shootEnemy(gameState_t* gameState){
 	enemyNode_t* thisNode = gameState->enemyLL;
-	while(thisNode != NULL){
-		if(thisNode->enemy->lastShotTime + thisNode->enemy->firingRate < runtime){
-			vector_t bulletVector = {intToFp(0), intToFp(2)};
-			position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(2 * yScale)};
-			bullet_t bullet = {bulletPos, bulletPos, bulletVector};
-			appendBullet(&(gameState->bulletLL), bullet);
-			thisNode->enemy->lastShotTime = runtime;
+	if(runtime-gameState->enemyCanonDisableTime >= enemyDisableDuration || gameState->enemyCanonsUnchanged){
+		while(thisNode != NULL){
+			if(thisNode->enemy->lastShotTime + thisNode->enemy->firingRate < runtime){
+					vector_t bulletVector = {intToFp(0), intToFp(2)};
+					position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(2 * yScale)};
+					bullet_t bullet = {bulletPos, bulletPos, bulletVector};
+					appendBullet(&(gameState->bulletLL), bullet);
+					thisNode->enemy->lastShotTime = runtime;
+			}
+			thisNode = thisNode->nextEnemyNode;
 		}
-		thisNode = thisNode->nextEnemyNode;
 	}
 }
 

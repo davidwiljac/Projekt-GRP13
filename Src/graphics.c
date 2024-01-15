@@ -582,7 +582,7 @@ void deletePowerupGraphics(uint8_t x, uint8_t y){
 void drawPowerupGraphics(uint8_t x, uint8_t y){
  drawBox(x, y, x+4, y+2, 1);
  gotoxy(x+2, y+1);
- printf("$");
+ printf("?");
 }
 
 void drawNuke(gameState_t* gameState){
