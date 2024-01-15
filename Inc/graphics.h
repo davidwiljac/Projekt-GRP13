@@ -16,7 +16,6 @@
 
 void drawMoon(uint8_t x, uint8_t y);
 void drawEnemy(gameState_t* gameState);
-void drawBullet(uint8_t X, uint8_t Y);
 void drawMe(uint8_t X, uint8_t Y);
 void deleteMe(uint8_t X, uint8_t Y);
 
@@ -33,6 +32,9 @@ void deleteAttachmentRods(uint8_t x, uint8_t y);
 void drawNuke(gameState_t* gameState);
 void drawNukeCircle(gameState_t* gameState);
 void clearNukeCircle(gameState_t* gameState);
+
+void drawdropper(gameState_t* gameState);
+
 
 void drawBossKey();
 #endif /* GRAPHICS_H_ */

@@ -99,6 +99,14 @@ typedef struct {
 	uint8_t mass;
 }moon_t;
 
+typedef struct{
+	uint8_t isvisible;
+	position_t position;
+	position_t nextposition;
+	vector_t velocity;
+	uint32_t lastseentime;
+}dropper_t;
+
 
 // gameState_t
 typedef struct {
@@ -120,6 +128,7 @@ typedef struct {
 	uint32_t lastKeyPressTime;
 	char lastKeyPress;
 	powerup_t powerup;
+	dropper_t dropper;
 
 	uint8_t soundToPlay;
 	uint8_t lastSoundToPlay;

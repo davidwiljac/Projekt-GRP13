@@ -15,6 +15,7 @@
 #include "MoonGravity.h"
 #include "powerup.h"
 #include "sound.h"
+#include "dropperpower.h"
 
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
 
@@ -51,6 +52,8 @@ void initVariables(gameState_t* gameState){
 	gameState->moon = moon;
 	gameState->powerup.lastUseTime=0;
 	gameState->powerup.isVisible=0;
+	gameState->dropper.isvisible=0;
+	gameState->dropper.lastseentime=0;
 
 	gameState->soundIndex = 0;
 	gameState->soundTime = 0;
@@ -187,6 +190,10 @@ int main(void) {
 					shootSpaceship(&gameState);
 					shootEnemy(&gameState);
 					updateBullets(&gameState);
+					spawndropper(&gameState);
+					updatedropper(&gameState);
+					conditiondropper(&gameState);
+
 
 					detectBulletHit(&gameState);
 					detectCityHit(&gameState);
