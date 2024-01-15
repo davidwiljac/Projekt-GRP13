@@ -74,12 +74,11 @@ typedef struct {
 
 //spaceShip_t
 typedef struct {
+	position_t prePosition;
 	position_t position;
 	position_t nextPosition;
 	uint8_t numberOfParts;
-	uint8_t firingPeriod; //time in centiseconds between each shot
 	uint8_t powerups;
-	uint32_t lastShotTime;
 } spaceship_t ;
 
 
