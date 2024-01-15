@@ -66,15 +66,15 @@ void detectBulletHit(gameState_t* gameState){
 
 		if(hitSpaceship){
 
+			gameState->soundToPlay = 4;
+
 			if(gameState->spaceship.numberOfParts==3){
 				deleteMe(fpToInt(gameState->spaceship.position.x)-7, fpToInt(gameState->spaceship.position.y)/yScale);
 				gameState->spaceship.numberOfParts--;
 			} else if(gameState->spaceship.numberOfParts==2){
-				//gotoxy(fpToInt(gameState->spaceship.position.x)+7, fpToInt(gameState->spaceship.position.y));
 				deleteMe(fpToInt(gameState->spaceship.position.x)+7, fpToInt(gameState->spaceship.position.y)/yScale);
 				gameState->spaceship.numberOfParts--;
 			}
-
 
 			deleteBulletNode(&(gameState->bulletLL), current);
 			current = current->nextBulletAddress;

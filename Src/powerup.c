@@ -51,7 +51,7 @@ void updatePowerup(gameState_t* gameState){
 			if(powerupIsTaken){
 				deletePowerupGraphics(fpToInt(gameState->powerup.position.x),fpToInt(gameState->powerup.position.y)/yScale);
 				gameState->powerup.isVisible=0;
-				//TODO: spil lyd her
+				gameState->soundToPlay = 3;
 				if(gameState->spaceship.numberOfParts<3){
 					gameState->spaceship.numberOfParts++;
 				} else {
@@ -67,6 +67,7 @@ void updatePowerup(gameState_t* gameState){
 }
 
 void drawPowerup(gameState_t* gameState){
+
 	if(gameState->powerup.isVisible){
 			deletePowerupGraphics(fpToInt(gameState->powerup.position.x),fpToInt(gameState->powerup.position.y)/yScale);
 			drawPowerupGraphics(fpToInt(gameState->powerup.nextPosition.x),fpToInt(gameState->powerup.nextPosition.y)/yScale);
