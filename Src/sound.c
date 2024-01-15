@@ -15,6 +15,11 @@ const sound_t sounds[][4] = {
 		{{300,5},{0,0}} //lost spaceship part
 };
 
+/**
+  * @brief  Checks if a sound should be played, and does if so
+  * @param  gameState: the current state of the game
+  * @retval None
+  */
 void playSound(gameState_t* gameState){
 	//Checks if a sound should play
 	if(gameState->soundToPlay == 0) return;
