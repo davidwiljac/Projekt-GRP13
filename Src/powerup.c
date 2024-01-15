@@ -57,11 +57,6 @@ void updatePowerup(gameState_t* gameState){
 				deletePowerupGraphics(fpToInt(gameState->powerup.position.x),fpToInt(gameState->powerup.position.y)/yScale);
 				gameState->powerup.isVisible=0;
 				gameState->soundToPlay = 3;
-				if(gameState->spaceship.numberOfParts<3){
-					gameState->spaceship.numberOfParts++;
-				} else {
-					gameState->score += 100;
-
 				uint8_t powerupType = rand()%2;
 
 				if(powerupType==0){ //extra spaceship
@@ -74,9 +69,6 @@ void updatePowerup(gameState_t* gameState){
 					gameState->enemyCanonDisableTime=runtime;
 					gameState->enemyCanonsUnchanged =0;
 				}
-
-
-
 			}
 		}
 

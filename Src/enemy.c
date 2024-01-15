@@ -81,14 +81,6 @@ void updateEnemy(gameState_t* gameState){
   */
 void shootEnemy(gameState_t* gameState){
 	enemyNode_t* thisNode = gameState->enemyLL;
-	while(thisNode != NULL){
-		//If enough time has passed shoot
-		if(thisNode->enemy->lastShotTime + thisNode->enemy->firingRate < runtime){
-			vector_t bulletVector = {intToFp(0), intToFp(2)};
-			position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(2 * yScale)};
-			bullet_t bullet = {bulletPos, bulletPos, bulletVector};
-			appendBullet(&(gameState->bulletLL), bullet);
-			thisNode->enemy->lastShotTime = runtime;
 	if(runtime-gameState->enemyCanonDisableTime >= enemyDisableDuration || gameState->enemyCanonsUnchanged){
 		while(thisNode != NULL){
 			if(thisNode->enemy->lastShotTime + thisNode->enemy->firingRate < runtime){

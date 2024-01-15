@@ -45,7 +45,7 @@ void initVariables(gameState_t* gameState){
 
 
 	gameState->activeScreen=0; //menu screen
-	gameState->difficulty=1;   // medium (if changed here, update also definition of diffBtn)
+	gameState->difficulty=5;   // medium (if changed here, update also definition of diffBtn)
 	gameState->btnSelected=0; //start game
 	gameState->isDead=0;
 	gameState->score=0;
@@ -178,13 +178,13 @@ int main(void) {
 						gameState.activeScreen=1; //Game screen
 					}
 					else if(gameState.btnSelected==1){ // DIFFICULTY BUTTON
-						gameState.difficulty=(gameState.difficulty+1)%3;
+						gameState.difficulty=(gameState.difficulty+5)%15;
 						gotoxy(diffBtn.x+15, diffBtn.y+1);
 						if(gameState.difficulty==0){
 							printf("EASY  ");
-						} else if(gameState.difficulty==1){
+						} else if(gameState.difficulty==5){
 							printf("MEDIUM");
-						} else if(gameState.difficulty==2){
+						} else if(gameState.difficulty==10){
 							printf("HARD  ");
 						}
 					}

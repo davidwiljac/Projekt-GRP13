@@ -37,11 +37,12 @@ void appendBullet(bulletNode_t** head, bullet_t bullet) {
 void appendEnemy(gameState_t* gameState, enemy_t* enemy){
 	enemyNode_t* newEnemy = malloc(sizeof(enemyNode_t));
 	newEnemy->enemy = enemy;
-	newEnemy->nextEnemyNode = NULL;
+	newEnemy->nextEnemyNode = 0;
 
     //If the list is empty assign the enemy as head
 	if(gameState->enemyLL == NULL){
 		gameState->enemyLL = newEnemy;
+		return;
 	}
 
 	//Loops through the entire list and adds bullet to the end

@@ -31,8 +31,8 @@ void playSound(gameState_t* gameState){
 
 	//Checks if the current tone has completed
 	if(runtime - gameState->soundTime > sounds[gameState->soundToPlay][gameState->soundIndex-1].duration){
-		toggleBuzzer(1);
 		setFreq(sounds[gameState->soundToPlay][gameState->soundIndex].frequency);
+		toggleBuzzer(1);
 
 
 		//If it reaches {0,0} stop playing any sound

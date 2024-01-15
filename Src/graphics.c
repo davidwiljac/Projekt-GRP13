@@ -596,16 +596,7 @@ void deleteAttachmentRods(uint8_t x, uint8_t y){
 	printf("    ");
 }
 
-/**
-  * @brief Draws the powerup
-  * @param  X: x-coordinate of the powerup, Y: y-coordinate of the powerup
-  * @retval None
-  */
-void drawPowerupGraphics(uint8_t x, uint8_t y){
- drawBox(x, y, x+4, y+2, 1);
- gotoxy(x+2, y+1);
- printf("$");
-}
+
 
 /**
   * @brief Deletes the powerup
@@ -623,8 +614,8 @@ void deletePowerupGraphics(uint8_t x, uint8_t y){
 }
 
 /**
-  * @brief Draws the nuke
-  * @param  gameState: the current state of the game
+  * @brief Draws the powerup
+  * @param  X: x-coordinate of the powerup, Y: y-coordinate of the powerup
   * @retval None
   */
 void drawPowerupGraphics(uint8_t x, uint8_t y){
@@ -633,6 +624,11 @@ void drawPowerupGraphics(uint8_t x, uint8_t y){
  printf("?");
 }
 
+/**
+  * @brief Draws the nuke
+  * @param  gameState: the current state of the game
+  * @retval None
+  */
 void drawNuke(gameState_t* gameState){
 	if(gameState->nuke->isDeployed == 1){
 		gotoxy(fpToInt(gameState->nuke->position.x),(fpToInt(gameState->nuke->position.y)) / yScale);
