@@ -10,4 +10,6 @@
 
 #include "drivers.h"
 
+void playSound(gameState_t* gameState);
+
 #endif /* SOUND_H_ */

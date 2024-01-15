@@ -33,6 +33,7 @@
 "./Src/menu.o"
 "./Src/nuke.o"
 "./Src/powerup.o"
+"./Src/sound.o"
 "./Src/spaceship.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"

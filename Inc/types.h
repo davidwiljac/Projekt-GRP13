@@ -122,6 +122,11 @@ typedef struct {
 	uint32_t lastKeyPressTime;
 	char lastKeyPress;
 	powerup_t powerup;
+
+	uint8_t soundToPlay;
+	uint8_t lastSoundToPlay;
+	uint8_t soundIndex;
+	uint32_t soundTime;
 } gameState_t ;
 
 
@@ -132,4 +137,8 @@ typedef struct {
 	char* text;
 } button_t;
 
+typedef struct {
+	uint16_t frequency; //In Hz
+	uint16_t duration; //In centiseconds
+} sound_t;
 #endif /* TYPES_H_ */

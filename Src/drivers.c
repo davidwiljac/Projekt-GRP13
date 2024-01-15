@@ -143,8 +143,6 @@ void initTimer(){ //period = 0,01 sec
 	 TIM2->ARR = 63999; // Set reload value //63999
 	 TIM2->PSC = 0x0009; // Set prescale value
 
-	 TIM2->CR1 |= 0x0001; //counter enable
-
 	  TIM2->CCER &= ~TIM_CCER_CC3P; // Clear CCER register
 	  TIM2->CCER |= 0x00000001 << 8; // Enable OC3 output
 	  TIM2->CCMR2 &= ~TIM_CCMR2_OC3M; // Clear CCMR2 register
@@ -382,4 +380,12 @@ void setFreq(uint16_t freq) {
 	TIM2->ARR = reload; // Set auto reload value
 	TIM2->CCR3 = reload/2; // Set compare register
 	TIM2->EGR |= 0x01;
+}
+
+void toggleBuzzer(uint8_t on){
+	if(on == 1){
+		TIM2->CR1 |= 0x0001; //enable
+	}else{
+		TIM2->CR1 &= ~(0x0001); //disable
+	}
 }

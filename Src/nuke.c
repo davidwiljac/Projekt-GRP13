@@ -27,10 +27,9 @@ void chargeNuke(gameState_t* gameState){
 		color[0] = 0;
 		color[1] = 1;
 		color[2] = 0;
+		if(gameState->nuke->readyState == 0) gameState->soundToPlay = 2;
 		gameState->nuke->readyState = 1;
 	}
-	int8_t nullColor[] = {0,0,0};
-	RGBColor(nullColor);
 	RGBColor(color);
 }
 

@@ -47,4 +47,5 @@ uint16_t readFromFlash(uint32_t address);
 
 void setFreq(uint16_t freq);
 void initBuzzerPin();
+void toggleBuzzer(uint8_t on);
 #endif /* DRIVERS_H_ */
