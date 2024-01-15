@@ -85,12 +85,14 @@ void drawbackground(){
 	gotoxy(75,10);
 	printf("%c",43);
 
+	fgcolor(11);
 	gotoxy(100,20);
 	printf("%c",197);
 	gotoxy(135,12);
 	printf("%c",197);
 	gotoxy(30,5);
 	printf("%c",197);
+	fgcolor(15);
 }
 
 /**
@@ -777,4 +779,46 @@ void drawBossKey(){
 	printf("	return 0;\n");
 	printf("	uart_clear();\n");
 	printf("}\n");
+}
+
+void drawdropper(gameState_t* gameState){
+	uint32_t X = fpToInt(gameState->dropper.nextposition.x);
+	uint32_t Y = fpToInt(gameState->dropper.nextposition.y)/yScale;
+	fgcolor(2);
+	gotoxy(X+1,Y);
+	printf("%c",95);
+	gotoxy(X+2,Y);
+	printf("%c",95);
+	gotoxy(X+3,Y);
+	printf("%c",95);
+	gotoxy(X+4,Y);
+	printf("%c",95);
+	gotoxy(X+5,Y);
+	printf("%c",95);
+
+	gotoxy(X,Y);
+	printf("%c",47);
+	gotoxy(X+6,Y);
+	printf("%c",92);
+
+	gotoxy(X+1,Y-1);
+	printf("%c",95);
+	gotoxy(X+2,Y-1);
+	printf("%c",95);
+	gotoxy(X+3,Y-1);
+	printf("%c",95);
+	gotoxy(X+4,Y-1);
+	printf("%c",95);
+	gotoxy(X+5,Y-1);
+	printf("%c",95);
+
+	gotoxy(X+1,Y+1);
+	printf("%c",47);
+	gotoxy(X+2,Y+1);
+	printf("%c",47);
+	gotoxy(X+4,Y+1);
+	printf("%c",92);
+	gotoxy(X+5,Y+1);
+	printf("%c",92);
+	fgcolor(15);
 }
