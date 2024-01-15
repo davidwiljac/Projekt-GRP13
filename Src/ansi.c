@@ -8,6 +8,11 @@
 #define ESC 0x1B
 #include "ansi.h"
 
+/**
+  * @brief  Sets the foreground color of text TODO:REF
+  * @param  the color to be set
+  * @retval None
+  */
 void fgcolor(uint8_t foreground) {
 /*  Value      foreground     Value     foreground
     ------------------------------------------------
@@ -28,6 +33,11 @@ void fgcolor(uint8_t foreground) {
   printf("%c[%d;%dm", ESC, type, foreground+30);
 }
 
+/**
+  * @brief  Sets the background color of text TODO:REF
+  * @param  the color to be set
+  * @retval None
+  */
 void bgcolor(uint8_t background) {
 /* IMPORTANT:   When you first use this function you cannot get back to true white background in HyperTerminal.
    Why is that? Because ANSI does not support true white background (ANSI white is gray to most human eyes).
@@ -50,8 +60,12 @@ void bgcolor(uint8_t background) {
   printf("%c[%dm", ESC, background+40);
 }
 
+/**
+  * @brief  combination of fgcolor() and bgcolor() - uses less bandwidth TODO:REF
+  * @param  the colors to be set
+  * @retval None
+  */
 void color(uint8_t foreground, uint8_t background) {
-// combination of fgcolor() and bgcolor() - uses less bandwidth
   uint8_t type = 22;             // normal text
 	if (foreground > 7) {
 	  type = 1;                // bold text
@@ -60,58 +74,40 @@ void color(uint8_t foreground, uint8_t background) {
   printf("%c[%d;%d;%dm", ESC, type, foreground+30, background+40);
 }
 
+/**
+  * @brief  sets gray on black text, no underline, no blink, no reverse TODO:REF
+  * @param  None
+  * @retval None
+  */
 void resetbgcolor() {
-// gray on black text, no underline, no blink, no reverse
   printf("%c[m", ESC);
 }
 
-void clrscr(){ //clears screen
+/**
+  * @brief  clears the screen TODO:REF
+  * @param  None
+  * @retval None
+  */
+void clrscr(){
     printf("%c[H", ESC);
     printf("%c[J", ESC);
 }
 
-void clreol(){ //clears rest of line
-//    printf("%c[1F", ESC); //move to start of line
-    printf("%c[2K", ESC); //Clears line
-}
-
-//Sends cursor to the given coordinate
+/**
+  * @brief  Sends cursor to the given coordinate TODO:REF
+  * @param  x: x-part, y: y-part
+  * @retval None
+  */
 void gotoxy(int x, int y){
     printf("%c[%d;%dH", ESC, y, x);
 }
 
-
-//Starts underline or removes it depending on 'underline_on'
-void underline(int underline_on){
-    if(underline_on){
-   	 printf("%c[04m", ESC);
-    }else{
-   	 printf("%c[24m", ESC);
-    }
-}
-
-//Starts blink or removes it depending on 'blink_on'
-void blink(int blink_on){
-    if(blink_on){
-   	 printf("%c[05m", ESC);
-    }else{
-   	 printf("%c[25m", ESC);
-    }
-}
-
-
-//Starts inverse or removes it depending on 'inverse_on'
-void inverse(int inverse_on){
-    if(inverse_on){
-   	 printf("%c[07m", ESC);
-    }else{
-   	 printf("%c[27m", ESC);
-    }
-}
-
-
-
-void drawBox(int x1, int y1, int x2, int y2, int style) { //style: 0=thin, 1=bold
+/**
+  * @brief  Draws a box from given coordiantes TODO:REF
+  * @param  x1: x of top left, y1: y of top left, x2: x of bottom right, y2: y of bottom right, style: the style of box 0=thin 1=bold
+  * @retval None
+  */
+void drawBox(int x1, int y1, int x2, int y2, int style) {
 	if(style == 1) {
 		 for(int y = y1; y <= y2; y++){
 			 gotoxy(x1,y);

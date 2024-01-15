@@ -9,6 +9,11 @@
 #include "ansi.h"
 #include "graphics.h"
 
+/**
+  * @brief Draws the stary background of the screen
+  * @param  None
+  * @retval None
+  */
 void drawbackground(){
 	gotoxy(55,35);
 	printf("*");
@@ -88,12 +93,13 @@ void drawbackground(){
 	printf("%c",197);
 }
 
-
+/**
+  * @brief Draws the moon
+  * @param  x: x-coordinate, y: y-coordinate
+  * @retval None
+  */
 void drawMoon(uint8_t X, uint8_t Y){
 	Y /= yScale;
-//	gotoxy(X,Y);
-//	printf("X");
-	// FX (51,17)
 	gotoxy(X-1,Y+3);
 	printf("_");
 	gotoxy(X,Y+3);
@@ -154,13 +160,13 @@ void drawMoon(uint8_t X, uint8_t Y){
 	printf("o");
 	gotoxy(X+3,Y-1);
 	printf("O");
-
-	//middle of the Moon
-	//gotoxy(51,17);
-	//printf("O");
 }
 
-
+/**
+  * @brief Draws the hearts indicating the number of lives
+  * @param  gameState: the current state of the game
+  * @retval None
+  */
 void drawhearth(gameState_t* gameState){
 	gotoxy(15,1);
 	printf("           ");
@@ -201,12 +207,12 @@ void drawhearth(gameState_t* gameState){
 	}
 	fgcolor(15);
 }
-	//const double g=9.81; //gravitational acceleration (m/s^2)
-	//const double dt=0.01; //time step (s)
-	//const double deg_to_rad = 3.14159265359 / 180; // conversion factor from degrees to radians
 
-
-
+/**
+  * @brief Loops over all the enemies and draws them to the screen
+  * @param  gameState: the current state of the game
+  * @retval None
+  */
 void drawEnemy(gameState_t* gameState){
 	enemyNode_t* thisNode = gameState->enemyLL;
 
@@ -226,16 +232,12 @@ void drawEnemy(gameState_t* gameState){
 		thisNode = thisNode->nextEnemyNode;
 	}
 }
-// ^ ^ ^ ^
-// -------
 
-void drawBullet(uint8_t X, uint8_t Y){
-	gotoxy(X,Y);
-	printf("%c",127);
-}
-
-
-
+/**
+  * @brief Draw the city at the bottom of the screen
+  * @param  None
+  * @retval None
+  */
 void drawCity(){
 	gotoxy(14,44);
 	printf("%c",219);
@@ -517,6 +519,11 @@ void drawCity(){
 	printf("%c",220);
 }
 
+/**
+  * @brief Writes the score and level at top right level of screen
+  * @param  the current state of the game
+  * @retval None
+  */
 void drawScore(gameState_t* gameState){
 	gotoxy(140, 0);
 	printf("Your score is: %d", gameState->score);
@@ -524,6 +531,11 @@ void drawScore(gameState_t* gameState){
 	printf("Level: %d", gameState->score/100 + gameState->difficulty);
 }
 
+/**
+  * @brief Draws the player at some coordinates
+  * @param  X: x-coordinate, Y: y-coordinate
+  * @retval None
+  */
 void drawMe(uint8_t X, uint8_t Y){
 	gotoxy(X,Y);
 	printf("%c",219);
@@ -539,6 +551,11 @@ void drawMe(uint8_t X, uint8_t Y){
 	printf("%c",179);
 }
 
+/**
+  * @brief Erases the player at some coordinates
+  * @param  X: x-coordinate, Y: y-coordinate
+  * @retval None
+  */
 void deleteMe(uint8_t X, uint8_t Y){
 	gotoxy(X,Y);
 	printf(" ");
@@ -555,6 +572,11 @@ void deleteMe(uint8_t X, uint8_t Y){
 	printf(" ");
 }
 
+/**
+  * @brief Draws the attachments for the player
+  * @param  X: x-coordinate of player, Y: y-coordinate of player
+  * @retval None
+  */
 void drawAttachmentRods(uint8_t x, uint8_t y){
 	gotoxy(x+2, y);
 	printf("____");
@@ -562,6 +584,11 @@ void drawAttachmentRods(uint8_t x, uint8_t y){
 	printf("____");
 }
 
+/**
+  * @brief Deletes the attachments for the player
+  * @param  X: x-coordinate of player, Y: y-coordinate of player
+  * @retval None
+  */
 void deleteAttachmentRods(uint8_t x, uint8_t y){
 	gotoxy(x+2, y);
 	printf("    ");
@@ -569,6 +596,22 @@ void deleteAttachmentRods(uint8_t x, uint8_t y){
 	printf("    ");
 }
 
+/**
+  * @brief Draws the powerup
+  * @param  X: x-coordinate of the powerup, Y: y-coordinate of the powerup
+  * @retval None
+  */
+void drawPowerupGraphics(uint8_t x, uint8_t y){
+ drawBox(x, y, x+4, y+2, 1);
+ gotoxy(x+2, y+1);
+ printf("$");
+}
+
+/**
+  * @brief Deletes the powerup
+  * @param  X: x-coordinate of the powerup, Y: y-coordinate of the powerup
+  * @retval None
+  */
 void deletePowerupGraphics(uint8_t x, uint8_t y){
 	gotoxy(x, y);
 	printf("     ");
@@ -579,12 +622,11 @@ void deletePowerupGraphics(uint8_t x, uint8_t y){
 
 }
 
-void drawPowerupGraphics(uint8_t x, uint8_t y){
- drawBox(x, y, x+4, y+2, 1);
- gotoxy(x+2, y+1);
- printf("$");
-}
-
+/**
+  * @brief Draws the nuke
+  * @param  gameState: the current state of the game
+  * @retval None
+  */
 void drawNuke(gameState_t* gameState){
 	if(gameState->nuke->isDeployed == 1){
 		gotoxy(fpToInt(gameState->nuke->position.x),(fpToInt(gameState->nuke->position.y)) / yScale);
@@ -605,6 +647,11 @@ void drawNuke(gameState_t* gameState){
 	}
 }
 
+/**
+  * @brief Draws the nuke eksploson
+  * @param  gameState: the current state of the game
+  * @retval None
+  */
 void drawNukeCircle(gameState_t* gameState){
 	uint32_t x = fpToInt(gameState->nuke->position.x);
 	uint32_t y = fpToInt(gameState->nuke->position.y)/yScale;
@@ -651,6 +698,11 @@ void drawNukeCircle(gameState_t* gameState){
 	printf("              ---_______---               \n");
 }
 
+/**
+  * @brief Clears the nuke eksploson
+  * @param  gameState: the current state of the game
+  * @retval None
+  */
 void clearNukeCircle(gameState_t* gameState){
 	uint32_t x = fpToInt(gameState->nuke->position.x);
 	uint32_t y = fpToInt(gameState->nuke->position.y)/yScale;
@@ -697,6 +749,11 @@ void clearNukeCircle(gameState_t* gameState){
 	printf("                                          \n");
 }
 
+/**
+  * @brief Draws the bossKey screen
+  * @param  None
+  * @retval None
+  */
 void drawBossKey(){
 	printf("int8_t bossKey(gameState_t* gameState){\n");
 	printf("	char c = uart_get_char();\n");

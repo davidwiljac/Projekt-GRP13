@@ -17,46 +17,54 @@ uint32_t downPrevPressed = 0;
 uint32_t leftPrevPressed = 0;
 uint32_t rightPrevPressed = 0;
 
+/**
+  * @brief  Sets up the pins for the joystick TODO: REF
+  * @param  None
+  * @retval None
+  */
 void initJoystick(){
 	// Enable clock for GPIO Port A, B, C
 	 RCC->AHBENR |= RCC_AHBPeriph_GPIOA;
 	 RCC->AHBENR |= RCC_AHBPeriph_GPIOB;
 	 RCC->AHBENR |= RCC_AHBPeriph_GPIOC;
 
-	//CENTER
+	//CENTER B5
 	 GPIOB->MODER &= ~(0x00000003 << (5 * 2)); // Clear mode register
-	 GPIOB->MODER |= (0x00000000 << (0 * 2)); // Set mode register (0x00 –
-	 //Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out)
+	 GPIOB->MODER |= (0x00000000 << (0 * 2)); // Set mode register (0x00 – Input, 0x01 - Output, 0x02 - Alternate Function, 0x03 - Analog in/out)
 	 GPIOB->PUPDR &= ~(0x00000003 << (0 * 2)); // Clear push/pull register
-	 GPIOB->PUPDR |= (0x00000002 << (0 * 2)); // Set push/pull register (0x00 -
-	 //	 No pull, 0x01 - Pull-up, 0x02 - Pull-down)
+	 GPIOB->PUPDR |= (0x00000002 << (0 * 2)); // Set push/pull register (0x00 - No pull, 0x01 - Pull-up, 0x02 - Pull-down)
 
-	 //UP
-	 GPIOA->MODER &= ~(0x00000003 << (4 * 2)); // Clear mode register
-	 GPIOA->MODER |= (0x00000000 << (0 * 2)); // Set mode register (0x00 –
-	 GPIOA->PUPDR &= ~(0x00000003 << (0 * 2)); // Clear push/pull register
-	 GPIOA->PUPDR |= (0x00000002 << (0 * 2)); // Set push/pull register (0x00 -
+	 //UP A4
+	 GPIOA->MODER &= ~(0x00000003 << (4 * 2));
+	 GPIOA->MODER |= (0x00000000 << (0 * 2));
+	 GPIOA->PUPDR &= ~(0x00000003 << (0 * 2));
+	 GPIOA->PUPDR |= (0x00000002 << (0 * 2));
 
-	 //down
-	 GPIOB->MODER &= ~(0x00000003 << (0 * 2)); // Clear mode register
-	 GPIOB->MODER |= (0x00000000 << (0 * 2)); // Set mode register (0x00 –
-	 GPIOB->PUPDR &= ~(0x00000003 << (0 * 2)); // Clear push/pull register
-	 GPIOB->PUPDR |= (0x00000002 << (0 * 2)); // Set push/pull register (0x00 -
+	 //down B0
+	 GPIOB->MODER &= ~(0x00000003 << (0 * 2));
+	 GPIOB->MODER |= (0x00000000 << (0 * 2));
+	 GPIOB->PUPDR &= ~(0x00000003 << (0 * 2));
+	 GPIOB->PUPDR |= (0x00000002 << (0 * 2));
 
-	 //left
-	 GPIOC->MODER &= ~(0x00000003 << (1 * 2)); // Clear mode register
-	 GPIOC->MODER |= (0x00000000 << (0 * 2)); // Set mode register (0x00 –
-	 GPIOC->PUPDR &= ~(0x00000003 << (0 * 2)); // Clear push/pull register
-	 GPIOC->PUPDR |= (0x00000002 << (0 * 2)); // Set push/pull register (0x00 -
+	 //left C1
+	 GPIOC->MODER &= ~(0x00000003 << (1 * 2));
+	 GPIOC->MODER |= (0x00000000 << (0 * 2));
+	 GPIOC->PUPDR &= ~(0x00000003 << (0 * 2));
+	 GPIOC->PUPDR |= (0x00000002 << (0 * 2));
 
-	 //right
-	 GPIOC->MODER &= ~(0x00000003 << (0 * 2)); // Clear mode register
-	 GPIOC->MODER |= (0x00000000 << (0 * 2)); // Set mode register (0x00 –
-	 GPIOC->PUPDR &= ~(0x00000003 << (0 * 2)); // Clear push/pull register
-	 GPIOC->PUPDR |= (0x00000002 << (0 * 2)); // Set push/pull register (0x00 -
+	 //right C0
+	 GPIOC->MODER &= ~(0x00000003 << (0 * 2));
+	 GPIOC->MODER |= (0x00000000 << (0 * 2));
+	 GPIOC->PUPDR &= ~(0x00000003 << (0 * 2));
+	 GPIOC->PUPDR |= (0x00000002 << (0 * 2));
 
 }
 
+/**
+  * @brief  Reads the if the center of joystick is pressed
+  * @param  None
+  * @retval 0 if not pressed, 1 if pressed
+  */
 uint8_t centerIsPressed(){
 	 if(((GPIOB->IDR & (0x0001 << 5))!=0 )&& (runtime-centerPrevPressed>btnDelay)){
 		 centerPrevPressed=runtime;
@@ -69,6 +77,11 @@ uint8_t centerIsPressed(){
 	 }
 }
 
+/**
+  * @brief  Reads the if the up of joystick is pressed
+  * @param  None
+  * @retval 0 if not pressed, 1 if pressed
+  */
 uint8_t upIsPressed(){
 		 if(((GPIOA->IDR & (0x0001 << 4))!=0) && (runtime-upPrevPressed>btnDelay)){
 			 upPrevPressed = runtime;
@@ -81,6 +94,11 @@ uint8_t upIsPressed(){
 		 }
 	 }
 
+/**
+  * @brief  Reads the if the down of joystick is pressed
+  * @param  None
+  * @retval 0 if not pressed, 1 if pressed
+  */
 uint8_t downIsPressed(){
 		 if(((GPIOB->IDR & (0x0001 << 0))!=0)&& (runtime-downPrevPressed>btnDelay)){
 			 downPrevPressed = runtime;
@@ -93,6 +111,11 @@ uint8_t downIsPressed(){
 		 }
 	 }
 
+/**
+  * @brief  Reads the if the left of joystick is pressed
+  * @param  None
+  * @retval 0 if not pressed, 1 if pressed
+  */
 uint8_t leftIsPressed(){
 		 if(((GPIOC->IDR & (0x0001 << 1))!=0)&& (runtime-leftPrevPressed>btnDelay)){
 			 leftPrevPressed = runtime;
@@ -105,6 +128,11 @@ uint8_t leftIsPressed(){
 		 }
 	 }
 
+/**
+  * @brief  Reads the if the right of joystick is pressed
+  * @param  None
+  * @retval 0 if not pressed, 1 if pressed
+  */
 uint8_t rightIsPressed(){
 		 if(((GPIOC->IDR & (0x0001 << 0))!=0)&& (runtime-rightPrevPressed>btnDelay)){
 			 rightPrevPressed = runtime;
@@ -120,6 +148,11 @@ uint8_t rightIsPressed(){
 // JOYSTICK ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // TIMER vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
+/**
+  * @brief  Sets up timer 15 to a period of 0.01s and timer 2 to be configured later for the buzzer TODO: REF
+  * @param  None
+  * @retval None
+  */
 void initTimer(){ //period = 0,01 sec
 
 	 RCC->APB2ENR |= RCC_APB2Periph_TIM15; // Enable clock line to timer 15;
@@ -133,46 +166,54 @@ void initTimer(){ //period = 0,01 sec
 	 NVIC_SetPriority(TIM1_BRK_TIM15_IRQn, 0); // Set interrupt priority
 	 NVIC_EnableIRQ(TIM1_BRK_TIM15_IRQn); // Enable interrupt
 
-	 //BUZZER timer (TIM2)vvvvvvvvvvvvvvvv
 
+	 //BUZZER timer (TIM2)vvvvvvvvvvvvvvvv
 	 RCC->APB1ENR |= RCC_APB1Periph_TIM2; // Enable clock line to timer 2;
 	 TIM2->CR1 &= 0xF400; // Configure timer 2
-	 //TIM2->CR1 = 0x0000; // Configure timer 2
-	 TIM2->ARR = 63999; // Set reload value //63999
-	 TIM2->PSC = 0x0009; // Set prescale value
 
-	  TIM2->CCER &= ~TIM_CCER_CC3P; // Clear CCER register
-	  TIM2->CCER |= 0x00000001 << 8; // Enable OC3 output
-	  TIM2->CCMR2 &= ~TIM_CCMR2_OC3M; // Clear CCMR2 register
-	  TIM2->CCMR2 &= ~TIM_CCMR2_CC3S;
-	  TIM2->CCMR2 |= TIM_OCMode_PWM1; // Set output mode to PWM1
-	  TIM2->CCMR2 &= ~TIM_CCMR2_OC3PE;
-	  TIM2->CCMR2 |= TIM_OCPreload_Enable;
-	  TIM2->CCR3 = 63999 / 2; // Set duty cycle to 50 %
+	 TIM2->CCER &= ~TIM_CCER_CC3P; // Clear CCER register
+	 TIM2->CCER |= 0x00000001 << 8; // Enable OC3 output
+	 TIM2->CCMR2 &= ~TIM_CCMR2_OC3M; // Clear CCMR2 register
+	 TIM2->CCMR2 &= ~TIM_CCMR2_CC3S;
+	 TIM2->CCMR2 |= TIM_OCMode_PWM1; // Set output mode to PWM1
+	 TIM2->CCMR2 &= ~TIM_CCMR2_OC3PE;
+	 TIM2->CCMR2 |= TIM_OCPreload_Enable;
+	 TIM2->CCR3 = 63999 / 2; // Set duty cycle to 50 %
 }
 
+/**
+  * @brief  When timer 15 interrupts (every 0.01s) adds 1 to runtime
+  * @param  None
+  * @retval None
+  */
 void TIM1_BRK_TIM15_IRQHandler(void) {
 	runtime++;
 	TIM15->SR &= ~0x0001; // Clear interrupt bit
  }
 
-// TIMER ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+/**
+  * @brief  Sets up the pin controlling the buzzer
+  * @param  None
+  * @retval None
+  */
 void initBuzzerPin(){
-
   	RCC->AHBENR |= RCC_AHBPeriph_GPIOB;
 
 	GPIOB->OSPEEDR &= ~(0x00000003 << (2*10));
-	GPIOB->OSPEEDR |= (0x00000002 << (2*10));
+	GPIOB->OSPEEDR |= (0x00000002 << (2*10));  //Low speed
 	GPIOB->OTYPER &= ~(0x0001 << (10));
-	GPIOB->OTYPER |= 0x0000 << (10);
+	GPIOB->OTYPER |= 0x0000 << (10); //Push-pull
 	GPIOB->MODER &= ~(0x00000003 << (2*10));
-	GPIOB->MODER |= 0x00000002 << (2*10);
+	GPIOB->MODER |= 0x00000002 << (2*10); //Alternate function
 
 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource10, GPIO_AF_1);
 }
 
-//I2C shit TODO: ret kommentar
+/**
+  * @brief  Writes a byte on I2C bus TODO: REF
+  * @param  address: the I2C adress to writer on, reg: the register to write to, val: the byte to write
+  * @retval None
+  */
 void I2C_Write(uint16_t address, uint8_t reg, uint8_t val) {
     while (I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY) == SET); // Wait until free
 
@@ -195,7 +236,11 @@ void I2C_Write(uint16_t address, uint8_t reg, uint8_t val) {
     I2C_ClearFlag(I2C1, I2C_FLAG_STOPF); // Clear stop flag
 }
 
-
+/**
+  * @brief  Reads data from the I2C bus TODO: REF
+  * @param  address: the I2C adress to writer on, reg: the register to write to, vals: the bytes to read, n: the amout of bytes to read
+  * @retval None
+  */
 uint8_t I2C_Read(uint16_t address, uint8_t reg, uint8_t* vals, uint8_t n) {
     uint8_t val = 0;
 
@@ -225,6 +270,11 @@ uint8_t I2C_Read(uint16_t address, uint8_t reg, uint8_t* vals, uint8_t n) {
     return val;
 }
 
+/**
+  * @brief  Sets up the I2C bus TODO: REF
+  * @param  None
+  * @retval None
+  */
 void I2C_init()
 {
 
@@ -274,6 +324,11 @@ void I2C_init()
 }
 
 //Potentiometers  vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+/**
+  * @brief  Sets up the analog ports for the potentiometers TODO: REF
+  * @param  None
+  * @retval None
+  */
 void analogConfigPorts(){
 	RCC->AHBENR |= RCC_AHBPeriph_GPIOA;
 
@@ -303,6 +358,11 @@ void analogConfigPorts(){
 	while (!(ADC1->ISR & 0x00000001)); // Wait until ready
 }
 
+/**
+  * @brief  Reads the left potentiometer TODO: REF
+  * @param  None
+  * @retval A value between 0 and 4096 from the potentiometers
+  */
 uint16_t readPotentiometer(){
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_1Cycles5);
 	ADC_StartConversion(ADC1); // Start ADC read
@@ -312,36 +372,45 @@ uint16_t readPotentiometer(){
 }
 
 //LED vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+/**
+  * @brief  Sets up the pins for RGB TODO: REF
+  * @param  None
+  * @retval None
+  */
 void initRGB(){
 	//setup PA9 (Blue)
-		uint8_t pin = 9;
-		GPIOA->OSPEEDR &= ~(0x00000003 << (2*pin));
-		GPIOA->OSPEEDR |= (0x00000002 << (2*pin));
-		GPIOA->OTYPER &= ~(0x0001 << (pin));
-		GPIOA->OTYPER |= 0x0000 << (pin);
-		GPIOA->MODER &= ~(0x00000003 << (2*pin));
-		GPIOA->MODER |= 0x00000001 << (2*pin);
+	uint8_t pin = 9;
+	GPIOA->OSPEEDR &= ~(0x00000003 << (2*pin));
+	GPIOA->OSPEEDR |= (0x00000002 << (2*pin));
+	GPIOA->OTYPER &= ~(0x0001 << (pin));
+	GPIOA->OTYPER |= 0x0000 << (pin);
+	GPIOA->MODER &= ~(0x00000003 << (2*pin));
+	GPIOA->MODER |= 0x00000001 << (2*pin);
 
-		//setup PC7 (Green)
-		pin = 7;
-		GPIOC->OSPEEDR &= ~(0x00000003 << (2*pin));
-		GPIOC->OSPEEDR |= (0x00000002 << (2*pin));
-		GPIOC->OTYPER &= ~(0x0001 << (pin));
-		GPIOC->OTYPER |= 0x0000 << (pin);
-		GPIOC->MODER &= ~(0x00000003 << (2*pin));
-		GPIOC->MODER |= 0x00000001 << (2*pin);
+	//setup PC7 (Green)
+	pin = 7;
+	GPIOC->OSPEEDR &= ~(0x00000003 << (2*pin));
+	GPIOC->OSPEEDR |= (0x00000002 << (2*pin));
+	GPIOC->OTYPER &= ~(0x0001 << (pin));
+	GPIOC->OTYPER |= 0x0000 << (pin);
+	GPIOC->MODER &= ~(0x00000003 << (2*pin));
+	GPIOC->MODER |= 0x00000001 << (2*pin);
 
-		//setup PB4 (Red)
-		pin = 4;
-		GPIOB->OSPEEDR &= ~(0x00000003 << (2*pin));
-		GPIOB->OSPEEDR |= (0x00000002 << (2*pin));
-		GPIOB->OTYPER &= ~(0x0001 << (pin));
-		GPIOB->OTYPER |= 0x0000 << (pin);
-		GPIOB->MODER &= ~(0x00000003 << (2*pin));
-		GPIOB->MODER |= 0x00000001 << (2*pin);
+	//setup PB4 (Red)
+	pin = 4;
+	GPIOB->OSPEEDR &= ~(0x00000003 << (2*pin));
+	GPIOB->OSPEEDR |= (0x00000002 << (2*pin));
+	GPIOB->OTYPER &= ~(0x0001 << (pin));
+	GPIOB->OTYPER |= 0x0000 << (pin);
+	GPIOB->MODER &= ~(0x00000003 << (2*pin));
+	GPIOB->MODER |= 0x00000001 << (2*pin);
 }
 
-//Sets the color of the LED based on an array [R, G, B]
+/**
+  * @brief Sets the color of the LED based on an array [R, G, B] TODO: REF
+  * @param  color: array with 3 elements for R,G and B
+  * @retval None
+  */
 void RGBColor(uint8_t color[]){
 	//Resets LED
 	GPIOB->ODR |= (0x0001 << 4);
@@ -359,7 +428,12 @@ void RGBColor(uint8_t color[]){
 	}
 }
 
-//Flash memory
+//Flash memory vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+/**
+  * @brief  writes some data to a given address TODO: REF
+  * @param  data: the 2 bytes to the write, address: the address to write to
+  * @retval None
+  */
 void writeToFlash(uint16_t data, uint32_t address){
 	FLASH_Unlock();
 	FLASH_ClearFlag( FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPERR );
@@ -368,10 +442,21 @@ void writeToFlash(uint16_t data, uint32_t address){
 	FLASH_Lock();
 }
 
+/**
+  * @brief  Reads data from flash memory TODO: REF
+  * @param  address: the address to write to
+  * @retval 2 bytes from memory
+  */
 uint16_t readFromFlash(uint32_t address){
 	return *(uint16_t *)address;
 }
 
+//Flash memory vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+/**
+  * @brief  Sets the frequenc of the buzzer TODO: REF
+  * @param  freq: the frequency the buzzer should play [Hz]
+  * @retval None
+  */
 void setFreq(uint16_t freq) {
 	uint32_t reload = 64e6 / freq / (9 + 1) - 1;
 	TIM2->ARR = reload; // Set auto reload value
@@ -379,6 +464,11 @@ void setFreq(uint16_t freq) {
 	TIM2->EGR |= 0x01;
 }
 
+/**
+  * @brief  (de)activates the buzzer TODO: REF
+  * @param  on: 1 = turn on, everything else = turn off
+  * @retval None
+  */
 void toggleBuzzer(uint8_t on){
 	if(on == 1){
 		TIM2->CR1 |= 0x0001; //enable

@@ -12,12 +12,16 @@
 #include "fixedPoint.h"
 #include "linkedList.h"
 #include "graphics.h"
-#include "MoonGravity.h"
 #include "powerup.h"
 #include "sound.h"
 
 #define framePeriod 4 //time in centiseconds deciding how often game frame is redrawn. 4 results in 25 fps
 
+/**
+  * @brief  Sets all the relevant variables to reset values
+  * @param  gamestate: the current state of the game
+  * @retval None
+  */
 void initVariables(gameState_t* gameState){
 	spaceship_t initSpaceship = {{intToFp(3), intToFp(40*yScale)}, //previous position
 			{intToFp(3), intToFp(40*yScale)}, //position
@@ -55,10 +59,13 @@ void initVariables(gameState_t* gameState){
 	gameState->soundIndex = 0;
 	gameState->soundTime = 0;
 	gameState->soundToPlay = 0;
-	//TODO: continue to initialize everything
 }
 
-
+/**
+  * @brief  draws the current state of the game
+  * @param  gamestate: the current state of the game
+  * @retval None
+  */
 void drawScreen(gameState_t* gameState) {
 	drawSpaceship(gameState);
 	drawEnemy(gameState);
@@ -69,6 +76,11 @@ void drawScreen(gameState_t* gameState) {
 	drawNuke(gameState);
 }
 
+/**
+  * @brief  checks if the player is dead, and writes the score to memory if applicable
+  * @param  gamestate: the current state of the game
+  * @retval None
+  */
 void checkIfDead(gameState_t* gameState){
 
 	if(gameState->cityLives == 0){
@@ -80,7 +92,12 @@ void checkIfDead(gameState_t* gameState){
 	}
 }
 
-void readInput(gameState_t* gameState){
+/**
+  * @brief  Checks if 'f' is pressed and (de)activates bossKey i it's pressed
+  * @param  gamestate: the current state of the game
+  * @retval None
+  */
+void checkBossKey(gameState_t* gameState){
 	char c = uart_get_char();
 	if(c == 'f'){
 		if(gameState->activeScreen != 4){
@@ -93,13 +110,21 @@ void readInput(gameState_t* gameState){
 	}
 }
 
+/**
+  * @brief  The main loop of the game. Runs the menus, if activeScreen == 1 runs the game.
+  * @param  None
+  * @retval None
+  */
 int main(void) {
 	gameState_t gameState;
+
+	//Defines the menu buttons
 	const button_t startBtn = {75,15,"START"};
 	const button_t diffBtn = {68,20,"DIFFICULTY: MEDIUM"};
 	const button_t helpBtn = {75,25,"HELP"};
 	button_t btnList[] = {startBtn, diffBtn, helpBtn}; //always only 3 buttons!
 
+	//Sets up all the used hardware
 	uart_init(512000);
 	initVariables(&gameState);
 	initJoystick();
@@ -108,21 +133,23 @@ int main(void) {
 	initRGB();
 	I2C_init();
 	analogConfigPorts();
-	uint8_t color[] = {1,0,0};
+	uint8_t color[] = {0,0,0};
 	RGBColor(color);
 	srand(readPotentiometer());   //RNG
 
 	while(1){
 		switch(gameState.activeScreen){
 		case 0: //MENU SCREEN ---------------------------------------------------------------------
+			//Sets up the menu
 			clrscr();
 			drawWindow(0);
 			drawbackground(); // stars in background
 			drawMoon(gameState.moon.x, gameState.moon.y);
 			drawMenuScreen(btnList, &gameState);
 
+			//Continuously checks if the joystick is used and acts accordingly
 			while(gameState.activeScreen==0){
-				readInput(&gameState);
+				checkBossKey(&gameState);
 				if(downIsPressed()){
 					drawBtnAsDeselected(btnList[gameState.btnSelected]);
 					gameState.btnSelected=(gameState.btnSelected+1)%3;
@@ -156,8 +183,8 @@ int main(void) {
 			}
 			break;
 		case 1: // GAME SCREEN -----------------------------------------------------------------------
+			//Sets up the game screen
 			clrscr();
-			printf("GAME SCREEN");
 			uint32_t frameLastUpdated=0;
 			gameState.powerup.lastUseTime = runtime;
 			drawWindow(1);
@@ -165,19 +192,18 @@ int main(void) {
 			drawhearth(&gameState);
 			drawCity();
 
-			gameState.powerup.lastUseTime = runtime;
 			drawScore(&gameState);
-			gameState.nuke->lastActivationTime = runtime; //Start charing of nuke
-			gameState.soundTime = runtime;
+			gameState.powerup.lastUseTime = runtime; //Starts the spawing of powerups
+			gameState.nuke->lastActivationTime = runtime; //Start charging of nuke
+			gameState.soundTime = runtime; //Starts the soundengine
 
 			gameState.nextEnemySpawn = runtime + 20; //Spawns first enemy after 0.2 seconds
 
+			//Continuously updates the game updateing sound and bosskey as quicly as possible, and the rest 4 times pr second
 			while(gameState.activeScreen==1){
-				readInput(&gameState);
+				checkBossKey(&gameState);
 				playSound(&gameState);
 				if(runtime-frameLastUpdated>=framePeriod){//
-					readInput(&gameState);
-					
 					spawnEnemy(&gameState);
 					spawnPowerup(&gameState);
 
@@ -190,7 +216,6 @@ int main(void) {
 
 					detectBulletHit(&gameState);
 					detectCityHit(&gameState);
-//					powerUp(&gameState);
 					updateNuke(&gameState);
 					checkIfDead(&gameState);
 
@@ -200,32 +225,38 @@ int main(void) {
 		}
 			break;
 		case 2:// HELP SCREEN ------------------------------------------------------------------------
+			//Sets up the help screen
 			clrscr();
 			drawWindow(0);
 			drawbackground(); // stars in background
 			drawHelpScreen();
+
+			//If center is pressed leave the help screen
 			while(gameState.activeScreen==2){
-				readInput(&gameState);
+				checkBossKey(&gameState);
 				if(centerIsPressed()){
 					gameState.activeScreen=0;//MENU SCREEN
 				}
 			}
 			break;
 		case 3:// GAME OVER SCREEN -------------------------------------------------------------------
+			//Sets up the game over screen
 			clrscr();
 			printf("Your highscore is %d", readFromFlash(0x0800F800));
+
+			//If down is pressed reset all variables and return to the menu
 			while(gameState.activeScreen==3){
-				readInput(&gameState);
+				checkBossKey(&gameState);
 				if(downIsPressed()){
 					initVariables(&gameState);
 					gameState.activeScreen=0;//MENU SCREEN
 				}
 			}
 			break;
-		case 4: // BOSS KEY
+		case 4: // BOSS KEY --- Draws the bosskey screen and checks if it should leave it again
 			drawBossKey();
 			while(1){
-				readInput(&gameState);
+				checkBossKey(&gameState);
 				if(gameState.activeScreen !=4){
 					break;
 				}
