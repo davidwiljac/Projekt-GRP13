@@ -10,7 +10,9 @@
 const sound_t sounds[][4] = {
 		{},
 		{{1000,1},{0,0}}, //Bullet shot
-		{{400,5},{0,5},{400,5},{0,0}} //Nuke ready
+		{{400,5},{0,5},{400,5},{0,0}}, //Nuke ready
+		{{1046,2},{1318,2}, {0,0}}, //powerup taken
+		{{300,5},{0,0}} //lost spaceship part
 };
 
 void playSound(gameState_t* gameState){
