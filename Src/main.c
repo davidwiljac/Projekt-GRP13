@@ -91,6 +91,7 @@ void drawScreen(gameState_t* gameState) {
 	drawhearth(gameState);
 	drawMoon(gameState->moon.x, gameState->moon.y);
 	drawNuke(gameState);
+	conditionDropper(gameState);
 
 }
 
@@ -147,10 +148,13 @@ int main(void) {
 	initBuzzerPin();
 	initRGB();
 	I2C_init();
+
 	analogConfigPorts();
 	uint8_t color[] = {0,0,0};
 	RGBColor(color);
 	srand(readPotentiometer());   //RNG
+
+
 
 	while(1){
 		switch(gameState.activeScreen){
@@ -164,19 +168,23 @@ int main(void) {
 
 			//Continuously checks if the joystick is used and acts accordingly
 			while(gameState.activeScreen==0){
+				playSound(&gameState);
 				checkBossKey(&gameState);
 				if(downIsPressed()){
+					gameState.soundToPlay = 1;
 					drawBtnAsDeselected(btnList[gameState.btnSelected]);
 					gameState.btnSelected=(gameState.btnSelected+1)%3;
 					drawBtnAsSelected(btnList[gameState.btnSelected]);
 				}
 				else if(upIsPressed()){
+					gameState.soundToPlay = 1;
 					drawBtnAsDeselected(btnList[gameState.btnSelected]);
 					if(gameState.btnSelected==0) gameState.btnSelected=2;
 					else gameState.btnSelected=gameState.btnSelected-1;
 					drawBtnAsSelected(btnList[gameState.btnSelected]);
 				}
-				if(centerIsPressed()){
+				else if(centerIsPressed()){
+					gameState.soundToPlay = 1;
 					if(gameState.btnSelected==0){ //START BUTTON
 						gameState.activeScreen=1; //Game screen
 					}
@@ -195,6 +203,7 @@ int main(void) {
 						gameState.activeScreen=2;// help screen
 					}
 				}
+
 			}
 			break;
 		case 1: // GAME SCREEN -----------------------------------------------------------------------
@@ -225,12 +234,13 @@ int main(void) {
 					updateSpaceship(&gameState);
 					updateEnemy(&gameState);
 					updatePowerup(&gameState);
+
 					shootSpaceship(&gameState);
 					shootEnemy(&gameState);
 					updateBullets(&gameState);
-					spawndropper(&gameState);
-					updatedropper(&gameState);
-					conditiondropper(&gameState);
+					spawnDropper(&gameState);
+					updateDropper(&gameState);
+
 
 
 					detectBulletHit(&gameState);
@@ -252,8 +262,10 @@ int main(void) {
 
 			//If center is pressed leave the help screen
 			while(gameState.activeScreen==2){
+				playSound(&gameState);
 				checkBossKey(&gameState);
 				if(centerIsPressed()){
+					gameState.soundToPlay = 1;
 					gameState.activeScreen=0;//MENU SCREEN
 				}
 			}
@@ -302,11 +314,8 @@ int main(void) {
 			break;
 		case 4: // BOSS KEY --- Draws the bosskey screen and checks if it should leave it again
 			drawBossKey();
-			while(1){
+			while(gameState.activeScreen==4){
 				checkBossKey(&gameState);
-				if(gameState.activeScreen !=4){
-					break;
-				}
 			}
 			break;
 		}

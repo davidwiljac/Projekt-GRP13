@@ -6,15 +6,11 @@
  */
 #include "bullet.h"
 
-/**
-  * @brief  Updates the position of all the bullets according to their velocities and thier velocities according the gravity from the moon
-  * @param  gamestate: the current state of the game
-  * @retval None
-  */
 
-// fra https://www.geeksforgeeks.org/find-two-rectangles-overlap/ (modificeret)
+
+// from https://www.geeksforgeeks.org/find-two-rectangles-overlap/ (modified)
+// returns 1 if two given rectangles overlap. returns 0 otherwise.
 uint8_t rectsOverlap(position_t l1, position_t r1, position_t l2, position_t r2){
-
 		// If one rectangle is on left side of other
 		if (l1.x > r2.x || l2.x > r1.x){
 			return 0;
@@ -27,6 +23,12 @@ uint8_t rectsOverlap(position_t l1, position_t r1, position_t l2, position_t r2)
     return 1;
 }
 
+
+/**
+  * @brief  Updates the position of all the bullets according to their velocities and thier velocities according the gravity from the moon
+  * @param  gamestate: the current state of the game
+  * @retval None
+  */
 void updateBullets(gameState_t* gameState){
 	bulletNode_t* current = gameState->bulletLL;
 	//Loops though the bullet linked list
@@ -135,12 +137,11 @@ void detectBulletHit(gameState_t* gameState){
 
 
 			position_t enemyDwnRghtCnr = {currentEnemy->enemy->position->x+intToFp(6), currentEnemy->enemy->position->y+intToFp(1*yScale)};
-
-
 			uint8_t hitEnemy = rectsOverlap(bulletTopLftCnr, bulletDwnRghtCnr, *(currentEnemy->enemy->position), enemyDwnRghtCnr);
 
 
 			if(hitEnemy == 1){
+				gameState->soundToPlay = 4;
 				gameState->score += 10;
 				drawScore(gameState);
 				deleteBulletNode(&(gameState->bulletLL), current);

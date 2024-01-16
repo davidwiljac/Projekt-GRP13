@@ -10,7 +10,7 @@
 #define spawnPeriod 1500
 
 
-void spawndropper(gameState_t* gameState){
+void spawnDropper(gameState_t* gameState){
 	if(runtime-gameState->dropper.lastseentime>=spawnPeriod){
 		gameState->dropper.lastseentime=runtime;
 		gameState->dropper.isvisible=1;
@@ -23,14 +23,14 @@ void spawndropper(gameState_t* gameState){
 }
 
 
-void updatedropper(gameState_t* gameState){
+void updateDropper(gameState_t* gameState){
 	if(gameState->dropper.isvisible){
 
 		gameState->dropper.nextposition.x=gameState->dropper.position.x+gameState->dropper.velocity.x;
 		gameState->dropper.nextposition.y=gameState->dropper.position.y+gameState->dropper.velocity.y;
 
 		if(fpToInt(gameState->dropper.nextposition.x)>=140){
-			deletedropper(fpToInt(gameState->dropper.position.x),fpToInt(gameState->dropper.position.y)/yScale);
+			deleteDropper(fpToInt(gameState->dropper.position.x),fpToInt(gameState->dropper.position.y)/yScale);
 			gameState->dropper.isvisible=0;
 			gameState->dropper.lastseentime=runtime;
 		}
@@ -38,16 +38,16 @@ void updatedropper(gameState_t* gameState){
 	}
 }
 
-void conditiondropper(gameState_t* gameState){
+void conditionDropper(gameState_t* gameState){
 
 	if(gameState->dropper.isvisible){
-		deletedropper(fpToInt(gameState->dropper.position.x),fpToInt(gameState->dropper.position.y)/yScale);
-		drawdropper(gameState);
+		deleteDropper(fpToInt(gameState->dropper.position.x),fpToInt(gameState->dropper.position.y)/yScale);
+		drawDropper(gameState);
 	}
 	gameState->dropper.position=gameState->dropper.nextposition;
 }
 
-void deletedropper(uint8_t X,uint8_t Y){
+void deleteDropper(uint8_t X,uint8_t Y){
 	gotoxy(X,Y);
 	printf("       ");
 	gotoxy(X,Y-1);

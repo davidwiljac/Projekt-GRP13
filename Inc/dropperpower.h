@@ -15,9 +15,9 @@
 #include "graphics.h"
 #include "ansi.h"
 
-void deletedropper(uint8_t X,uint8_t Y);
-void conditiondropper(gameState_t* gameState);
-void updatedropper(gameState_t* gameState);
-void spawndropper(gameState_t* gameState);
+void deleteDropper(uint8_t X,uint8_t Y);
+void conditionDropper(gameState_t* gameState);
+void updateDropper(gameState_t* gameState);
+void spawnDropper(gameState_t* gameState);
 
 #endif /* DROPPERPOWER_H_ */
