@@ -117,6 +117,9 @@ void drawHelpScreen(){
 	drawBox(x, ++y, x+4, y+2, 1);
 	gotoxy(x+2, y+1);
 	printf("$");
+
+	gotoxy(x, y+=4);
+	printf("Har du brug for at skjule spillet, trykker du blot pa 'f', så bliver spillet til en masse c-kode.");
 }
 
 /**
