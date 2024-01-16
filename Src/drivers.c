@@ -170,6 +170,7 @@ void initTimer(){ //period = 0,01 sec
 	 //BUZZER timer (TIM2)vvvvvvvvvvvvvvvv
 	 RCC->APB1ENR |= RCC_APB1Periph_TIM2; // Enable clock line to timer 2;
 	 TIM2->CR1 &= 0xF400; // Configure timer 2
+	 TIM2->PSC = 9;
 
 	 TIM2->CCER &= ~TIM_CCER_CC3P; // Clear CCER register
 	 TIM2->CCER |= 0x00000001 << 8; // Enable OC3 output

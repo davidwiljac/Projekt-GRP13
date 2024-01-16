@@ -42,6 +42,7 @@ void appendEnemy(gameState_t* gameState, enemy_t* enemy){
     //If the list is empty assign the enemy as head
 	if(gameState->enemyLL == NULL){
 		gameState->enemyLL = newEnemy;
+		return;
 	}
 
 	//Loops through the entire list and adds bullet to the end

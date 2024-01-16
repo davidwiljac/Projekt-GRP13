@@ -24,6 +24,7 @@ uint16_t smoothing(uint16_t val){
 	uint16_t res = sum/x;
 	return res;
 }
+
 /**
   * @brief  Updates the position of the spaceship
   * @param  gameState: the current state of the game
@@ -34,12 +35,7 @@ void updateSpaceship(gameState_t* gameState){
 	uint16_t potVal = smoothing(readPotentiometer());
 	uint32_t x = fpDivide(intToFp(potVal), intToFp(26)) ;
 
-<<<<<<< Updated upstream
-	//Ant jitter
-=======
-
 	//Anti jitter
->>>>>>> Stashed changes
 	if(fpAbs(gameState->spaceship.prePosition.x - x) < intToFp(2)){
 		return;
 	}

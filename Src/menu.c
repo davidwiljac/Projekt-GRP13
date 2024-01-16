@@ -59,9 +59,35 @@ void drawMenuScreen(button_t btnList[], gameState_t* gameState){
 void drawHelpScreen(){
 	gotoxy(70,5);
 	printf("HELP SCREEN");
-	gotoxy(60,7);
-	printf("Tag dig dog sammen mand!");
+	uint16_t x = 10;
+	uint16_t y = 10;
+	gotoxy(x,y);
+	printf("Styr din rum skib ved at dreje det venstre potentiometer frem og tilbage");
+	gotoxy(x+=24, y+=2);
+	printf("<-----     ----->");
+	drawMe(x+=8,y);
 
+	gotoxy(x-=32, y+=3);
+	printf("Rumvaeserne vil prove at odelaegge din by. Hver gang de rammer den mister du et liv!");
+	gotoxy(x, ++y);
+	printf("  o o  ");
+	gotoxy(x, ++y);
+	printf("%c%c%c%c%c%c%c", 201, 205, 205, 205, 205, 205, 187);
+
+	gotoxy(x, y+=2);
+	printf("Er du ved at blive overvaeldet, kan du bruge din nuke.");
+	gotoxy(x,++y);
+	printf("Se pa LED'en hvornar den er klar");
+	gotoxy(x,++y);
+	fgcolor(1);
+	printf("%c", 219);
+	fgcolor(13);
+	printf("%c", 219);
+	fgcolor(11);
+	printf("%c", 219);
+	fgcolor(2);
+	printf("%c", 219);
+	fgcolor(15);
 }
 
 /**
