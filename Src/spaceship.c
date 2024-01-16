@@ -6,6 +6,25 @@
  */
 #include "spaceship.h"
 
+int x = 5;
+uint16_t preVals[5] = {0};
+uint16_t smoothing(uint16_t val){
+	for(int i = x-1; i > 0; i--){
+		preVals[i] = preVals[i-1];
+	}
+	preVals[0] = val;
+	uint32_t sum = 0;
+	for(int i = 0; i < x; i++){
+		sum += preVals[i];
+		gotoxy(10,10+i);
+		printf("                        ");
+		gotoxy(10,10+i);
+		printf("%d", preVals[i]);
+	}
+	uint16_t res = sum/x;
+	return res;
+}
+
 /**
   * @brief  Updates the position of the spaceship
   * @param  gameState: the current state of the game
@@ -13,11 +32,11 @@
   */
 void updateSpaceship(gameState_t* gameState){
 	//Reads the potentiometer and calculates the x-value by dividing it by 13 (2048 / 156) (2048 is half of the potentiometer range)
-	uint16_t potVal = readPotentiometer();
-	uint32_t x = fpDivide(intToFp(potVal), intToFp(13)) ;
+	uint16_t potVal = smoothing(readPotentiometer());
+	uint32_t x = fpDivide(intToFp(potVal), intToFp(26)) ;
 
-	//Ant jitter
-	if(fpAbs(gameState->spaceship.prePosition.x - x) < intToFp(2)  || fpAbs(gameState->spaceship.prePosition.x - x) > intToFp(25)){
+	//Anti jitter
+	if(fpAbs(gameState->spaceship.prePosition.x - x) < intToFp(2)){
 		return;
 	}
 
