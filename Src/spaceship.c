@@ -17,7 +17,7 @@ void updateSpaceship(gameState_t* gameState){
 	uint32_t x = fpDivide(intToFp(potVal), intToFp(13)) ;
 
 	//Ant jitter
-	if(fpAbs(gameState->spaceship.prePosition.x - x) < intToFp(2)  || fpAbs(gameState->spaceship.prePosition.x - x) > intToFp(25)){
+	if(fpAbs(gameState->spaceship.prePosition.x - x) < intToFp(2) ){
 		return;
 	}
 
@@ -59,10 +59,11 @@ void shootSpaceship(gameState_t* gameState){
 
 	if(centerIsPressed()){
 		gameState->soundToPlay = 1;
+		uint32_t levelMultiplier = fpMultiply(intToFp(gameState->score/100) + intToFp(gameState->difficulty), 0x00004000) + intToFp(1); //level * 0.25 + 1
 
 		//Shoots a bullet for each part of the ship
 		for (int i = 0; i < gameState->spaceship.numberOfParts; i++){
-			uint32_t levelMultiplier = fpMultiply(intToFp(gameState->score/100) + intToFp(gameState->difficulty), 0x00004000) + intToFp(1); //level * 0.25 + 1
+
 			if(i == 2){
 				vector_t bulletVelocity = {intToFp(0),fpMultiply(0xffff8000 * yScale, levelMultiplier)}; //{0, -0,5 * Multiplier}
 				position_t bulletPos = {gameState->spaceship.position.x-intToFp(spaceshipWidth), gameState->spaceship.position.y-intToFp(1)*yScale};

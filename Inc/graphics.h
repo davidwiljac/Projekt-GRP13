@@ -33,7 +33,7 @@ void drawNuke(gameState_t* gameState);
 void drawNukeCircle(gameState_t* gameState);
 void clearNukeCircle(gameState_t* gameState);
 
-void drawdropper(gameState_t* gameState);
+void drawDropper(gameState_t* gameState);
 
 
 void drawBossKey();

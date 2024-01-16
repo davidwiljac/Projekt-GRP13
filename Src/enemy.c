@@ -82,9 +82,10 @@ void updateEnemy(gameState_t* gameState){
 void shootEnemy(gameState_t* gameState){
 	enemyNode_t* thisNode = gameState->enemyLL;
 	if(runtime-gameState->enemyCanonDisableTime >= enemyDisableDuration || gameState->enemyCanonsUnchanged){
+		uint32_t levelMultiplier = fpMultiply(intToFp(gameState->score/100) + intToFp(gameState->difficulty), 0x00004000) + intToFp(1); //level * 0.25 + 1
 		while(thisNode != NULL){
 			if(thisNode->enemy->lastShotTime + thisNode->enemy->firingRate < runtime){
-					vector_t bulletVector = {intToFp(0), intToFp(2)};
+					vector_t bulletVector = {intToFp(0), fpMultiply(0x00008000*yScale, levelMultiplier)};
 					position_t bulletPos = {thisNode->enemy->position->x, thisNode->enemy->position->y + intToFp(2 * yScale)};
 					bullet_t bullet = {bulletPos, bulletPos, bulletVector};
 					appendBullet(&(gameState->bulletLL), bullet);
@@ -104,7 +105,9 @@ void detectCityHit(gameState_t* gameState){
 	enemyNode_t* thisNode = gameState->enemyLL;
 	while(thisNode != NULL){
 		if(fpToInt(thisNode->enemy->position->y) >= 40 * yScale){
+
 			gameState->cityLives--;
+			gameState->soundToPlay = 5;
 
 			if(gameState->cityLives == 2){
 				gotoxy(1, 42);
