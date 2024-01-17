@@ -5,6 +5,7 @@
  *      Author: david
  */
 #include "bullet.h"
+#include "enemy.h"
 
 
 

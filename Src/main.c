@@ -93,6 +93,7 @@ void drawScreen(gameState_t* gameState) {
 	drawNuke(gameState);
 	conditionDropper(gameState);
 
+
 }
 
 /**
@@ -227,7 +228,6 @@ int main(void) {
 				playSound(&gameState);
 				if(runtime-frameLastUpdated>=framePeriod){//
 					spawnEnemy(&gameState);
-					spawnPowerup(&gameState);
 
 					updateSpaceship(&gameState);
 					updateEnemy(&gameState);

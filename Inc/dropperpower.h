@@ -20,4 +20,5 @@ void conditionDropper(gameState_t* gameState);
 void updateDropper(gameState_t* gameState);
 void spawnDropper(gameState_t* gameState);
 
+
 #endif /* DROPPERPOWER_H_ */

@@ -12,6 +12,8 @@
 #include "ansi.h"
 #include "linkedList.h"
 #include "fixedPoint.h"
+#include "graphics.h"
+#include "bullet.h"
 
 #include <time.h>
 #include <stdlib.h>
