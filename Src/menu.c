@@ -123,7 +123,7 @@ void drawHelpScreen(){
 	printf("$");
 
 	gotoxy(x, y+=4);
-	printf("Har du brug for at skjule spillet, trykker du blot pa 'f', så bliver spillet til en masse c-kode.");
+	printf("Har du brug for at skjule spillet, trykker du blot pa 'f', sa bliver spillet til en masse c-kode.");
 }
 
 /**
