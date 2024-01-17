@@ -21,7 +21,8 @@ void spawnDropper(gameState_t* gameState){
 		gameState->dropper.nextposition=spawnPos;
 		gameState->dropper.velocity=vel;
 		gameState->dropper.randomX=-1;
-		if(!xValIsValid(gameState->dropper.randomX,6)){
+
+		while(!xValIsValid(gameState->dropper.randomX,6)){
 			gameState->dropper.randomX=(rand() % 139);
 		}
 	}
