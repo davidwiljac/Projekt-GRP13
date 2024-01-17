@@ -453,7 +453,7 @@ uint16_t readFromFlash(uint32_t address){
 	return *(uint16_t *)address;
 }
 
-//Flash memory vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
 /**
   * @brief  Sets the frequenc of the buzzer TODO: REF
   * @param  freq: the frequency the buzzer should play [Hz]

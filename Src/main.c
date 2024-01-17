@@ -101,10 +101,8 @@ void drawScreen(gameState_t* gameState) {
   * @retval None
   */
 void checkIfDead(gameState_t* gameState){
-
 	if(gameState->cityLives == 0){
 		gameState->activeScreen = 3;
-
 	}
 }
 
@@ -117,7 +115,7 @@ void checkBossKey(gameState_t* gameState){
 	char c = uart_get_char();
 	if(c == 'f'){
 		if(gameState->activeScreen != 4){
-			clrscr();
+			//clrscr();
 			gameState->lastScreen = gameState->activeScreen;
 			gameState->activeScreen = 4;
 		}else{
@@ -241,8 +239,6 @@ int main(void) {
 					spawnDropper(&gameState);
 					updateDropper(&gameState);
 
-
-
 					detectBulletHit(&gameState);
 					detectCityHit(&gameState);
 					updateNuke(&gameState);
@@ -300,10 +296,6 @@ int main(void) {
 			gotoxy(62,30);
 			printf("Press down on joystick to continue");
 
-
-
-
-
 			while(gameState.activeScreen==3){
 				checkBossKey(&gameState);
 				if(downIsPressed()){
@@ -313,7 +305,7 @@ int main(void) {
 			}
 			break;
 		case 4: // BOSS KEY --- Draws the bosskey screen and checks if it should leave it again
-			drawBossKey();
+			//drawBossKey();
 			while(gameState.activeScreen==4){
 				checkBossKey(&gameState);
 			}

@@ -134,8 +134,6 @@ void detectBulletHit(gameState_t* gameState){
 		//Loops over all the enemies and checks for hits
 		enemyNode_t* currentEnemy = gameState->enemyLL;
 		while(currentEnemy != NULL){
-
-
 			position_t enemyDwnRghtCnr = {currentEnemy->enemy->position->x+intToFp(6), currentEnemy->enemy->position->y+intToFp(1*yScale)};
 			uint8_t hitEnemy = rectsOverlap(bulletTopLftCnr, bulletDwnRghtCnr, *(currentEnemy->enemy->position), enemyDwnRghtCnr);
 

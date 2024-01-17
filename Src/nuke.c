@@ -13,7 +13,7 @@
   */
 void chargeNuke(gameState_t* gameState){
 	uint8_t color[] = {0,0,0};
-	if(runtime - gameState->nuke->lastActivationTime < 500){
+	if(runtime - gameState->nuke->lastActivationTime <= 500){
 		color[0] = 1;
 		color[1] = 0;
 		color[2] = 0;
