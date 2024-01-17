@@ -35,9 +35,10 @@ void updateBullets(gameState_t* gameState){
 	while (current != NULL) {
 		//Gravity calculations for bullets
 		vector_t v = {intToFp(gameState->moon.x)-current->bullet.position.x, intToFp(gameState->moon.y)-current->bullet.position.y}; //Creates a vector from bullet to the moon
-		current->bullet.distanceToMoon = fpMultiply(fpAbs(v.x)+fpAbs(v.y), 0x0000b400); //Approximates the distance to the moon by multiplying the sum of the vector-coordinates by 2/sqrt(2)
-		v = scaleVector(v, fpDivide(intToFp(1),current->bullet.distanceToMoon)); //scales the vector to a length of 1
-		vector_t accVec = scaleVector(v, fpDivide(intToFp(gameState->moon.mass),fpMultiply(current->bullet.distanceToMoon, current->bullet.distanceToMoon))); //Scale the vector proportional to the distance to the moon
+		current->bullet.distanceToMoon = fpMultiply(fpAbs(v.x)+fpAbs(v.y), 0x0000b400); //Approximates the distance to the moon by multiplying the sum of the vector-coordinates by sqrt(2)/2
+		v = scaleVector(v, fpDivide(intToFp(1),current->bullet.distanceToMoon)); //scales the vector to a length of about 1
+		vector_t accVec = scaleVector(v, fpDivide(intToFp(gameState->moon.mass),fpMultiply(current->bullet.distanceToMoon, current->bullet.distanceToMoon))); //Calculates the acceleration vector using a formula derived from the gravity equation
+
 
 		//Adds acceleration to the bullets velocity
 		current->bullet.velocity.x+=accVec.x;
@@ -96,22 +97,33 @@ void detectBulletHit(gameState_t* gameState){
 		}
 
 		//Checks if the bullet hit the spaceship
-		uint8_t hitSpaceship;
+
+		position_t spaceshipTopLftCnr;
+		position_t spaceshipDwnLftCnr;
+
 		if(gameState->spaceship.numberOfParts==1){
-			position_t spaceshipTopLftCnr= {gameState->spaceship.position.x-intToFp(1),gameState->spaceship.position.y};
-			position_t spaceshipDwnLftCnr= {gameState->spaceship.position.x+intToFp(1),gameState->spaceship.position.y+intToFp(1*yScale)};
-			hitSpaceship = rectsOverlap(bulletTopLftCnr, bulletDwnRghtCnr, spaceshipTopLftCnr, spaceshipDwnLftCnr);
+			spaceshipTopLftCnr.x = gameState->spaceship.position.x-intToFp(1);
+			spaceshipTopLftCnr.y = gameState->spaceship.position.y;
+			spaceshipDwnLftCnr.x= gameState->spaceship.position.x+intToFp(1);
+			spaceshipDwnLftCnr.y= gameState->spaceship.position.y+intToFp(1*yScale);
+
 		}
 		else if(gameState->spaceship.numberOfParts==2){
-			position_t spaceshipTopLftCnr= {gameState->spaceship.position.x-intToFp(1),gameState->spaceship.position.y};
-			position_t spaceshipDwnLftCnr= {gameState->spaceship.position.x+intToFp(8),gameState->spaceship.position.y+intToFp(1*yScale)};
-			hitSpaceship = rectsOverlap(bulletTopLftCnr, bulletDwnRghtCnr, spaceshipTopLftCnr, spaceshipDwnLftCnr);
+			spaceshipTopLftCnr.x = gameState->spaceship.position.x-intToFp(1);
+			spaceshipTopLftCnr.y = gameState->spaceship.position.y;
+			spaceshipDwnLftCnr.x= gameState->spaceship.position.x+intToFp(8);
+			spaceshipDwnLftCnr.y= gameState->spaceship.position.y+intToFp(1*yScale);
+
+
 		}
 		else if(gameState->spaceship.numberOfParts==3){
-			position_t spaceshipTopLftCnr= {gameState->spaceship.position.x-intToFp(8),gameState->spaceship.position.y};
-			position_t spaceshipDwnLftCnr= {gameState->spaceship.position.x+intToFp(8),gameState->spaceship.position.y+intToFp(1*yScale)};
-			hitSpaceship = rectsOverlap(bulletTopLftCnr, bulletDwnRghtCnr, spaceshipTopLftCnr, spaceshipDwnLftCnr);
+			spaceshipTopLftCnr.x = gameState->spaceship.position.x-intToFp(8);
+			spaceshipTopLftCnr.y = gameState->spaceship.position.y;
+			spaceshipDwnLftCnr.x= gameState->spaceship.position.x+intToFp(8);
+			spaceshipDwnLftCnr.y= gameState->spaceship.position.y+intToFp(1*yScale);
 		}
+
+		uint8_t hitSpaceship = rectsOverlap(bulletTopLftCnr, bulletDwnRghtCnr, spaceshipTopLftCnr, spaceshipDwnLftCnr);
 
 		//If a hit deletes a part of the spaceship
 		if(hitSpaceship){

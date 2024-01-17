@@ -14,6 +14,7 @@
 #include <string.h>
 #include "ansi.h"
 #include "drivers.h"
+#include "graphics.h"
 
 #define screenWidth 156
 #define screenHeight 43
