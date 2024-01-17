@@ -46,6 +46,10 @@ void drawBtnAsDeselected(button_t btn){
   */
 void drawMenuScreen(button_t btnList[], gameState_t* gameState){
 
+	drawWindow(0);
+	drawbackground(); // stars in background
+	drawMoon(gameState->moon.x, gameState->moon.y);
+
 	gotoxy(47,5); printf(" _____                 _ _             ___  _   _             _    ");
 	gotoxy(47,6); printf("|  __ \\               (_) |           / _ \\| | | |           | |   ");
 	gotoxy(47,7); printf("| |  \\/_ __ __ ___   ___| |_ _   _   / /_\\ \\ |_| |_ __ _  ___| | __");

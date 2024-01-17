@@ -160,9 +160,6 @@ int main(void) {
 		case 0: //MENU SCREEN ---------------------------------------------------------------------
 			//Sets up the menu
 			clrscr();
-			drawWindow(0);
-			drawbackground(); // stars in background
-			drawMoon(gameState.moon.x, gameState.moon.y);
 			drawMenuScreen(btnList, &gameState);
 
 			//Continuously checks if the joystick is used and acts accordingly
@@ -294,7 +291,7 @@ int main(void) {
 			}
 
 			gotoxy(62,30);
-			printf("Press down on joystick to continue");
+			printf("Pull down on joystick to continue");
 
 			while(gameState.activeScreen==3){
 				checkBossKey(&gameState);
