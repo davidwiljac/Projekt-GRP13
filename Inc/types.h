@@ -67,6 +67,7 @@ typedef struct enemyNode_t enemyNode_t;
 struct enemyNode_t {
 	enemy_t* enemy;
 	enemyNode_t* nextEnemyNode;
+
 };
 
 
@@ -105,8 +106,8 @@ typedef struct{
 	position_t nextposition;
 	vector_t velocity;
 	uint32_t lastseentime;
+	uint32_t randomX;
 }dropper_t;
-
 
 // gameState_t
 typedef struct {
@@ -131,6 +132,7 @@ typedef struct {
 	char lastKeyPress;
 	powerup_t powerup;
 	dropper_t dropper;
+
 
 	uint8_t soundToPlay;
 	uint8_t lastSoundToPlay;

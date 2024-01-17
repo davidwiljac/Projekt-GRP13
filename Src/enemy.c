@@ -5,6 +5,7 @@
  *      Author: david
  */
 #include"enemy.h"
+#define deathperiod 50
 
 /**
   * @brief  ensure powerups and enemies dont spawn over the moon

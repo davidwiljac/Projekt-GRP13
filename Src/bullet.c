@@ -5,6 +5,7 @@
  *      Author: david
  */
 #include "bullet.h"
+#include "enemy.h"
 
 /**
   * @brief  Updates the position of all the bullets according to their velocities and thier velocities according the gravity from the moon

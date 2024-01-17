@@ -102,6 +102,7 @@ void drawbackground(){
   */
 void drawMoon(uint8_t X, uint8_t Y){
 	Y /= yScale;
+	fgcolor(12);
 	gotoxy(X-1,Y+3);
 	printf("_");
 	gotoxy(X,Y+3);
@@ -156,12 +157,14 @@ void drawMoon(uint8_t X, uint8_t Y){
 	gotoxy(X+1,Y-4);
 	printf("_");
 
+	fgcolor(3);
 	gotoxy(X-2,Y);
 	printf("O");
 	gotoxy(X+1,Y+2);
 	printf("o");
 	gotoxy(X+3,Y-1);
 	printf("O");
+	fgcolor(15);
 }
 
 /**
@@ -232,6 +235,7 @@ void drawEnemy(gameState_t* gameState){
 		thisNode->enemy->position->x = thisNode->enemy->nextPosition->x;
 		thisNode->enemy->position->y = thisNode->enemy->nextPosition->y;
 		thisNode = thisNode->nextEnemyNode;
+
 	}
 }
 
@@ -621,9 +625,11 @@ void deletePowerupGraphics(uint8_t x, uint8_t y){
   * @retval None
   */
 void drawPowerupGraphics(uint8_t x, uint8_t y){
+ fgcolor(2);
  drawBox(x, y, x+4, y+2, 1);
  gotoxy(x+2, y+1);
  printf("?");
+ fgcolor(15);
 }
 
 /**

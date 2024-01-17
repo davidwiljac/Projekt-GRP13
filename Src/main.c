@@ -92,6 +92,7 @@ void drawScreen(gameState_t* gameState) {
 	drawMoon(gameState->moon.x, gameState->moon.y);
 	drawNuke(gameState);
 
+
 }
 
 /**
@@ -220,7 +221,6 @@ int main(void) {
 				playSound(&gameState);
 				if(runtime-frameLastUpdated>=framePeriod){//
 					spawnEnemy(&gameState);
-					spawnPowerup(&gameState);
 
 					updateSpaceship(&gameState);
 					updateEnemy(&gameState);

@@ -17,7 +17,7 @@ void updateSpaceship(gameState_t* gameState){
 	uint32_t x = fpDivide(intToFp(potVal), intToFp(13)) ;
 
 	//Ant jitter
-	if(fpAbs(gameState->spaceship.prePosition.x - x) < intToFp(2)  || fpAbs(gameState->spaceship.prePosition.x - x) > intToFp(25)){
+	if(fpAbs(gameState->spaceship.prePosition.x - x) < intToFp(2)){
 		return;
 	}
 

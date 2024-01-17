@@ -5,8 +5,8 @@
  *      Author: david
  */
 #include "powerup.h"
-#define spawnPeriod 600
-
+#include "dropperpower.h"
+#define spawnPeriod 1000
 /**
   * @brief  Checks if it should spawn a powerup and does if it should
   * @param  gameState: the current state of the game
@@ -17,16 +17,14 @@ void spawnPowerup(gameState_t* gameState){
 		gameState->powerup.lastUseTime=runtime;
 		gameState->powerup.isVisible=1;
 
-		uint8_t randomX;
-		while(!xValIsValid(randomX, 5)){
-			randomX = (rand() % 147) + 1;
-		}
 
-		position_t spawnPos = {intToFp(randomX), intToFp(2)*yScale};
+
+		position_t spawnPos = {gameState->dropper.position.x,intToFp(5)*yScale};
 		vector_t vel = {intToFp(0), 0x00008000*yScale}; //0x00008000 = 0.5
 		gameState->powerup.position=spawnPos;
 		gameState->powerup.nextPosition=spawnPos;
 		gameState->powerup.velocity=vel;
+
 	}
 }
 
