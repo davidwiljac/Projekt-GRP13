@@ -115,9 +115,9 @@ void drawHelpScreen(){
 	printf(" / %c ", 92);
 
 	gotoxy(x, y+=2);
-	printf("Har du brug for hjælp kan du samle powerups op. De giver dig enten flere rumdele, eller slukker fjendernes kanoner.");
+	printf("Har du brug for hjaelp kan du samle powerups op. De giver dig enten flere rumdele, eller slukker fjendernes kanoner.");
 	gotoxy(x, ++y);
-	printf("Men pas pa både dine egne og fjendens kugler kan ødelægge dine ekstra dele");
+	printf("Men pas pa bade dine egne og fjendens kugler kan odelaegge dine ekstra dele");
 	drawBox(x, ++y, x+4, y+2, 1);
 	gotoxy(x+2, y+1);
 	printf("$");
