@@ -8,7 +8,6 @@ C_SRCS += \
 ../Src/30010_io.c \
 ../Src/ansi.c \
 ../Src/bullet.c \
-../Src/deathanimation.c \
 ../Src/drivers.c \
 ../Src/dropperpower.c \
 ../Src/enemy.c \
@@ -29,7 +28,6 @@ OBJS += \
 ./Src/30010_io.o \
 ./Src/ansi.o \
 ./Src/bullet.o \
-./Src/deathanimation.o \
 ./Src/drivers.o \
 ./Src/dropperpower.o \
 ./Src/enemy.o \
@@ -50,7 +48,6 @@ C_DEPS += \
 ./Src/30010_io.d \
 ./Src/ansi.d \
 ./Src/bullet.d \
-./Src/deathanimation.d \
 ./Src/drivers.d \
 ./Src/dropperpower.d \
 ./Src/enemy.d \
@@ -75,7 +72,7 @@ Src/%.o: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/30010_io.d ./Src/30010_io.o ./Src/ansi.d ./Src/ansi.o ./Src/bullet.d ./Src/bullet.o ./Src/deathanimation.d ./Src/deathanimation.o ./Src/drivers.d ./Src/drivers.o ./Src/dropperpower.d ./Src/dropperpower.o ./Src/enemy.d ./Src/enemy.o ./Src/fixedPoint.d ./Src/fixedPoint.o ./Src/graphics.d ./Src/graphics.o ./Src/linkedList.d ./Src/linkedList.o ./Src/main.d ./Src/main.o ./Src/menu.d ./Src/menu.o ./Src/nuke.d ./Src/nuke.o ./Src/powerup.d ./Src/powerup.o ./Src/sound.d ./Src/sound.o ./Src/spaceship.d ./Src/spaceship.o ./Src/syscalls.d ./Src/syscalls.o ./Src/sysmem.d ./Src/sysmem.o ./Src/system_stm32f30x.d ./Src/system_stm32f30x.o
+	-$(RM) ./Src/30010_io.d ./Src/30010_io.o ./Src/ansi.d ./Src/ansi.o ./Src/bullet.d ./Src/bullet.o ./Src/drivers.d ./Src/drivers.o ./Src/dropperpower.d ./Src/dropperpower.o ./Src/enemy.d ./Src/enemy.o ./Src/fixedPoint.d ./Src/fixedPoint.o ./Src/graphics.d ./Src/graphics.o ./Src/linkedList.d ./Src/linkedList.o ./Src/main.d ./Src/main.o ./Src/menu.d ./Src/menu.o ./Src/nuke.d ./Src/nuke.o ./Src/powerup.d ./Src/powerup.o ./Src/sound.d ./Src/sound.o ./Src/spaceship.d ./Src/spaceship.o ./Src/syscalls.d ./Src/syscalls.o ./Src/sysmem.d ./Src/sysmem.o ./Src/system_stm32f30x.d ./Src/system_stm32f30x.o
 
 .PHONY: clean-Src
 

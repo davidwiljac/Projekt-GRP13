@@ -38,7 +38,7 @@ void updateDropper(gameState_t* gameState){
 		}
 
 		if(fpToInt(gameState->dropper.nextposition.x)>=139){
-			deletedropper(fpToInt(gameState->dropper.position.x),fpToInt(gameState->dropper.position.y)/yScale);
+			deleteDropper(fpToInt(gameState->dropper.position.x),fpToInt(gameState->dropper.position.y)/yScale);
 			gameState->dropper.isvisible=0;
 			gameState->dropper.lastseentime=runtime;
 		}

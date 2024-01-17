@@ -116,7 +116,7 @@ void checkBossKey(gameState_t* gameState){
 	char c = uart_get_char();
 	if(c == 'f'){
 		if(gameState->activeScreen != 4){
-			//clrscr();
+			clrscr();
 			gameState->lastScreen = gameState->activeScreen;
 			gameState->activeScreen = 4;
 		}else{
@@ -302,7 +302,7 @@ int main(void) {
 			}
 			break;
 		case 4: // BOSS KEY --- Draws the bosskey screen and checks if it should leave it again
-			//drawBossKey();
+			drawBossKey();
 			while(gameState.activeScreen==4){
 				checkBossKey(&gameState);
 			}
