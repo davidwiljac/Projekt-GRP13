@@ -7,7 +7,7 @@
   * @param  gameState: the current state of the game
   * @retval None
   */
-void spawndropper(gameState_t* gameState){
+void spawnDropper(gameState_t* gameState){
 	if(runtime-gameState->dropper.lastseentime>=spawnPeriod){
 		gameState->dropper.lastseentime=runtime;
 		gameState->dropper.isvisible=1;
@@ -35,21 +35,20 @@ void spawndropper(gameState_t* gameState){
   * @param  gameState: the current state of the game
   * @retval None
   */
-void updatedropper(gameState_t* gameState){
+void updateDropper(gameState_t* gameState){
 	if(gameState->dropper.isvisible){
 
 		gameState->dropper.nextposition.x=gameState->dropper.position.x+gameState->dropper.velocity.x;
 		gameState->dropper.nextposition.y=gameState->dropper.position.y+gameState->dropper.velocity.y;
 
 		// while the dropper is in the game and no powerup is visible then drop a powerup randomly
-		while(fpToInt(gameState->dropper.position.x) >= gameState->dropper.randomX && !gameState->powerup.isVisible){
-
+		if(fpToInt(gameState->dropper.position.x) >= gameState->dropper.randomX && !gameState->powerup.isVisible){
 			spawnPowerup(gameState);
 		}
 
 		// despawns the dropper when it hits 139 on the x-aksis
 		if(fpToInt(gameState->dropper.nextposition.x)>=139){
-			deletedropper(fpToInt(gameState->dropper.position.x),fpToInt(gameState->dropper.position.y)/yScale);
+			deleteDropper(fpToInt(gameState->dropper.position.x),fpToInt(gameState->dropper.position.y)/yScale);
 
 			//sets droppers isVisible to 0 to notify that there is none. so the spawnperiod timer can begin
 			gameState->dropper.isvisible=0;
@@ -63,15 +62,15 @@ void updatedropper(gameState_t* gameState){
   * @param  gameState: the current state of the game
   * @retval None
   */
-void conditiondropper(gameState_t* gameState){
+void conditionDropper(gameState_t* gameState){
 
 	if(gameState->dropper.isvisible){
 
 		//deletes the dropper in it's current position
-		deletedropper(fpToInt(gameState->dropper.position.x),fpToInt(gameState->dropper.position.y)/yScale);
+		deleteDropper(fpToInt(gameState->dropper.position.x),fpToInt(gameState->dropper.position.y)/yScale);
 
 		//redraws the dropper in it's nextPosition
-		drawdropper(gameState);
+		drawDropper(gameState);
 	}
 	gameState->dropper.position=gameState->dropper.nextposition;
 }
@@ -81,7 +80,7 @@ void conditiondropper(gameState_t* gameState){
   * @param  takes uint8_t of X- and Y-coordinates
   * @retval None
   */
-void deletedropper(uint8_t X,uint8_t Y){
+void deleteDropper(uint8_t X,uint8_t Y){
 	gotoxy(X,Y);
 	printf("       ");
 	gotoxy(X,Y-1);

@@ -11,8 +11,6 @@ void spawnPowerup(gameState_t* gameState){
 		gameState->powerup.lastUseTime=runtime;
 		gameState->powerup.isVisible=1;
 
-
-
 		position_t spawnPos = {gameState->dropper.position.x,intToFp(5)*yScale};
 		vector_t vel = {intToFp(0), 0x00008000*yScale}; //0x00008000 = 0.5
 		gameState->powerup.position=spawnPos;

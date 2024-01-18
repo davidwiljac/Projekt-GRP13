@@ -216,7 +216,7 @@ int main(void) {
 			gameState.powerup.lastUseTime = runtime; //Starts the spawing of powerups
 			gameState.nuke->lastActivationTime = runtime; //Start charging of nuke
 			gameState.soundTime = runtime; //Starts the soundengine
-
+			gameState.dropper.lastseentime = runtime;
 			gameState.nextEnemySpawn = runtime + 20; //Spawns first enemy after 0.2 seconds
 
 			//Continuously updates the game updateing sound and bosskey as quicly as possible, and the rest 4 times pr second
