@@ -7,6 +7,7 @@
 #include "menu.h"
 #include "graphics.h"
 #include "ansi.h"
+#include "powerup.h"
 
 void deleteDropper(uint8_t X,uint8_t Y);
 void conditionDropper(gameState_t* gameState);

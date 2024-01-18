@@ -1,5 +1,5 @@
 #include "powerup.h"
-#include "dropperpower.h"
+
 #define spawnPeriod 1000
 /**
   * @brief  Checks if it should spawn a powerup and does if it should
