@@ -787,6 +787,12 @@ void drawBossKey(){
 	printf("}\n");
 }
 
+/**
+  * @brief Draws the dropper
+  * @param  gameState: the current state of the game
+  * @retval None
+  */
+
 void drawdropper(gameState_t* gameState){
 	uint32_t X = fpToInt(gameState->dropper.nextposition.x);
 	uint32_t Y = fpToInt(gameState->dropper.nextposition.y)/yScale;
