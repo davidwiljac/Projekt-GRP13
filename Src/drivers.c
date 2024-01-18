@@ -1,10 +1,3 @@
-/*
- * drivers.c
- *
- *  Created on: 6. jan. 2024
- *      Author: david
- */
-
 #include"drivers.h"
 #define btnDelay 30 //centisekunder
 
@@ -18,7 +11,7 @@ uint32_t leftPrevPressed = 0;
 uint32_t rightPrevPressed = 0;
 
 /**
-  * @brief  Sets up the pins for the joystick TODO: REF
+  * @brief  Sets up the pins for the joystick [Exercise5]
   * @param  None
   * @retval None
   */
@@ -149,7 +142,7 @@ uint8_t rightIsPressed(){
 // TIMER vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 /**
-  * @brief  Sets up timer 15 to a period of 0.01s and timer 2 to be configured later for the buzzer TODO: REF
+  * @brief  Sets up timer 15 to a period of 0.01s and timer 2 to be configured later for the buzzer [Exercise 6]
   * @param  None
   * @retval None
   */
@@ -194,7 +187,7 @@ void TIM1_BRK_TIM15_IRQHandler(void) {
  }
 
 /**
-  * @brief  Sets up the pin controlling the buzzer
+  * @brief  Sets up the pin controlling the buzzer [Exercise_Tutorial_9]
   * @param  None
   * @retval None
   */
@@ -212,7 +205,7 @@ void initBuzzerPin(){
 }
 
 /**
-  * @brief  Writes a byte on I2C bus TODO: REF
+  * @brief  Writes a byte on I2C bus [Josés I2C.c]
   * @param  address: the I2C adress to writer on, reg: the register to write to, val: the byte to write
   * @retval None
   */
@@ -239,7 +232,7 @@ void I2C_Write(uint16_t address, uint8_t reg, uint8_t val) {
 }
 
 /**
-  * @brief  Reads data from the I2C bus TODO: REF
+  * @brief  Reads data from the I2C bus [Josés I2C.c]
   * @param  address: the I2C adress to writer on, reg: the register to write to, vals: the bytes to read, n: the amout of bytes to read
   * @retval None
   */
@@ -273,7 +266,7 @@ uint8_t I2C_Read(uint16_t address, uint8_t reg, uint8_t* vals, uint8_t n) {
 }
 
 /**
-  * @brief  Sets up the I2C bus TODO: REF
+  * @brief  Sets up the I2C bus [Josés I2C.c]
   * @param  None
   * @retval None
   */
@@ -327,7 +320,7 @@ void I2C_init()
 
 //Potentiometers  vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 /**
-  * @brief  Sets up the analog ports for the potentiometers TODO: REF
+  * @brief  Sets up the analog ports for the potentiometers [Exercise8]
   * @param  None
   * @retval None
   */
@@ -361,7 +354,7 @@ void analogConfigPorts(){
 }
 
 /**
-  * @brief  Reads the left potentiometer TODO: REF
+  * @brief  Reads the left potentiometer [Exercise8]
   * @param  None
   * @retval A value between 0 and 4096 from the potentiometers
   */
@@ -375,7 +368,7 @@ uint16_t readPotentiometer(){
 
 //LED vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 /**
-  * @brief  Sets up the pins for RGB TODO: REF
+  * @brief  Sets up the pins for RGB [Exercise5]
   * @param  None
   * @retval None
   */
@@ -409,7 +402,7 @@ void initRGB(){
 }
 
 /**
-  * @brief Sets the color of the LED based on an array [R, G, B] TODO: REF
+  * @brief Sets the color of the LED based on an array [R, G, B] [Løsning til Exercise5]
   * @param  color: array with 3 elements for R,G and B
   * @retval None
   */
@@ -432,7 +425,7 @@ void RGBColor(uint8_t color[]){
 
 //Flash memory vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 /**
-  * @brief  writes some data to a given address TODO: REF
+  * @brief  writes some data to a given address [Exercise 9.2]
   * @param  data: the 2 bytes to the write, address: the address to write to
   * @retval None
   */
@@ -445,7 +438,7 @@ void writeToFlash(uint16_t data, uint32_t address){
 }
 
 /**
-  * @brief  Reads data from flash memory TODO: REF
+  * @brief  Reads data from flash memory [Exercise 9.2]
   * @param  address: the address to write to
   * @retval 2 bytes from memory
   */
@@ -455,7 +448,7 @@ uint16_t readFromFlash(uint32_t address){
 
 
 /**
-  * @brief  Sets the frequenc of the buzzer TODO: REF
+  * @brief  Sets the frequenc of the buzzer [Exercise 9]
   * @param  freq: the frequency the buzzer should play [Hz]
   * @retval None
   */
@@ -467,7 +460,7 @@ void setFreq(uint16_t freq) {
 }
 
 /**
-  * @brief  (de)activates the buzzer TODO: REF
+  * @brief  (de)activates the buzzer [Exercise 9]
   * @param  on: 1 = turn on, everything else = turn off
   * @retval None
   */

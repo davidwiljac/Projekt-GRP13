@@ -1,10 +1,3 @@
-/*
- * linkedList.h
- *
- *  Created on: 8. jan. 2024
- *      Author: Loren
- */
-
 #ifndef LINKEDLIST_H_
 #define LINKEDLIST_H_
 

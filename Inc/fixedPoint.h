@@ -1,10 +1,3 @@
-/*
- * fixedPoint.h
- *
- *  Created on: 8. jan. 2024
- *      Author: Loren
- */
-
 #ifndef FIXEDPOINT_H_
 #define FIXEDPOINT_H_
 

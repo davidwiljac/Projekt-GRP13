@@ -1,10 +1,3 @@
-/*
- * fixedPoint.c
- *
- *  Created on: 8. jan. 2024
- *      Author: Loren
- */
-
 #include "fixedPoint.h"
 
 /**
@@ -22,7 +15,7 @@ uint32_t intToFp(uint16_t n){
 /**
   * @brief  Converts fixed point 16.16 format to normal integer and rounds correctly
   * @param  fp: a 16.16 32-bit fixed point number in 2' complement
-  * @retval an integer
+  * @retval a 16 bit unsigned integer
   */
 uint16_t fpToInt(uint32_t fp){
 	uint16_t output=0;
@@ -49,7 +42,7 @@ uint32_t fpMultiply(uint32_t n, uint32_t m){  //32 32 32
 }
 
 /**
-  * @brief  Divides 2 fixed-point values TODO: ref
+  * @brief  Divides 2 fixed-point values [Modificeret svar fra chatGPT]
   * @param  n: first number, m: second number
   * @retval a 16.16 32-bit fixed point number in 2' complement
   */

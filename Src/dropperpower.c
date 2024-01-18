@@ -1,10 +1,3 @@
-/*
- * dropperpower.c
- *
- *  Created on: 15 Jan 2024
- *      Author: Bivertical
- */
-
 #include "dropperpower.h"
 #include "types.h"
 #include "powerup.h"

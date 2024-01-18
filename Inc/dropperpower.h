@@ -1,10 +1,3 @@
-/*
- * dropperpower.h
- *
- *  Created on: 15 Jan 2024
- *      Author: Bivertical
- */
-
 #ifndef DROPPERPOWER_H_
 #define DROPPERPOWER_H_
 

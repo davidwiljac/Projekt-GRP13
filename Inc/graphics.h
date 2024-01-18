@@ -1,10 +1,3 @@
-/*
- * graphics.h
- *
- *  Created on: 8 Jan 2024
- *      Author: Bivertical
- */
-
 #ifndef GRAPHICS_H_
 #define GRAPHICS_H_
 #include "ansi.h"

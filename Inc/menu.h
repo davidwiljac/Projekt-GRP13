@@ -1,10 +1,3 @@
-/*
- * menu.h
- *
- *  Created on: 7. jan. 2024
- *      Author: Loren
- */
-
 #ifndef MENU_H_
 #define MENU_H_
 

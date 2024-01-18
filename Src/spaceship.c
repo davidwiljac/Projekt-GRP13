@@ -1,9 +1,3 @@
-/*
- * spaceship.c
- *
- *  Created on: 6. jan. 2024
- *      Author: david
- */
 #include "spaceship.h"
 
 /**
@@ -16,7 +10,7 @@ void updateSpaceship(gameState_t* gameState){
 	uint16_t potVal = readPotentiometer();
 	uint32_t x = fpDivide(intToFp(potVal), intToFp(13)) ;
 
-	//Ant jitter
+	//Anti jitter
 	if(fpAbs(gameState->spaceship.prePosition.x - x) < intToFp(2)){
 		return;
 	}

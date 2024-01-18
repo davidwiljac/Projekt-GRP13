@@ -1,9 +1,3 @@
-/*
- * graphics.c
- *
- *  Created on: 8 Jan 2024
- *      Author: Bivertical
- */
 #include "stdint.h"
 #include "stdio.h"
 #include "ansi.h"

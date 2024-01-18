@@ -1,15 +1,8 @@
-/*
- * ansi.c
- *
- *  Created on: 6. jan. 2024
- *      Author: david
- */
-
 #define ESC 0x1B
 #include "ansi.h"
 
 /**
-  * @brief  Sets the foreground color of text TODO:REF
+  * @brief  Sets the foreground color of text [fra ANSI.c brugt i Exercise_Tutorial_1&2]
   * @param  the color to be set
   * @retval None
   */
@@ -34,7 +27,7 @@ void fgcolor(uint8_t foreground) {
 }
 
 /**
-  * @brief  Sets the background color of text TODO:REF
+  * @brief  Sets the background color of text [fra ANSI.c brugt i Exercise_Tutorial_1&2]
   * @param  the color to be set
   * @retval None
   */
@@ -61,7 +54,7 @@ void bgcolor(uint8_t background) {
 }
 
 /**
-  * @brief  combination of fgcolor() and bgcolor() - uses less bandwidth TODO:REF
+  * @brief  combination of fgcolor() and bgcolor() - uses less bandwidth [fra ANSI.c brugt i Exercise_Tutorial_1&2]
   * @param  the colors to be set
   * @retval None
   */
@@ -75,7 +68,7 @@ void color(uint8_t foreground, uint8_t background) {
 }
 
 /**
-  * @brief  sets gray on black text, no underline, no blink, no reverse TODO:REF
+  * @brief  sets gray on black text, no underline, no blink, no reverse [fra løsningen af Exercise 2]
   * @param  None
   * @retval None
   */
@@ -84,7 +77,7 @@ void resetbgcolor() {
 }
 
 /**
-  * @brief  clears the screen TODO:REF
+  * @brief  clears the screen [fra løsningen af Exercise 2]
   * @param  None
   * @retval None
   */
@@ -94,7 +87,7 @@ void clrscr(){
 }
 
 /**
-  * @brief  Sends cursor to the given coordinate TODO:REF
+  * @brief  Sends cursor to the given coordinate [fra løsningen af Exercise 2]
   * @param  x: x-part, y: y-part
   * @retval None
   */
@@ -103,7 +96,7 @@ void gotoxy(int x, int y){
 }
 
 /**
-  * @brief  Draws a box from given coordiantes TODO:REF
+  * @brief  Draws a box from given coordiantes [fra løsningen af Exercise 2]
   * @param  x1: x of top left, y1: y of top left, x2: x of bottom right, y2: y of bottom right, style: the style of box 0=thin 1=bold
   * @retval None
   */

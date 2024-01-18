@@ -1,10 +1,3 @@
-/*
- * linkedList.c
- *
- *  Created on: 8. jan. 2024
- *      Author: Loren
- */
-
 #include "linkedList.h"
 
 /**

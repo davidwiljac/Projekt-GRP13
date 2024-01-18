@@ -1,10 +1,3 @@
-/*
- * menu.c
- *
- *  Created on: 7. jan. 2024
- *      Author: Loren
- */
-
 #include "menu.h"
 
 /**
